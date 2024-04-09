@@ -1,31 +1,60 @@
 import { LCDClient } from '@terra-money/feather.js';
-const lcd = LCDClient.fromDefaultConfig('mainnet');
+const lcd2 = LCDClient.fromDefaultConfig('mainnet');
+
+const lcd = new LCDClient({
+  'phoenix-1': {
+    chainID: 'phoenix-1',
+    lcd: 'https://phoenix-lcd.terra.dev',
+    gasAdjustment: 1,
+    gasPrices: {
+      uluna: 0.015,
+    },
+    prefix: 'terra',
+  },
+  'chihuahua-1': {
+    chainID: 'chihuahua-1',
+    lcd: 'https://chihuahua-api.polkachu.com',
+    gasAdjustment: 1,
+    gasPrices: {
+      uhuahua: 500,
+    },
+    prefix: 'chihuahua',
+  },
+});
 
 const lunaX = {
   name: 'lunaX',
   stakingContract: 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk',
   exchangeRate: (data) => data.state.exchange_rate,
-  astroPair: 'terra1mpj7j25fw5a0q5vfasvsvdp6xytaqxh006lh6f5zpwxvadem9hwsy6m508',
-  token: 'terra14xsm2wzvu7xaf567r693vgfkhmvfs08l68h4tjj5wjgyn5ky8e2qvzyanh',
+  nativeTokenDenom: 'uluna',
+  poolContract: 'terra1mpj7j25fw5a0q5vfasvsvdp6xytaqxh006lh6f5zpwxvadem9hwsy6m508',
 };
 
 const bluna = {
   name: 'bLuna',
   stakingContract: 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea',
   exchangeRate: (data) => data.exchange_rate,
-  astroPair: 'terra1h32epkd72x7st0wk49z35qlpsxf26pw4ydacs8acq6uka7hgshmq7z7vl9',
-  token: 'terra17aj4ty4sz4yhgm08na8drc0v03v2jwr3waxcqrwhajj729zhl7zqnpc0ml',
+  nativeTokenDenom: 'uluna',
+  poolContract: 'terra1h32epkd72x7st0wk49z35qlpsxf26pw4ydacs8acq6uka7hgshmq7z7vl9',
 };
 
 const ampLuna = {
   name: 'ampLuna',
   stakingContract: 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk',
   exchangeRate: (data) => data.exchange_rate,
-  astroPair: 'terra1cr8dg06sh343hh4xzn3gxd3ayetsjtet7q5gp4kfrewul2kql8sqvhaey4',
-  token: 'terra1ecgazyd0waaj3g7l9cmy5gulhxkps2gmxu9ghducvuypjq68mq2s5lvsct',
+  nativeTokenDenom: 'uluna',
+  poolContract: 'terra1cr8dg06sh343hh4xzn3gxd3ayetsjtet7q5gp4kfrewul2kql8sqvhaey4',
 };
 
-const lsds = [bluna, lunaX, ampLuna];
+const ampHuahua = {
+  name: 'ampHuahua',
+  stakingContract: 'chihuahua1nktfhalzvtx82kyn4dh6l8htcl0prfpnu380a39zj52nzu3j467qqg23ry',
+  exchangeRate: (data) => data.exchange_rate,
+  nativeTokenDenom: 'uhuahua',
+  poolContract: 'chihuahua1a6xwgvyvrmzgue6hectem3fwdzquny44a4y20a9wvlrtalhlsk9sryz5t9',
+};
+
+const lsds = [bluna, lunaX, ampLuna, ampHuahua];
 
 const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
 arbs.sort((a, b) => b.arb - a.arb).forEach((arb) => console.log(arb));
@@ -34,27 +63,22 @@ async function computeArb(lsd) {
   const data = await lcd.wasm.contractQuery(lsd.stakingContract, { state: {} });
   const exchangeRate = lsd.exchangeRate(data);
 
-  const lunaAmount = 1000000;
-  const { return_amount } = await lcd.wasm.contractQuery(lsd.astroPair, {
+  const amount = 1000000;
+  const { return_amount } = await lcd.wasm.contractQuery(lsd.poolContract, {
     simulation: {
       offer_asset: {
         info: {
           native_token: {
-            denom: 'uluna',
+            denom: lsd.nativeTokenDenom,
           },
         },
-        amount: `${lunaAmount}`,
-      },
-      ask_asset_info: {
-        token: {
-          contract_addr: lsd.token,
-        },
+        amount: `${amount}`,
       },
     },
   });
 
-  const returnLuna = exchangeRate * return_amount;
-  const rate = returnLuna / lunaAmount;
+  const returnAmount = exchangeRate * return_amount;
+  const rate = returnAmount / amount;
   const arb = (rate - 1) * 100;
   console.log(`${lsd.name}: ${arb.toPrecision(3)}%`);
   return { name: lsd.name, arb: arb };
