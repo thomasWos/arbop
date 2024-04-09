@@ -24,6 +24,12 @@ const lcd = new LCDClient({
   },
 });
 
+// Astro rate
+const astoStakingContract = 'terra1nyu6sk9rvtvsltm7tjjrp6rlavnm3e4sq03kltde6kesam260f8szar8ze';
+const totalDeposit = await lcd.wasm.contractQuery(astoStakingContract, { total_deposit: {} });
+const totalShares = await lcd.wasm.contractQuery(astoStakingContract, { total_shares: {} });
+const astroRate = totalDeposit / totalShares;
+
 const lunaX = {
   name: 'lunaX',
   stakingContract: 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk',
@@ -55,6 +61,20 @@ const stLuna = {
   poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
 };
 
+const xAstro = {
+  name: 'xAstro',
+  redemptionRate: astroRate,
+  tokenAddr: 'terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26',
+  poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
+};
+
+const astro = {
+  name: 'astro',
+  redemptionRate: 1 / astroRate,
+  tokenAddr: 'terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8',
+  poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
+};
+
 const ampHuahua = {
   name: 'ampHuahua',
   stakingContract: 'chihuahua1nktfhalzvtx82kyn4dh6l8htcl0prfpnu380a39zj52nzu3j467qqg23ry',
@@ -71,7 +91,7 @@ const bHuahua = {
   poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
 };
 
-const lsds = [bluna, lunaX, ampLuna, stLuna, ampHuahua, bHuahua];
+const lsds = [bluna, lunaX, ampLuna, stLuna, ampHuahua, bHuahua, xAstro, astro];
 
 const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
 arbs.sort((a, b) => b.arb - a.arb).forEach((arb) => console.log(arb));
@@ -85,15 +105,27 @@ async function computeArb(lsd) {
     exchangeRate = lsd.redemptionRate;
   }
 
+  let infoOfferAsset;
+  if (lsd.tokenAddr) {
+    infoOfferAsset = {
+      token: {
+        contract_addr: lsd.tokenAddr,
+      },
+    };
+  } else {
+    // Native token
+    infoOfferAsset = {
+      native_token: {
+        denom: lsd.nativeTokenDenom,
+      },
+    };
+  }
+
   const amount = 1000000;
   const { return_amount } = await lcd.wasm.contractQuery(lsd.poolContract, {
     simulation: {
       offer_asset: {
-        info: {
-          native_token: {
-            denom: lsd.nativeTokenDenom,
-          },
-        },
+        info: infoOfferAsset,
         amount: `${amount}`,
       },
     },
