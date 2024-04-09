@@ -1,5 +1,4 @@
 import { LCDClient } from '@terra-money/feather.js';
-const lcd2 = LCDClient.fromDefaultConfig('mainnet');
 
 const lcd = new LCDClient({
   'phoenix-1': {
@@ -54,7 +53,15 @@ const ampHuahua = {
   poolContract: 'chihuahua1a6xwgvyvrmzgue6hectem3fwdzquny44a4y20a9wvlrtalhlsk9sryz5t9',
 };
 
-const lsds = [bluna, lunaX, ampLuna, ampHuahua];
+const bHuahua = {
+  name: 'bHuahua',
+  stakingContract: 'chihuahua1psf89r2g9vdlttrjphspcpzzfx87r2r4nl5fg703ky42mp2706wsw5330f',
+  exchangeRate: (data) => data.exchange_rate,
+  nativeTokenDenom: 'uhuahua',
+  poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
+};
+
+const lsds = [bluna, lunaX, ampLuna, ampHuahua, bHuahua];
 
 const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
 arbs.sort((a, b) => b.arb - a.arb).forEach((arb) => console.log(arb));
