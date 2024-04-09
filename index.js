@@ -28,7 +28,7 @@ const ampLuna = {
 const lsds = [bluna, lunaX, ampLuna];
 
 const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
-arbs.forEach((arb) => console.log(arb));
+arbs.sort((a, b) => b.arb - a.arb).forEach((arb) => console.log(arb));
 
 async function computeArb(lsd) {
   const data = await lcd.wasm.contractQuery(lsd.stakingContract, { state: {} });
