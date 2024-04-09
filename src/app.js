@@ -1,4 +1,7 @@
 import { LCDClient } from '@terra-money/feather.js';
+import strideRedemptionMap from './StrideRedemptionMap.js';
+
+const redemptionMap = await strideRedemptionMap();
 
 const lcd = new LCDClient({
   'phoenix-1': {
@@ -45,6 +48,13 @@ const ampLuna = {
   poolContract: 'terra1cr8dg06sh343hh4xzn3gxd3ayetsjtet7q5gp4kfrewul2kql8sqvhaey4',
 };
 
+const stLuna = {
+  name: 'stLuna',
+  redemptionRate: redemptionMap.get('terra'),
+  nativeTokenDenom: 'uluna',
+  poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
+};
+
 const ampHuahua = {
   name: 'ampHuahua',
   stakingContract: 'chihuahua1nktfhalzvtx82kyn4dh6l8htcl0prfpnu380a39zj52nzu3j467qqg23ry',
@@ -61,14 +71,19 @@ const bHuahua = {
   poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
 };
 
-const lsds = [bluna, lunaX, ampLuna, ampHuahua, bHuahua];
+const lsds = [bluna, lunaX, ampLuna, stLuna, ampHuahua, bHuahua];
 
 const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
 arbs.sort((a, b) => b.arb - a.arb).forEach((arb) => console.log(arb));
 
 async function computeArb(lsd) {
-  const data = await lcd.wasm.contractQuery(lsd.stakingContract, { state: {} });
-  const exchangeRate = lsd.exchangeRate(data);
+  let exchangeRate;
+  if (lsd.stakingContract) {
+    const data = await lcd.wasm.contractQuery(lsd.stakingContract, { state: {} });
+    exchangeRate = lsd.exchangeRate(data);
+  } else {
+    exchangeRate = lsd.redemptionRate;
+  }
 
   const amount = 1000000;
   const { return_amount } = await lcd.wasm.contractQuery(lsd.poolContract, {
@@ -87,6 +102,5 @@ async function computeArb(lsd) {
   const returnAmount = exchangeRate * return_amount;
   const rate = returnAmount / amount;
   const arb = (rate - 1) * 100;
-  console.log(`${lsd.name}: ${arb.toPrecision(3)}%`);
   return { name: lsd.name, arb: arb };
 }
