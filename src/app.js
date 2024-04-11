@@ -175,7 +175,7 @@ async function computeArb(lsd) {
   if (lsd.osmosis) {
     const quote =
       'https://sqsprod.osmosis.zone/router/quote' +
-      '?tokenIn=1000000' +
+      `?tokenIn=${amount}` +
       `${encodeURIComponent(lsd.osmosis.tokenIn)}` +
       `&tokenOutDenom=${encodeURIComponent(lsd.osmosis.tokenOut)}`;
 
