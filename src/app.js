@@ -150,7 +150,16 @@ const stJuno = {
   },
 };
 
-const lsds = [blunaAstro, blunaWw, lunaX, ampLunaAstro, ampLunaWw, stLuna, ampHuahua, bHuahua, xAstro, astro, moar, stAtom, stOsmo, stJuno];
+const stStars = {
+  name: 'stStars',
+  redemptionRate: strideMap.get('stars'),
+  osmosis: {
+    tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
+    tokenOut: 'ibc/5DD1F95ED336014D00CE2520977EC71566D282F9749170ADC83A392E0EA7426A',
+  },
+};
+
+const lsds = [blunaAstro, blunaWw, lunaX, ampLunaAstro, ampLunaWw, stLuna, ampHuahua, bHuahua, xAstro, astro, moar, stAtom, stOsmo, stJuno, stStars];
 
 async function computeArb(lsd) {
   let exchangeRate;
