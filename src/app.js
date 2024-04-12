@@ -25,7 +25,7 @@ const lcd = new LCDClient({
 });
 
 const lunaX = {
-  name: 'lunaX Astro',
+  name: 'LUNA → LunaX',
   stakingContract: {
     contract: 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk',
     exchangeRate: (data) => data.state.exchange_rate,
@@ -65,7 +65,7 @@ const ampLunaAstro = {
 };
 
 const ampLunaWw = {
-  name: 'ampLuna Astro',
+  name: 'ampLuna WW',
   stakingContract: {
     contract: 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk',
     exchangeRate: (data) => data.exchange_rate,
@@ -97,7 +97,7 @@ const astro = {
 };
 
 const moar = {
-  name: 'moar',
+  name: 'ROAR → MOAR',
   redemptionRate: await queryMoarRate(lcd),
   tokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
   poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
