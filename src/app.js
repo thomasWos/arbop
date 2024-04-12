@@ -221,4 +221,5 @@ async function computeArb(lsd) {
 }
 
 const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
-arbs.sort((a, b) => b.arb - a.arb).forEach((arb) => console.log(arb));
+export const sortedArbs = arbs.sort((a, b) => b.arb - a.arb);
+sortedArbs.forEach((arb) => console.log(arb));
