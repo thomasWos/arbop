@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/console.js",
-    "serve": "node src/server.js"
+    "serve": "node src/server.js",
+    "build": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "T.Wostyn",
