@@ -6,7 +6,7 @@ import { queryMoarRate } from './moarRate.js';
 const lcd = new LCDClient({
   'phoenix-1': {
     chainID: 'phoenix-1',
-    lcd: 'https://terra2.tdrsys.com',
+    lcd: 'https://rest.cosmos.directory/terra2',
     gasAdjustment: 1,
     gasPrices: {
       uluna: 0.015,
@@ -15,7 +15,7 @@ const lcd = new LCDClient({
   },
   'chihuahua-1': {
     chainID: 'chihuahua-1',
-    lcd: 'https://chihuahua-api.polkachu.com',
+    lcd: 'https://rest.cosmos.directory/chihuahua',
     gasAdjustment: 1,
     gasPrices: {
       uhuahua: 500,
@@ -74,35 +74,6 @@ const ampLunaWw = {
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
 };
 
-const strideMap = await strideRedemptionMap();
-const stLuna = {
-  name: 'stLuna Astro',
-  redemptionRate: strideMap.get('terra'),
-  nativeTokenDenom: 'uluna',
-  poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
-};
-
-const xAstroRate = await queryxAstroRate(lcd);
-const xAstro = {
-  name: 'xAstro',
-  redemptionRate: xAstroRate,
-  tokenAddr: 'terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26',
-  poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
-};
-const astro = {
-  name: 'astro',
-  redemptionRate: 1 / xAstroRate,
-  tokenAddr: 'terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8',
-  poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
-};
-
-const moar = {
-  name: 'ROAR → MOAR',
-  redemptionRate: await queryMoarRate(lcd),
-  tokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
-  poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
-};
-
 const ampHuahua = {
   name: 'ampHuahua WW',
   stakingContract: {
@@ -123,43 +94,98 @@ const bHuahua = {
   poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
 };
 
-const stAtom = {
-  name: 'stAtom',
-  redemptionRate: strideMap.get('cosmos'),
-  osmosis: {
-    tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
-    tokenOut: 'ibc/C140AFD542AE77BD7DCC83F13FDD8C5E5BB8C4929785E6EC2F4C636F98F17901',
-  },
-};
+async function computeArbs() {
+  const strideMap = await strideRedemptionMap();
 
-const stOsmo = {
-  name: 'stOsmo',
-  redemptionRate: strideMap.get('osmo'),
-  osmosis: {
-    tokenIn: 'uosmo',
-    tokenOut: 'ibc/D176154B0C63D1F9C6DCFB4F70349EBF2E2B5A87A05902F57A6AE92B863E9AEC',
-  },
-};
+  const stLuna = {
+    name: 'stLuna Astro',
+    redemptionRate: strideMap.get('terra'),
+    nativeTokenDenom: 'uluna',
+    poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
+  };
 
-const stJuno = {
-  name: 'stJuno',
-  redemptionRate: strideMap.get('juno'),
-  osmosis: {
-    tokenIn: 'ibc/46B44899322F3CD854D2D46DEEF881958467CDD4B3B10086DA49296BBED94BED',
-    tokenOut: 'ibc/84502A75BCA4A5F68D464C00B3F610CE2585847D59B52E5FFB7C3C9D2DDCD3FE',
-  },
-};
+  const stAtom = {
+    name: 'stAtom',
+    redemptionRate: strideMap.get('cosmos'),
+    osmosis: {
+      tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+      tokenOut: 'ibc/C140AFD542AE77BD7DCC83F13FDD8C5E5BB8C4929785E6EC2F4C636F98F17901',
+    },
+  };
 
-const stStars = {
-  name: 'stStars',
-  redemptionRate: strideMap.get('stars'),
-  osmosis: {
-    tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
-    tokenOut: 'ibc/5DD1F95ED336014D00CE2520977EC71566D282F9749170ADC83A392E0EA7426A',
-  },
-};
+  const stOsmo = {
+    name: 'stOsmo',
+    redemptionRate: strideMap.get('osmo'),
+    osmosis: {
+      tokenIn: 'uosmo',
+      tokenOut: 'ibc/D176154B0C63D1F9C6DCFB4F70349EBF2E2B5A87A05902F57A6AE92B863E9AEC',
+    },
+  };
 
-const lsds = [blunaAstro, blunaWw, lunaX, ampLunaAstro, ampLunaWw, stLuna, ampHuahua, bHuahua, xAstro, astro, moar, stAtom, stOsmo, stJuno, stStars];
+  const stJuno = {
+    name: 'stJuno',
+    redemptionRate: strideMap.get('juno'),
+    osmosis: {
+      tokenIn: 'ibc/46B44899322F3CD854D2D46DEEF881958467CDD4B3B10086DA49296BBED94BED',
+      tokenOut: 'ibc/84502A75BCA4A5F68D464C00B3F610CE2585847D59B52E5FFB7C3C9D2DDCD3FE',
+    },
+  };
+
+  const stStars = {
+    name: 'stStars',
+    redemptionRate: strideMap.get('stars'),
+    osmosis: {
+      tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
+      tokenOut: 'ibc/5DD1F95ED336014D00CE2520977EC71566D282F9749170ADC83A392E0EA7426A',
+    },
+  };
+
+  const xAstroRate = await queryxAstroRate(lcd);
+  const xAstro = {
+    name: 'xAstro',
+    redemptionRate: xAstroRate,
+    tokenAddr: 'terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26',
+    poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
+  };
+  const astro = {
+    name: 'astro',
+    redemptionRate: 1 / xAstroRate,
+    tokenAddr: 'terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8',
+    poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
+  };
+
+  const moar = {
+    name: 'ROAR → MOAR',
+    redemptionRate: await queryMoarRate(lcd),
+    tokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
+    poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
+  };
+
+  const lsds = [
+    blunaAstro,
+    blunaWw,
+    lunaX,
+    ampLunaAstro,
+    ampLunaWw,
+    stLuna,
+    ampHuahua,
+    bHuahua,
+    xAstro,
+    astro,
+    moar,
+    stAtom,
+    stOsmo,
+    stJuno,
+    stStars,
+  ];
+
+  const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
+  const sortedArbs = arbs.sort((a, b) => b.arb - a.arb);
+
+  console.log('==============================');
+  sortedArbs.forEach((arb) => console.log(arb));
+  return sortedArbs;
+}
 
 async function computeArb(lsd) {
   let exchangeRate;
@@ -220,6 +246,12 @@ async function computeArb(lsd) {
   return { id: lsd.name, arb: arb };
 }
 
-const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
-export const sortedArbs = arbs.sort((a, b) => b.arb - a.arb);
-sortedArbs.forEach((arb) => console.log(arb));
+export async function tryComputeArbs() {
+  try {
+    return await computeArbs();
+  } catch (error) {
+    console.error(`Error computing arbs`, error);
+  }
+}
+
+await tryComputeArbs();
