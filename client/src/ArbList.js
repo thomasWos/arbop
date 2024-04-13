@@ -6,7 +6,7 @@ const ArbList = () => {
   useEffect(() => {
     const fetchArbs = async () => {
       try {
-        const response = await fetch('http://localhost:3000/arbs');
+        const response = await fetch('arbs');
         const data = await response.json();
         setData(data);
       } catch (error) {
