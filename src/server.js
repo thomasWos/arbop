@@ -8,7 +8,10 @@ let arbs = [];
 
 // Recompute arbs every minute
 setInterval(async () => {
-  arbs = tryComputeArbs();
+  arbs = {
+    timestamp: new Date(),
+    arbs: tryComputeArbs(),
+  };
 }, 60 * 1000);
 
 app.get('/arbs', async (req, res) => {
