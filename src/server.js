@@ -4,15 +4,17 @@ import { tryComputeArbs } from './app.js';
 const app = express();
 const port = 3000;
 
-let arbs = [];
-
-// Recompute arbs every minute
-setInterval(async () => {
+let arbs;
+async function computePayload() {
   arbs = {
     timestamp: new Date(),
-    arbs: tryComputeArbs(),
+    arbs: await tryComputeArbs(),
   };
-}, 60 * 1000);
+}
+computePayload();
+
+// Recompute arbs every minute
+setInterval(computePayload, 60 * 1000);
 
 app.get('/arbs', async (req, res) => {
   res.json(arbs);

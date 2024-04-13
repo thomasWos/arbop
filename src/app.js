@@ -253,5 +253,3 @@ export async function tryComputeArbs() {
     console.error(`Error computing arbs`, error);
   }
 }
-
-await tryComputeArbs();
