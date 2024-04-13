@@ -15,7 +15,7 @@ const lcd = new LCDClient({
   },
   'chihuahua-1': {
     chainID: 'chihuahua-1',
-    lcd: 'https://rest.cosmos.directory/chihuahua',
+    lcd: 'https://chihua.api.m.stavr.tech',
     gasAdjustment: 1,
     gasPrices: {
       uhuahua: 500,
