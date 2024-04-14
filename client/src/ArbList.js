@@ -29,7 +29,7 @@ const ArbList = () => {
       <ul>
         {arbs.map((arb) => (
           <li key={arb.id}>
-            {arb.id}: {arb.arb.toFixed(3)}%
+            {arb.id}: {arb.arb.toFixed(3)}% - {arb.dex}
           </li>
         ))}
       </ul>
