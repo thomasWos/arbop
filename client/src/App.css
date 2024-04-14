@@ -1,0 +1,8 @@
+/* Center the app container */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Ensure the container takes up the full viewport height */
+  }
