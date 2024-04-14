@@ -26,6 +26,7 @@ const lcd = new LCDClient({
 
 const lunaX = {
   name: 'LUNA → LunaX',
+  dex: 'Astroport Terra',
   stakingContract: {
     contract: 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk',
     exchangeRate: (data) => data.state.exchange_rate,
@@ -35,7 +36,8 @@ const lunaX = {
 };
 
 const blunaAstro = {
-  name: 'bLuna Astro',
+  name: 'LUNA → bLUNA',
+  dex: 'Astroport Terra',
   stakingContract: {
     contract: 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea',
     exchangeRate: (data) => data.exchange_rate,
@@ -45,7 +47,8 @@ const blunaAstro = {
 };
 
 const blunaWw = {
-  name: 'bLuna WW',
+  name: 'LUNA → bLUNA',
+  dex: 'White Whale Terra',
   stakingContract: {
     contract: 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea',
     exchangeRate: (data) => data.exchange_rate,
@@ -55,7 +58,8 @@ const blunaWw = {
 };
 
 const ampLunaAstro = {
-  name: 'ampLuna Astro',
+  name: 'LUNA → ampLUNA',
+  dex: 'Astroport Terra',
   stakingContract: {
     contract: 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk',
     exchangeRate: (data) => data.exchange_rate,
@@ -65,7 +69,8 @@ const ampLunaAstro = {
 };
 
 const ampLunaWw = {
-  name: 'ampLuna WW',
+  name: 'LUNA → ampLUNA',
+  dex: 'White Whale Terra',
   stakingContract: {
     contract: 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk',
     exchangeRate: (data) => data.exchange_rate,
@@ -75,7 +80,8 @@ const ampLunaWw = {
 };
 
 const ampHuahua = {
-  name: 'ampHuahua WW',
+  name: 'HUAHUA → ampHUAHUA',
+  dex: 'White Whale Chihuahua',
   stakingContract: {
     contract: 'chihuahua1nktfhalzvtx82kyn4dh6l8htcl0prfpnu380a39zj52nzu3j467qqg23ry',
     exchangeRate: (data) => data.exchange_rate,
@@ -85,7 +91,8 @@ const ampHuahua = {
 };
 
 const bHuahua = {
-  name: 'bHuahua WW',
+  name: 'HUAHUA → bHUAHUA',
+  dex: 'White Whale Chihuahua',
   stakingContract: {
     contract: 'chihuahua1psf89r2g9vdlttrjphspcpzzfx87r2r4nl5fg703ky42mp2706wsw5330f',
     exchangeRate: (data) => data.exchange_rate,
@@ -98,14 +105,16 @@ async function computeArbs() {
   const strideMap = await strideRedemptionMap();
 
   const stLuna = {
-    name: 'stLuna Astro',
+    name: 'LUNA → stLUNA',
+    dex: 'Astroport Terra',
     redemptionRate: strideMap.get('terra'),
     nativeTokenDenom: 'uluna',
     poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
   };
 
   const stAtom = {
-    name: 'stAtom',
+    name: 'ATOM → stATOM',
+    dex: 'Osmosis',
     redemptionRate: strideMap.get('cosmos'),
     osmosis: {
       tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
@@ -114,7 +123,8 @@ async function computeArbs() {
   };
 
   const stOsmo = {
-    name: 'stOsmo',
+    name: 'OSMO → stOsmo',
+    dex: 'Osmosis',
     redemptionRate: strideMap.get('osmo'),
     osmosis: {
       tokenIn: 'uosmo',
@@ -123,7 +133,8 @@ async function computeArbs() {
   };
 
   const stJuno = {
-    name: 'stJuno',
+    name: 'JUNO → stJUNO',
+    dex: 'Osmosis',
     redemptionRate: strideMap.get('juno'),
     osmosis: {
       tokenIn: 'ibc/46B44899322F3CD854D2D46DEEF881958467CDD4B3B10086DA49296BBED94BED',
@@ -132,7 +143,8 @@ async function computeArbs() {
   };
 
   const stStars = {
-    name: 'stStars',
+    name: 'STARS → stSTARS',
+    dex: 'Osmosis',
     redemptionRate: strideMap.get('stars'),
     osmosis: {
       tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
@@ -142,13 +154,15 @@ async function computeArbs() {
 
   const xAstroRate = await queryxAstroRate(lcd);
   const xAstro = {
-    name: 'xAstro',
+    name: 'ASTRO.cw20 → xASTRO.cw20',
+    dex: 'Astroport Terra',
     redemptionRate: xAstroRate,
     tokenAddr: 'terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26',
     poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
   };
   const astro = {
-    name: 'astro',
+    name: 'xASTRO.cw20 → ASTRO.cw20',
+    dex: 'Astroport Terra',
     redemptionRate: 1 / xAstroRate,
     tokenAddr: 'terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8',
     poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
@@ -156,6 +170,7 @@ async function computeArbs() {
 
   const moar = {
     name: 'ROAR → MOAR',
+    dex: 'White Whale Terra',
     redemptionRate: await queryMoarRate(lcd),
     tokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
     poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
@@ -180,11 +195,8 @@ async function computeArbs() {
   ];
 
   const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
-  const sortedArbs = arbs.sort((a, b) => b.arb - a.arb);
-
-  console.log('==============================');
-  sortedArbs.forEach((arb) => console.log(arb));
-  return sortedArbs;
+  console.log('Fetch arbs SUCCESS');
+  return arbs.sort((a, b) => b.arb - a.arb);
 }
 
 async function computeArb(lsd) {
@@ -243,7 +255,7 @@ async function computeArb(lsd) {
   const returnAmount = exchangeRate * tokenOutAmount;
   const rate = returnAmount / amount;
   const arb = (rate - 1) * 100;
-  return { id: lsd.name, arb: arb };
+  return { id: lsd.name, arb: arb, dex: lsd.dex };
 }
 
 export async function tryComputeArbs() {
