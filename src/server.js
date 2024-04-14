@@ -31,12 +31,13 @@ computePayload();
 // Recompute arbs every minute
 setInterval(computePayload, 60 * 1000);
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(clientBuildPath, 'index.html'));
-});
-
 app.get('/arbs', async (req, res) => {
   res.json(arbs);
+});
+
+// Serve the React app for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
 app.listen(port, () => {

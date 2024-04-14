@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import apiBaseUrl from './config';
 
 const ArbList = () => {
   const [data, setData] = useState({ timestamp: null, arbs: [] });
@@ -6,7 +7,7 @@ const ArbList = () => {
   useEffect(() => {
     const fetchArbs = async () => {
       try {
-        const response = await fetch('arbs');
+        const response = await fetch(`${apiBaseUrl}/arbs`);
         const data = await response.json();
         setData(data);
       } catch (error) {
