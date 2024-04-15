@@ -25,14 +25,11 @@ const ArbList = () => {
   return (
     <div>
       <h2>Arbitrage Opportunities</h2>
-      <ul>
-        {arbs.map((arb) => (
-          <li key={arb.id}>
-            {arb.id}: {arb.arb.toFixed(3)}% - {arb.dex}
-          </li>
-        ))}
-      </ul>
-
+      {arbs.map((arb) => (
+        <div key={arb.id}>
+          {arb.id}: {arb.arb.toFixed(3)}% - {arb.dex}
+        </div>
+      ))}
       {timestamp && <p>{new Date(timestamp).toLocaleString()}</p>}
     </div>
   );
