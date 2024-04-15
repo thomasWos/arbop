@@ -3,6 +3,12 @@ import path from 'path';
 import cors from 'cors';
 import { tryComputeArbs } from './app.js';
 
+// Init
+let arbs = {
+  timestamp: new Date(),
+  arbs: [],
+};
+
 const app = express();
 const port = 3000;
 
@@ -16,7 +22,6 @@ app.use(
 const clientBuildPath = path.resolve('client/build');
 app.use(express.static(clientBuildPath));
 
-let arbs = {};
 async function computePayload() {
   const latestArb = await tryComputeArbs();
   if (latestArb) {

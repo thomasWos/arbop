@@ -1,6 +1,6 @@
 import { LCDClient } from '@terra-money/feather.js';
 import { strideRedemptionMap } from './strideRedemptionMap.js';
-import { queryxAstroRate } from './xAstroRate.js';
+import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
 
 const lcd = new LCDClient({
@@ -12,6 +12,15 @@ const lcd = new LCDClient({
       uluna: 0.015,
     },
     prefix: 'terra',
+  },
+  'neutron-1': {
+    chainID: 'neutron-1',
+    lcd: 'https://neutron-rest.publicnode.com',
+    gasAdjustment: 1,
+    gasPrices: {
+      untrn: 0.015,
+    },
+    prefix: 'neutron',
   },
   'chihuahua-1': {
     chainID: 'chihuahua-1',
@@ -152,20 +161,36 @@ async function computeArbs() {
     },
   };
 
-  const xAstroRate = await queryxAstroRate(lcd);
-  const xAstro = {
+  const oldxAstroRate = await queryOldxAstroRate(lcd);
+  const xAstroTerra = {
     name: 'ASTRO.cw20 → xASTRO.cw20',
     dex: 'Astroport Terra',
-    redemptionRate: xAstroRate,
+    redemptionRate: oldxAstroRate,
     tokenAddr: 'terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26',
     poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
   };
-  const astro = {
+  const astroTerra = {
     name: 'xASTRO.cw20 → ASTRO.cw20',
     dex: 'Astroport Terra',
-    redemptionRate: 1 / xAstroRate,
+    redemptionRate: 1 / oldxAstroRate,
     tokenAddr: 'terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8',
     poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
+  };
+
+  const newxAstroRate = await queryNewxAstroRate(lcd);
+  const xAstroNeutron = {
+    name: 'ASTRO → xASTRO',
+    dex: 'Astroport Neutron',
+    redemptionRate: newxAstroRate,
+    nativeTokenDenom: 'factory/neutron1ffus553eet978k024lmssw0czsxwr97mggyv85lpcsdkft8v9ufsz3sa07/astro',
+    poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
+  };
+  const astroNeutron = {
+    name: 'xASTRO → ASTRO',
+    dex: 'Astroport Neutron',
+    redemptionRate: 1 / newxAstroRate,
+    nativeTokenDenom: 'factory/neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn/xASTRO',
+    poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
   };
 
   const moar = {
@@ -185,8 +210,10 @@ async function computeArbs() {
     stLuna,
     ampHuahua,
     bHuahua,
-    xAstro,
-    astro,
+    xAstroTerra,
+    astroTerra,
+    xAstroNeutron,
+    astroNeutron,
     moar,
     stAtom,
     stOsmo,
