@@ -1,8 +1,8 @@
-/* Center the app container */
 .app-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh; /* Ensure the container takes up the full viewport height */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align the container to the top */
+  min-height: 100vh; /* Ensure the container takes up the full viewport height */
+  padding-top: 30px; /* Adjust this value to move the container down from the top */
+}
