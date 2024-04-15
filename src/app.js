@@ -40,7 +40,7 @@ const lunaX = {
     contract: 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk',
     exchangeRate: (data) => data.state.exchange_rate,
   },
-  nativeTokenDenom: 'uluna',
+  offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1mpj7j25fw5a0q5vfasvsvdp6xytaqxh006lh6f5zpwxvadem9hwsy6m508',
 };
 
@@ -51,7 +51,7 @@ const blunaAstro = {
     contract: 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea',
     exchangeRate: (data) => data.exchange_rate,
   },
-  nativeTokenDenom: 'uluna',
+  offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1h32epkd72x7st0wk49z35qlpsxf26pw4ydacs8acq6uka7hgshmq7z7vl9',
 };
 
@@ -62,7 +62,7 @@ const blunaWw = {
     contract: 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea',
     exchangeRate: (data) => data.exchange_rate,
   },
-  nativeTokenDenom: 'uluna',
+  offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1j5znhs9jeyty9u9jcagl3vefkvzwqp6u9tq9a3e5qrz4gmj2udyqp0z0xc',
 };
 
@@ -73,7 +73,7 @@ const ampLunaAstro = {
     contract: 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk',
     exchangeRate: (data) => data.exchange_rate,
   },
-  nativeTokenDenom: 'uluna',
+  offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1cr8dg06sh343hh4xzn3gxd3ayetsjtet7q5gp4kfrewul2kql8sqvhaey4',
 };
 
@@ -84,7 +84,7 @@ const ampLunaWw = {
     contract: 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk',
     exchangeRate: (data) => data.exchange_rate,
   },
-  nativeTokenDenom: 'uluna',
+  offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
 };
 
@@ -95,7 +95,7 @@ const ampHuahua = {
     contract: 'chihuahua1nktfhalzvtx82kyn4dh6l8htcl0prfpnu380a39zj52nzu3j467qqg23ry',
     exchangeRate: (data) => data.exchange_rate,
   },
-  nativeTokenDenom: 'uhuahua',
+  offerNativeTokenDenom: 'uhuahua',
   poolContract: 'chihuahua1a6xwgvyvrmzgue6hectem3fwdzquny44a4y20a9wvlrtalhlsk9sryz5t9',
 };
 
@@ -106,7 +106,7 @@ const bHuahua = {
     contract: 'chihuahua1psf89r2g9vdlttrjphspcpzzfx87r2r4nl5fg703ky42mp2706wsw5330f',
     exchangeRate: (data) => data.exchange_rate,
   },
-  nativeTokenDenom: 'uhuahua',
+  offerNativeTokenDenom: 'uhuahua',
   poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
 };
 
@@ -117,7 +117,7 @@ async function computeArbs() {
     name: 'LUNA → stLUNA',
     dex: 'Astroport Terra',
     redemptionRate: strideMap.get('terra'),
-    nativeTokenDenom: 'uluna',
+    offerNativeTokenDenom: 'uluna',
     poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
   };
 
@@ -166,14 +166,14 @@ async function computeArbs() {
     name: 'ASTRO.cw20 → xASTRO.cw20',
     dex: 'Astroport Terra',
     redemptionRate: oldxAstroRate,
-    tokenAddr: 'terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26',
+    offerTokenAddr: 'terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26',
     poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
   };
   const astroTerra = {
     name: 'xASTRO.cw20 → ASTRO.cw20',
     dex: 'Astroport Terra',
     redemptionRate: 1 / oldxAstroRate,
-    tokenAddr: 'terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8',
+    offerTokenAddr: 'terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8',
     poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
   };
 
@@ -182,14 +182,14 @@ async function computeArbs() {
     name: 'ASTRO → xASTRO',
     dex: 'Astroport Neutron',
     redemptionRate: newxAstroRate,
-    nativeTokenDenom: 'factory/neutron1ffus553eet978k024lmssw0czsxwr97mggyv85lpcsdkft8v9ufsz3sa07/astro',
+    offerNativeTokenDenom: 'factory/neutron1ffus553eet978k024lmssw0czsxwr97mggyv85lpcsdkft8v9ufsz3sa07/astro',
     poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
   };
   const astroNeutron = {
     name: 'xASTRO → ASTRO',
     dex: 'Astroport Neutron',
     redemptionRate: 1 / newxAstroRate,
-    nativeTokenDenom: 'factory/neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn/xASTRO',
+    offerNativeTokenDenom: 'factory/neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn/xASTRO',
     poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
   };
 
@@ -197,7 +197,7 @@ async function computeArbs() {
     name: 'ROAR → MOAR',
     dex: 'White Whale Terra',
     redemptionRate: await queryMoarRate(lcd),
-    tokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
+    offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
     poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
   };
 
@@ -236,18 +236,18 @@ async function computeArb(lsd) {
   }
 
   let infoOfferAsset;
-  if (lsd.tokenAddr) {
+  if (lsd.offerTokenAddr) {
     // Token
     infoOfferAsset = {
       token: {
-        contract_addr: lsd.tokenAddr,
+        contract_addr: lsd.offerTokenAddr,
       },
     };
   } else {
     // Native token
     infoOfferAsset = {
       native_token: {
-        denom: lsd.nativeTokenDenom,
+        denom: lsd.offerNativeTokenDenom,
       },
     };
   }
