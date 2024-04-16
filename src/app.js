@@ -1,3 +1,5 @@
+import { kujiraLcdConfig, ampKujiFin } from './kujira.js';
+
 import { LCDClient } from '@terra-money/feather.js';
 import { strideRedemptionMap } from './strideRedemptionMap.js';
 import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
@@ -22,6 +24,7 @@ const lcd = new LCDClient({
     },
     prefix: 'neutron',
   },
+  [kujiraLcdConfig.chainID]: kujiraLcdConfig,
   'chihuahua-1': {
     chainID: 'chihuahua-1',
     lcd: 'https://chihua.api.m.stavr.tech',
@@ -219,37 +222,21 @@ async function computeArbs() {
     stOsmo,
     stJuno,
     stStars,
+    ampKujiFin,
   ];
 
-  const arbs = await Promise.all(lsds.map((lsd) => computeArb(lsd)));
+  const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index)));
   console.log('Fetch arbs SUCCESS');
   return arbs.sort((a, b) => b.arb - a.arb);
 }
 
-async function computeArb(lsd) {
+async function computeArb(lsd, index) {
   let exchangeRate;
   if (lsd.stakingContract) {
     const data = await lcd.wasm.contractQuery(lsd.stakingContract.contract, { state: {} });
     exchangeRate = lsd.stakingContract.exchangeRate(data);
   } else {
     exchangeRate = lsd.redemptionRate;
-  }
-
-  let infoOfferAsset;
-  if (lsd.offerTokenAddr) {
-    // Token
-    infoOfferAsset = {
-      token: {
-        contract_addr: lsd.offerTokenAddr,
-      },
-    };
-  } else {
-    // Native token
-    infoOfferAsset = {
-      native_token: {
-        denom: lsd.offerNativeTokenDenom,
-      },
-    };
   }
 
   const amount = 1000000;
@@ -268,6 +255,24 @@ async function computeArb(lsd) {
         tokenOutAmount = data.amount_out;
       });
   } else {
+    // DEX smart contract
+    let infoOfferAsset;
+    if (lsd.offerTokenAddr) {
+      // Token
+      infoOfferAsset = {
+        token: {
+          contract_addr: lsd.offerTokenAddr,
+        },
+      };
+    } else {
+      // Native token
+      infoOfferAsset = {
+        native_token: {
+          denom: lsd.offerNativeTokenDenom,
+        },
+      };
+    }
+
     const { return_amount } = await lcd.wasm.contractQuery(lsd.poolContract, {
       simulation: {
         offer_asset: {
@@ -282,7 +287,7 @@ async function computeArb(lsd) {
   const returnAmount = exchangeRate * tokenOutAmount;
   const rate = returnAmount / amount;
   const arb = (rate - 1) * 100;
-  return { id: lsd.name, arb: arb, dex: lsd.dex };
+  return { id: index, name: lsd.name, arb: arb, dex: lsd.dex };
 }
 
 export async function tryComputeArbs() {
