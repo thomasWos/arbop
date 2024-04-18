@@ -1,4 +1,4 @@
-import { kujiraLcdConfig, ampKujiFin } from './kujira.js';
+import { kujiraLcdConfig, ampKujiFin, qcKUJIFin } from './kujira.js';
 
 import { LCDClient } from '@terra-money/feather.js';
 import { strideRedemptionMap } from './strideRedemptionMap.js';
@@ -223,6 +223,7 @@ async function computeArbs() {
     stJuno,
     stStars,
     ampKujiFin,
+    qcKUJIFin,
   ];
 
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index)));

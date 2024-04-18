@@ -18,3 +18,14 @@ export const ampKujiFin = {
   offerNativeTokenDenom: 'ukuji',
   poolContract: 'kujira1lse59wt7a5yksdd08mennt299katjkfzdhmh8hvck8ln08jktcmsxrnh8s',
 };
+
+export const qcKUJIFin = {
+  name: 'KUJI → qcKUJI',
+  dex: 'FIN',
+  stakingContract: {
+    contract: 'kujira1m96ucsfpt2yy72w09z2rxjdj38y5qd8lqx5jtggnejmdua2ynpnsxyvjex',
+    exchangeRate: (data) => data.rate,
+  },
+  offerNativeTokenDenom: 'ukuji',
+  poolContract: 'kujira14wsrem89304kpkl6d0j58dl6479eekwt047ccs0qzv9f60w80wzs8rjq4j',
+};
