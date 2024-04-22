@@ -25,3 +25,35 @@ const redemptionRate = await fetch(url, {
     const resultStr = bufToBigint(buffer);
     return resultStr / oneQuintillion;
   });
+
+const amount = 1 * oneQuintillion;
+
+const tokenOutAmount = await fetch('https://aggregator-internal.ashswap.io/aggregate?from=WEGLD-bd4d79&to=SEGLD-3ad2d0&amount=1000000000000000000')
+  .then((resp) => resp.json())
+  .then((data) => {
+    return data.returnAmountWithDecimal;
+  });
+
+const returnAmount = redemptionRate * tokenOutAmount;
+const rate = returnAmount / amount;
+const arb = (rate - 1) * 100;
+
+console.log(arb);
+
+export const sEGLD = async () => {
+  const redemptionRate = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const buffer = Buffer.from(data.data.data.returnData[0], 'base64');
+      const resultStr = bufToBigint(buffer);
+      return resultStr / oneQuintillion;
+    });
+
+  return {
+    redemptionRate: redemptionRate,
+    dex: 'AshSwap',
+  };
+};
