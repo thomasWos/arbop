@@ -5,6 +5,8 @@ import { LCDClient } from '@terra-money/feather.js';
 import { strideRedemptionMap } from './strideRedemptionMap.js';
 import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
+import { sEgldArb } from './multiversx.js';
+import { arbitrage } from './utils.js';
 
 const lcd = new LCDClient({
   [terraLcdConfig.chainID]: terraLcdConfig,
@@ -165,6 +167,11 @@ async function computeArbs() {
   ];
 
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index)));
+
+  const sEgld = await sEgldArb();
+  sEgld.id = lsds.length;
+  arbs.push(sEgld);
+
   console.log('Fetch arbs SUCCESS');
   return arbs.sort((a, b) => b.arb - a.arb);
 }
@@ -178,21 +185,19 @@ async function computeArb(lsd, index) {
     exchangeRate = lsd.redemptionRate;
   }
 
-  const amount = 1000000;
+  const tokenInAmount = 1000000;
   let tokenOutAmount;
 
   if (lsd.osmosis) {
     const quote =
       'https://sqsprod.osmosis.zone/router/quote' +
-      `?tokenIn=${amount}` +
+      `?tokenIn=${tokenInAmount}` +
       `${encodeURIComponent(lsd.osmosis.tokenIn)}` +
       `&tokenOutDenom=${encodeURIComponent(lsd.osmosis.tokenOut)}`;
 
     await fetch(quote)
       .then((response) => response.json())
-      .then((data) => {
-        tokenOutAmount = data.amount_out;
-      });
+      .then((data) => (tokenOutAmount = data.amount_out));
   } else {
     // DEX smart contract
     let infoOfferAsset;
@@ -216,16 +221,14 @@ async function computeArb(lsd, index) {
       simulation: {
         offer_asset: {
           info: infoOfferAsset,
-          amount: `${amount}`,
+          amount: `${tokenInAmount}`,
         },
       },
     });
     tokenOutAmount = return_amount;
   }
 
-  const returnAmount = exchangeRate * tokenOutAmount;
-  const rate = returnAmount / amount;
-  const arb = (rate - 1) * 100;
+  const arb = arbitrage(exchangeRate, tokenInAmount, tokenOutAmount);
   return { id: index, name: lsd.name, arb: arb, dex: lsd.dex };
 }
 

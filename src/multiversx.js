@@ -1,7 +1,9 @@
+import { arbitrage } from './utils.js';
+
 const oneQuintillion = Math.pow(10, 18);
 
 const url = 'https://gateway.multiversx.com/vm-values/query';
-const data = { scAddress: 'erd1qqqqqqqqqqqqqpgq4gzfcw7kmkjy8zsf04ce6dl0auhtzjx078sslvrf4e', funcName: 'getExchangeRate' };
+const sEgldExchangeRate = { scAddress: 'erd1qqqqqqqqqqqqqpgq4gzfcw7kmkjy8zsf04ce6dl0auhtzjx078sslvrf4e', funcName: 'getExchangeRate' };
 
 // https://github.com/juanelas/bigint-conversion/blob/master/src/ts/index.ts#L63
 function bufToBigint(buffer) {
@@ -15,35 +17,10 @@ function bufToBigint(buffer) {
   return ret.toString();
 }
 
-const redemptionRate = await fetch(url, {
-  method: 'POST',
-  body: JSON.stringify(data),
-})
-  .then((response) => response.json())
-  .then((data) => {
-    const buffer = Buffer.from(data.data.data.returnData[0], 'base64');
-    const resultStr = bufToBigint(buffer);
-    return resultStr / oneQuintillion;
-  });
-
-const amount = 1 * oneQuintillion;
-
-const tokenOutAmount = await fetch('https://aggregator-internal.ashswap.io/aggregate?from=WEGLD-bd4d79&to=SEGLD-3ad2d0&amount=1000000000000000000')
-  .then((resp) => resp.json())
-  .then((data) => {
-    return data.returnAmountWithDecimal;
-  });
-
-const returnAmount = redemptionRate * tokenOutAmount;
-const rate = returnAmount / amount;
-const arb = (rate - 1) * 100;
-
-console.log(arb);
-
-export const sEGLD = async () => {
-  const redemptionRate = await fetch(url, {
+async function sEgldRedemptionRate() {
+  return fetch(url, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify(sEgldExchangeRate),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -51,9 +28,32 @@ export const sEGLD = async () => {
       const resultStr = bufToBigint(buffer);
       return resultStr / oneQuintillion;
     });
+}
 
-  return {
-    redemptionRate: redemptionRate,
-    dex: 'AshSwap',
-  };
+async function simulate(tokenInAmount) {
+  return fetch('https://aggregator-internal.ashswap.io/aggregate' + '?from=WEGLD-bd4d79' + '&to=SEGLD-3ad2d0' + `&amount=${tokenInAmount}`)
+    .then((resp) => resp.json())
+    .then((data) => {
+      return data.returnAmountWithDecimal;
+    });
+}
+
+const amount = 1 * oneQuintillion;
+
+const tokenOutAmount = await fetch(
+  'https://aggregator-internal.ashswap.io/aggregate' + '?from=WEGLD-bd4d79' + '&to=SEGLD-3ad2d0' + `&amount=${amount}`
+)
+  .then((resp) => resp.json())
+  .then((data) => {
+    return data.returnAmountWithDecimal;
+  });
+
+export const sEgldArb = async () => {
+  const redemptionRate = await sEgldRedemptionRate();
+
+  const tokenInAmount = oneQuintillion;
+  const tokenOutAmount = await simulate(tokenInAmount);
+  const arb = arbitrage(redemptionRate, tokenInAmount, tokenOutAmount);
+
+  return { name: 'EGLD  → sEGLD', arb: arb, dex: 'AshSwap' };
 };
