@@ -5,15 +5,13 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node src/console.js",
-    "serve": "node src/server.js",
+    "start": "node src/server.js",
     "build": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "T.Wostyn",
   "license": "ISC",
   "dependencies": {
-    "@terra-money/feather.js": "^2.0.2",
     "cors": "^2.8.5",
     "express": "^4.19.2"
   }

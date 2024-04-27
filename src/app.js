@@ -1,35 +1,10 @@
-import { terraLcdConfig, lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw } from './terra.js';
-import { kujiraLcdConfig, ampKujiFin, qcKUJIFin } from './kujira.js';
-
-import { LCDClient } from '@terra-money/feather.js';
+import { lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw } from './terra.js';
+import { ampKujiFin, qcKUJIFin } from './kujira.js';
 import { strideRedemptionMap } from './strideRedemptionMap.js';
 import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
 import { sEgldArb } from './multiversx.js';
-import { arbitrage } from './utils.js';
-
-const lcd = new LCDClient({
-  [terraLcdConfig.chainID]: terraLcdConfig,
-  'neutron-1': {
-    chainID: 'neutron-1',
-    lcd: 'https://neutron-rest.publicnode.com',
-    gasAdjustment: 1,
-    gasPrices: {
-      untrn: 0.015,
-    },
-    prefix: 'neutron',
-  },
-  [kujiraLcdConfig.chainID]: kujiraLcdConfig,
-  'chihuahua-1': {
-    chainID: 'chihuahua-1',
-    lcd: 'https://chihua.api.m.stavr.tech',
-    gasAdjustment: 1,
-    gasPrices: {
-      uhuahua: 500,
-    },
-    prefix: 'chihuahua',
-  },
-});
+import { queryContract, arbitrage } from './utils.js';
 
 const ampHuahua = {
   name: 'HUAHUA → ampHUAHUA',
@@ -104,7 +79,7 @@ async function computeArbs() {
     },
   };
 
-  const oldxAstroRate = await queryOldxAstroRate(lcd);
+  const oldxAstroRate = await queryOldxAstroRate();
   const xAstroTerra = {
     name: 'ASTRO.cw20 → xASTRO.cw20',
     dex: 'Astroport Terra',
@@ -120,7 +95,7 @@ async function computeArbs() {
     poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
   };
 
-  const newxAstroRate = await queryNewxAstroRate(lcd);
+  const newxAstroRate = await queryNewxAstroRate();
   const xAstroNeutron = {
     name: 'ASTRO → xASTRO',
     dex: 'Astroport Neutron',
@@ -139,7 +114,7 @@ async function computeArbs() {
   const moar = {
     name: 'ROAR → MOAR',
     dex: 'White Whale Terra',
-    redemptionRate: await queryMoarRate(lcd),
+    redemptionRate: await queryMoarRate(),
     offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
     poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
   };
@@ -179,7 +154,7 @@ async function computeArbs() {
 async function computeArb(lsd, index) {
   let exchangeRate;
   if (lsd.stakingContract) {
-    const data = await lcd.wasm.contractQuery(lsd.stakingContract.contract, { state: {} });
+    const data = await queryContract(lsd.stakingContract.contract, { state: {} });
     exchangeRate = lsd.stakingContract.exchangeRate(data);
   } else {
     exchangeRate = lsd.redemptionRate;
@@ -217,7 +192,7 @@ async function computeArb(lsd, index) {
       };
     }
 
-    const { return_amount } = await lcd.wasm.contractQuery(lsd.poolContract, {
+    const { return_amount } = await queryContract(lsd.poolContract, {
       simulation: {
         offer_asset: {
           info: infoOfferAsset,

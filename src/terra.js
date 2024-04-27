@@ -1,13 +1,3 @@
-export const terraLcdConfig = {
-  chainID: 'phoenix-1',
-  lcd: 'https://rest.cosmos.directory/terra2',
-  gasAdjustment: 1,
-  gasPrices: {
-    uluna: 0.015,
-  },
-  prefix: 'terra',
-};
-
 export const lunaX = {
   name: 'LUNA → LunaX',
   dex: 'Astroport Terra',

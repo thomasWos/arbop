@@ -1,13 +1,3 @@
-export const kujiraLcdConfig = {
-  chainID: 'kaiyo-1',
-  lcd: 'https://kujira-api.polkachu.com/',
-  gasAdjustment: 1,
-  gasPrices: {
-    ukuji: 0.0034,
-  },
-  prefix: 'kujira',
-};
-
 export const ampKujiFin = {
   name: 'KUJI → ampKuji',
   dex: 'FIN',
