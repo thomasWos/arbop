@@ -6,10 +6,10 @@ ArbOp calculates the potential arbitrage opportunities across various Cosmos liq
 
 `npm install`
 
-## Server mode
+## Server
 
 ArbOp provides a simple Express server that exposes the calculated arbitrage opportunities through an API endpoint. To run the server, execute the following command:
 
 `npm start`
 
-The server will start running on http://localhost:3000. You can access the arbitrage opportunities by sending a GET request to the /arbs endpoint.
+The server will start running on http://localhost:4000. You can access the arbitrage opportunities by sending a GET request to the /api/arbs endpoint.
