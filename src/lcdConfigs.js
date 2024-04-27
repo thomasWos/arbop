@@ -1,10 +1,11 @@
-const configMap = new Map();
-configMap.set('terra', 'https://rest.cosmos.directory/terra2');
-configMap.set('kujira', 'https://kujira-api.polkachu.com/');
-configMap.set('neutron', 'https://neutron-rest.publicnode.com');
-configMap.set('chihuahua', 'https://chihua.api.m.stavr.tech');
-const configs = [...configMap];
+const lcds = [
+  ['terra', 'https://rest.cosmos.directory/terra2'],
+  ['kujira', 'https://kujira-api.polkachu.com'],
+  ['neutron', 'https://neutron-rest.publicnode.com'],
+  ['chihuahua', 'https://chihua.api.m.stavr.tech'],
+];
+console.log(lcds);
 
 export function lcd(contract) {
-  return configs.find(([key]) => contract.startsWith(key))?.[1];
+  return lcds.find(([key]) => contract.startsWith(key))?.[1];
 }
