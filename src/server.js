@@ -1,23 +1,14 @@
 import express from 'express';
 import path from 'path';
-import cors from 'cors';
 import { tryComputeArbs } from './app.js';
 
-// Init
+const app = express();
+const port = 4000;
+
 let arbs = {
   timestamp: new Date(),
   arbs: [],
 };
-
-const app = express();
-const port = 3000;
-
-// Use the cors middleware
-app.use(
-  cors({
-    origin: 'http://localhost:3001', // Allow requests from the React development server
-  })
-);
 
 const clientBuildPath = path.resolve('client/build');
 app.use(express.static(clientBuildPath));
@@ -36,7 +27,7 @@ computePayload();
 // Recompute arbs every minute
 setInterval(computePayload, 60 * 1000);
 
-app.get('/arbs', async (req, res) => {
+app.get('/api/arbs', async (req, res) => {
   res.json(arbs);
 });
 
