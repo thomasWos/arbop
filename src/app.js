@@ -1,7 +1,7 @@
 import { strideRedemptionMap } from './strideRedemptionMap.js';
 import { lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw } from './lsds/terra.js';
 import { ampKujiFin, qcKUJIFin } from './lsds/kujira.js';
-import { ampWhaleMigaloo, ampWhaleTerra } from './lsds/migaloo.js';
+import { ampWhaleMigaloo, ampWhaleTerra, ampWhaleT } from './lsds/migaloo.js';
 import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
 import { sEgldArb } from './multiversx.js';
@@ -142,6 +142,7 @@ async function computeArbs() {
     qcKUJIFin,
     ampWhaleMigaloo,
     ampWhaleTerra,
+    ampWhaleT,
   ];
 
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index)));
