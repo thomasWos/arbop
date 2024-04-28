@@ -18,7 +18,7 @@ async function computePayload() {
   if (latestArb) {
     arbs = {
       timestamp: new Date(),
-      arbs: await tryComputeArbs(),
+      arbs: latestArb,
     };
   }
 }
