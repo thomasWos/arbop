@@ -1,33 +1,12 @@
 import { strideRedemptionMap } from './strideRedemptionMap.js';
-import { lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw } from './lsds/terra.js';
-import { ampKujiFin, qcKUJIFin } from './lsds/kujira.js';
-import { ampWhaleMigaloo, ampWhaleTerra, ampWhaleT } from './lsds/migaloo.js';
+import { terraLsds } from './lsds/terra.js';
+import { kujiLsds } from './lsds/kujira.js';
+import { whaleLsds } from './lsds/migaloo.js';
+import { chihuahuaLsds } from './lsds/chihuahua.js';
 import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
 import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage } from './utils.js';
-
-const ampHuahua = {
-  name: 'HUAHUA → ampHUAHUA',
-  dex: 'White Whale Chihuahua',
-  stakingContract: {
-    contract: 'chihuahua1nktfhalzvtx82kyn4dh6l8htcl0prfpnu380a39zj52nzu3j467qqg23ry',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  offerNativeTokenDenom: 'uhuahua',
-  poolContract: 'chihuahua1a6xwgvyvrmzgue6hectem3fwdzquny44a4y20a9wvlrtalhlsk9sryz5t9',
-};
-
-const bHuahua = {
-  name: 'HUAHUA → bHUAHUA',
-  dex: 'White Whale Chihuahua',
-  stakingContract: {
-    contract: 'chihuahua1psf89r2g9vdlttrjphspcpzzfx87r2r4nl5fg703ky42mp2706wsw5330f',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  offerNativeTokenDenom: 'uhuahua',
-  poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
-};
 
 async function computeArbs() {
   const strideMap = await strideRedemptionMap();
@@ -121,28 +100,20 @@ async function computeArbs() {
   };
 
   const lsds = [
-    blunaAstro,
-    blunaWw,
-    lunaX,
-    ampLunaAstro,
-    ampLunaWw,
-    stLuna,
-    ampHuahua,
-    bHuahua,
+    ...terraLsds,
+    ...kujiLsds,
+    ...chihuahuaLsds,
+    ...whaleLsds,
     xAstroTerra,
     astroTerra,
     xAstroNeutron,
     astroNeutron,
     moar,
+    stLuna,
     stAtom,
     stOsmo,
     stJuno,
     stStars,
-    ampKujiFin,
-    qcKUJIFin,
-    ampWhaleMigaloo,
-    ampWhaleTerra,
-    ampWhaleT,
   ];
 
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index)));

@@ -1,4 +1,4 @@
-export const ampWhaleMigaloo = {
+const ampWhaleMigaloo = {
   name: 'WHALE → ampWHALE',
   dex: 'White Whale Migaloo',
   stakingContract: {
@@ -9,7 +9,7 @@ export const ampWhaleMigaloo = {
   poolContract: 'migaloo1ull9s4el2pmkdevdgrjt6pwa4e5xhkda40w84kghftnlxg4h3knqpm5u3n',
 };
 
-export const ampWhaleTerra = {
+const ampWhaleTerra = {
   name: 'WHALE → ampWHALE',
   dex: 'White Whale Terra',
   stakingContract: {
@@ -20,7 +20,7 @@ export const ampWhaleTerra = {
   poolContract: 'terra1ntx595elf3ukxcd0wy76h24rzztcv2p6n3wmfd358ks95prv42fs9mn63n',
 };
 
-export const ampWhaleT = {
+const ampWhaleT = {
   name: 'ampWHALE → ampWHALEt',
   dex: 'White Whale Migaloo',
   stakingContract: {
@@ -30,3 +30,5 @@ export const ampWhaleT = {
   offerNativeTokenDenom: 'factory/migaloo1436kxs0w2es6xlqpp9rd35e3d0cjnw4sv8j3a7483sgks29jqwgshqdky4/ampWHALE',
   poolContract: 'migaloo1ugv3g8lckm70np3u50u5wetnv2dfda073gyazy2v50t5c3wza3xqj5drtk',
 };
+
+export const whaleLsds = [ampWhaleMigaloo, ampWhaleTerra, ampWhaleT];

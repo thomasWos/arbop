@@ -1,4 +1,4 @@
-export const lunaX = {
+const lunaX = {
   name: 'LUNA → LunaX',
   dex: 'Astroport Terra',
   stakingContract: {
@@ -9,7 +9,7 @@ export const lunaX = {
   poolContract: 'terra1mpj7j25fw5a0q5vfasvsvdp6xytaqxh006lh6f5zpwxvadem9hwsy6m508',
 };
 
-export const blunaAstro = {
+const blunaAstro = {
   name: 'LUNA → bLUNA',
   dex: 'Astroport Terra',
   stakingContract: {
@@ -20,7 +20,7 @@ export const blunaAstro = {
   poolContract: 'terra1h32epkd72x7st0wk49z35qlpsxf26pw4ydacs8acq6uka7hgshmq7z7vl9',
 };
 
-export const blunaWw = {
+const blunaWw = {
   name: 'LUNA → bLUNA',
   dex: 'White Whale Terra',
   stakingContract: {
@@ -31,7 +31,7 @@ export const blunaWw = {
   poolContract: 'terra1j5znhs9jeyty9u9jcagl3vefkvzwqp6u9tq9a3e5qrz4gmj2udyqp0z0xc',
 };
 
-export const ampLunaAstro = {
+const ampLunaAstro = {
   name: 'LUNA → ampLUNA',
   dex: 'Astroport Terra',
   stakingContract: {
@@ -42,7 +42,7 @@ export const ampLunaAstro = {
   poolContract: 'terra1cr8dg06sh343hh4xzn3gxd3ayetsjtet7q5gp4kfrewul2kql8sqvhaey4',
 };
 
-export const ampLunaWw = {
+const ampLunaWw = {
   name: 'LUNA → ampLUNA',
   dex: 'White Whale Terra',
   stakingContract: {
@@ -52,3 +52,5 @@ export const ampLunaWw = {
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
 };
+
+export const terraLsds = [lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw];

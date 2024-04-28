@@ -1,4 +1,4 @@
-export const ampKujiFin = {
+const ampKujiFin = {
   name: 'KUJI → ampKUJI',
   dex: 'FIN',
   stakingContract: {
@@ -9,7 +9,7 @@ export const ampKujiFin = {
   poolContract: 'kujira1lse59wt7a5yksdd08mennt299katjkfzdhmh8hvck8ln08jktcmsxrnh8s',
 };
 
-export const qcKUJIFin = {
+const qcKUJIFin = {
   name: 'KUJI → qcKUJI',
   dex: 'FIN',
   stakingContract: {
@@ -19,3 +19,5 @@ export const qcKUJIFin = {
   offerNativeTokenDenom: 'ukuji',
   poolContract: 'kujira14wsrem89304kpkl6d0j58dl6479eekwt047ccs0qzv9f60w80wzs8rjq4j',
 };
+
+export const kujiLsds = [ampKujiFin, qcKUJIFin];
