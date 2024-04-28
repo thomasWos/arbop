@@ -1,5 +1,5 @@
 export const ampKujiFin = {
-  name: 'KUJI → ampKuji',
+  name: 'KUJI → ampKUJI',
   dex: 'FIN',
   stakingContract: {
     contract: 'kujira1n3fr5f56r2ce0s37wdvwrk98yhhq3unnxgcqus8nzsfxvllk0yxquurqty',
