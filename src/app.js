@@ -1,6 +1,7 @@
 import { strideRedemptionMap } from './strideRedemptionMap.js';
 import { terraLsds } from './lsds/terra.js';
 import { kujiLsds } from './lsds/kujira.js';
+import { osmoLsds } from './lsds/osmosis.js';
 import { whaleLsds } from './lsds/migaloo.js';
 import { chihuahuaLsds } from './lsds/chihuahua.js';
 import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
@@ -104,6 +105,7 @@ async function computeArbs() {
     ...kujiLsds,
     ...chihuahuaLsds,
     ...whaleLsds,
+    ...osmoLsds,
     xAstroTerra,
     astroTerra,
     xAstroNeutron,

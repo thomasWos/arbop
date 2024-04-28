@@ -1,4 +1,5 @@
 const lcds = [
+  ['osmo', 'https://osmosis-api.polkachu.com'],
   ['terra', 'https://terra-rest.publicnode.com'],
   ['kujira', 'https://kujira-api.polkachu.com'],
   ['neutron', 'https://neutron-rest.publicnode.com'],
