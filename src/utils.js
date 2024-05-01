@@ -14,3 +14,9 @@ export function arbitrage(exchangeRate, tokenInAmount, tokenOutAmount) {
   const rate = returnAmount / tokenInAmount;
   return (rate - 1) * 100;
 }
+
+export function calculateApy(arb, periodInDays) {
+  const period = 365 / periodInDays;
+  const apy = (1 + arb / 100) ** period;
+  return (apy - 1) * 100;
+}

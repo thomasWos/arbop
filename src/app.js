@@ -7,7 +7,7 @@ import { chihuahuaLsds } from './lsds/chihuahua.js';
 import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
 import { sEgldArb } from './multiversx.js';
-import { queryContract, arbitrage } from './utils.js';
+import { queryContract, arbitrage, calculateApy } from './utils.js';
 
 async function computeArbs() {
   const strideMap = await strideRedemptionMap();
@@ -16,6 +16,7 @@ async function computeArbs() {
     name: 'LUNA → stLUNA',
     dex: 'Astroport Terra',
     redemptionRate: strideMap.get('terra'),
+    unboundingPeriod: 21 + 3,
     offerNativeTokenDenom: 'uluna',
     poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
   };
@@ -121,6 +122,8 @@ async function computeArbs() {
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index)));
 
   const sEgld = await sEgldArb();
+  const apy = calculateApy(sEgld.arb, 10);
+
   sEgld.id = lsds.length;
   arbs.push(sEgld);
 
@@ -181,7 +184,13 @@ async function computeArb(lsd, index) {
   }
 
   const arb = arbitrage(exchangeRate, tokenInAmount, tokenOutAmount);
-  return { id: index, name: lsd.name, arb: arb, dex: lsd.dex };
+
+  let apy;
+  if (lsd.unboundingPeriod) {
+    apy = calculateApy(arb, lsd.unboundingPeriod);
+  }
+
+  return { id: index, name: lsd.name, arb: arb, dex: lsd.dex, ...(apy && { apy }) };
 }
 
 export async function tryComputeArbs() {
