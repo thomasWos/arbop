@@ -25,6 +25,7 @@ async function computeArbs() {
     name: 'ATOM → stATOM',
     dex: 'Osmosis',
     redemptionRate: strideMap.get('cosmos'),
+    unboundingPeriod: 24,
     osmosis: {
       tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
       tokenOut: 'ibc/C140AFD542AE77BD7DCC83F13FDD8C5E5BB8C4929785E6EC2F4C636F98F17901',
@@ -35,6 +36,7 @@ async function computeArbs() {
     name: 'OSMO → stOsmo',
     dex: 'Osmosis',
     redemptionRate: strideMap.get('osmo'),
+    unboundingPeriod: 17,
     osmosis: {
       tokenIn: 'uosmo',
       tokenOut: 'ibc/D176154B0C63D1F9C6DCFB4F70349EBF2E2B5A87A05902F57A6AE92B863E9AEC',
@@ -45,6 +47,7 @@ async function computeArbs() {
     name: 'JUNO → stJUNO',
     dex: 'Osmosis',
     redemptionRate: strideMap.get('juno'),
+    unboundingPeriod: 33,
     osmosis: {
       tokenIn: 'ibc/46B44899322F3CD854D2D46DEEF881958467CDD4B3B10086DA49296BBED94BED',
       tokenOut: 'ibc/84502A75BCA4A5F68D464C00B3F610CE2585847D59B52E5FFB7C3C9D2DDCD3FE',
@@ -55,6 +58,7 @@ async function computeArbs() {
     name: 'STARS → stSTARS',
     dex: 'Osmosis',
     redemptionRate: strideMap.get('stars'),
+    unboundingPeriod: 17,
     osmosis: {
       tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
       tokenOut: 'ibc/5DD1F95ED336014D00CE2520977EC71566D282F9749170ADC83A392E0EA7426A',
@@ -97,6 +101,7 @@ async function computeArbs() {
     name: 'ROAR → MOAR',
     dex: 'White Whale Terra',
     redemptionRate: await queryMoarRate(),
+    unboundingPeriod: 21 + 3 + 7 + 1,
     offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
     poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
   };
