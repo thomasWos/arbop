@@ -1,3 +1,5 @@
+const ONE_MILLION = Math.pow(10, 6);
+
 const ampHuahua = {
   name: 'HUAHUA → ampHUAHUA',
   dex: 'White Whale Chihuahua',
@@ -22,4 +24,31 @@ const bHuahua = {
   poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
 };
 
-export const chihuahuaLsds = [ampHuahua, bHuahua];
+const rHuahua = {
+  name: 'HUAHUA → rHUAHUA',
+  dex: 'White Whale Chihuahua',
+  redemptionRate: await rHuahuaRedemptionRate(),
+  unboundingPeriod: 22,
+  offerNativeTokenDenom: 'uhuahua',
+  poolContract: 'chihuahua19du4llehge50k23pwwckj93lnvp9cyyer8ve9as663mz64nrhq9qn2gauk',
+};
+
+async function rHuahuaRedemptionRate() {
+  const payload = {
+    id: 7,
+    method: 'abci_query',
+    params: {
+      path: '/stafihub.stafihub.ledger.Query/GetExchangeRate',
+      data: '0a087572687561687561',
+      prove: false,
+    },
+  };
+  return fetch('https://public-rpc1.stafihub.io', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+    .then((r) => r.json())
+    .then((r) => atob(r.result.response.value).replace(/[^0-9]+/, '') / ONE_MILLION);
+}
+
+export const chihuahuaLsds = [ampHuahua, bHuahua, rHuahua];
