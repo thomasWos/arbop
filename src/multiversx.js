@@ -1,4 +1,4 @@
-import { arbitrage } from './utils.js';
+import { arbitrage, calculateApy } from './utils.js';
 
 const oneQuintillion = Math.pow(10, 18);
 
@@ -33,27 +33,15 @@ async function sEgldRedemptionRate() {
 async function simulate(tokenInAmount) {
   return fetch('https://aggregator-internal.ashswap.io/aggregate' + '?from=WEGLD-bd4d79' + '&to=SEGLD-3ad2d0' + `&amount=${tokenInAmount}`)
     .then((resp) => resp.json())
-    .then((data) => {
-      return data.returnAmountWithDecimal;
-    });
+    .then((data) => data.returnAmountWithDecimal);
 }
 
-const amount = 1 * oneQuintillion;
-
-const tokenOutAmount = await fetch(
-  'https://aggregator-internal.ashswap.io/aggregate' + '?from=WEGLD-bd4d79' + '&to=SEGLD-3ad2d0' + `&amount=${amount}`
-)
-  .then((resp) => resp.json())
-  .then((data) => {
-    return data.returnAmountWithDecimal;
-  });
-
-export const sEgldArb = async () => {
+export async function sEgldArb() {
   const redemptionRate = await sEgldRedemptionRate();
 
   const tokenInAmount = oneQuintillion;
   const tokenOutAmount = await simulate(tokenInAmount);
   const arb = arbitrage(redemptionRate, tokenInAmount, tokenOutAmount);
 
-  return { name: 'EGLD  → sEGLD', arb: arb, dex: 'AshSwap' };
-};
+  return { name: 'EGLD  → sEGLD', arb: arb, dex: 'AshSwap', apy: calculateApy(arb, 10) };
+}

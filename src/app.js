@@ -3,128 +3,49 @@ import { terraLsds } from './lsds/terra.js';
 import { kujiLsds } from './lsds/kujira.js';
 import { osmoLsds } from './lsds/osmosis.js';
 import { whaleLsds } from './lsds/migaloo.js';
-import { chihuahuaLsds } from './lsds/chihuahua.js';
-import { queryOldxAstroRate, queryNewxAstroRate } from './xAstroRate.js';
+import { chihuahuaLsds, rHuahuaRedemptionRate } from './lsds/chihuahua.js';
+import { queryxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
 import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
 
 async function computeArbs() {
   const strideMap = await strideRedemptionMap();
+  const redemptionMap = new Map();
+  redemptionMap.set('stLUNA', strideMap.get('terra'));
+  redemptionMap.set('stATOM', strideMap.get('cosmos'));
+  redemptionMap.set('stOSMO', strideMap.get('osmo'));
+  redemptionMap.set('stJUNO', strideMap.get('juno'));
+  redemptionMap.set('stSTARS', strideMap.get('stars'));
 
-  const stLuna = {
-    name: 'LUNA → stLUNA',
-    dex: 'Astroport Terra',
-    redemptionRate: strideMap.get('terra'),
-    unboundingPeriod: 21 + 3,
-    offerNativeTokenDenom: 'uluna',
-    poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
-  };
+  const xAstroRate = await queryxAstroRate();
+  redemptionMap.set('xASTRO', xAstroRate);
+  redemptionMap.set('ASTRO', 1 / xAstroRate);
 
-  const stAtom = {
-    name: 'ATOM → stATOM',
-    dex: 'Osmosis',
-    redemptionRate: strideMap.get('cosmos'),
-    unboundingPeriod: 24,
-    osmosis: {
-      tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
-      tokenOut: 'ibc/C140AFD542AE77BD7DCC83F13FDD8C5E5BB8C4929785E6EC2F4C636F98F17901',
-    },
-  };
+  const moarRate = await queryMoarRate();
+  redemptionMap.set('MOAR', moarRate);
+  redemptionMap.set('MOARtoROAR', 1 / moarRate);
 
-  const stOsmo = {
-    name: 'OSMO → stOsmo',
-    dex: 'Osmosis',
-    redemptionRate: strideMap.get('osmo'),
-    unboundingPeriod: 17,
-    osmosis: {
-      tokenIn: 'uosmo',
-      tokenOut: 'ibc/D176154B0C63D1F9C6DCFB4F70349EBF2E2B5A87A05902F57A6AE92B863E9AEC',
-    },
-  };
+  redemptionMap.set('rHUAHUA', await rHuahuaRedemptionRate());
 
-  const stJuno = {
-    name: 'JUNO → stJUNO',
-    dex: 'Osmosis',
-    redemptionRate: strideMap.get('juno'),
-    unboundingPeriod: 33,
-    osmosis: {
-      tokenIn: 'ibc/46B44899322F3CD854D2D46DEEF881958467CDD4B3B10086DA49296BBED94BED',
-      tokenOut: 'ibc/84502A75BCA4A5F68D464C00B3F610CE2585847D59B52E5FFB7C3C9D2DDCD3FE',
-    },
-  };
-
-  const stStars = {
-    name: 'STARS → stSTARS',
-    dex: 'Osmosis',
-    redemptionRate: strideMap.get('stars'),
-    unboundingPeriod: 17,
-    osmosis: {
-      tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
-      tokenOut: 'ibc/5DD1F95ED336014D00CE2520977EC71566D282F9749170ADC83A392E0EA7426A',
-    },
-  };
-
-  const oldxAstroRate = await queryOldxAstroRate();
-  const xAstroTerra = {
-    name: 'ASTRO.cw20 → xASTRO.cw20',
-    dex: 'Astroport Terra',
-    redemptionRate: oldxAstroRate,
-    offerTokenAddr: 'terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26',
-    poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
-  };
-  const astroTerra = {
-    name: 'xASTRO.cw20 → ASTRO.cw20',
-    dex: 'Astroport Terra',
-    redemptionRate: 1 / oldxAstroRate,
-    offerTokenAddr: 'terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8',
-    poolContract: 'terra1muhks8yr47lwe370wf65xg5dmyykrawqpkljfm39xhkwhf4r7jps0gwl4l',
-  };
-
-  const newxAstroRate = await queryNewxAstroRate();
   const xAstroNeutron = {
     name: 'ASTRO → xASTRO',
     dex: 'Astroport Neutron',
-    redemptionRate: newxAstroRate,
+    redemptionKey: 'xASTRO',
     offerNativeTokenDenom: 'factory/neutron1ffus553eet978k024lmssw0czsxwr97mggyv85lpcsdkft8v9ufsz3sa07/astro',
     poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
   };
   const astroNeutron = {
     name: 'xASTRO → ASTRO',
     dex: 'Astroport Neutron',
-    redemptionRate: 1 / newxAstroRate,
+    redemptionKey: 'ASTRO',
     offerNativeTokenDenom: 'factory/neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn/xASTRO',
     poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
   };
 
-  const moar = {
-    name: 'ROAR → MOAR',
-    dex: 'White Whale Terra',
-    redemptionRate: await queryMoarRate(),
-    unboundingPeriod: 21 + 3 + 7 + 1,
-    offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
-    poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
-  };
+  const lsds = [...terraLsds, ...kujiLsds, ...chihuahuaLsds, ...whaleLsds, ...osmoLsds, xAstroNeutron, astroNeutron];
 
-  const lsds = [
-    ...terraLsds,
-    ...kujiLsds,
-    ...chihuahuaLsds,
-    ...whaleLsds,
-    ...osmoLsds,
-    xAstroTerra,
-    astroTerra,
-    xAstroNeutron,
-    astroNeutron,
-    moar,
-    stLuna,
-    stAtom,
-    stOsmo,
-    stJuno,
-    stStars,
-  ];
-
-  const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index)));
+  const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index, redemptionMap)));
 
   const sEgld = await sEgldArb();
   const apy = calculateApy(sEgld.arb, 10);
@@ -136,13 +57,13 @@ async function computeArbs() {
   return arbs.sort((a, b) => b.arb - a.arb);
 }
 
-async function computeArb(lsd, index) {
+async function computeArb(lsd, index, redemptionMap) {
   let exchangeRate;
-  if (lsd.stakingContract) {
+  if (lsd.redemptionKey) {
+    exchangeRate = redemptionMap.get(lsd.redemptionKey);
+  } else if (lsd.stakingContract) {
     const data = await queryContract(lsd.stakingContract.contract, { state: {} });
     exchangeRate = lsd.stakingContract.exchangeRate(data);
-  } else {
-    exchangeRate = lsd.redemptionRate;
   }
 
   const tokenInAmount = 1000000;

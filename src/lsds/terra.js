@@ -58,4 +58,30 @@ const ampLunaWw = {
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
 };
 
-export const terraLsds = [lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw];
+const stLuna = {
+  name: 'LUNA → stLUNA',
+  dex: 'Astroport Terra',
+  redemptionKey: 'stLUNA',
+  unboundingPeriod: 21 + 3,
+  offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
+};
+
+const moar = {
+  name: 'ROAR → MOAR',
+  dex: 'White Whale Terra',
+  redemptionKey: 'MOAR',
+  unboundingPeriod: 21 + 3 + 7 + 1,
+  offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
+  poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
+};
+
+const moarToRoar = {
+  name: 'MOAR → ROAR',
+  dex: 'White Whale Terra',
+  redemptionKey: 'MOARtoROAR',
+  offerNativeTokenDenom: 'factory/terra1dndhtdr2v7ca8rrn67chlqw3cl3xhm3m2uxls62vghcg3fsh5tpss5xmcu/MOAR',
+  poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
+};
+
+export const terraLsds = [lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw, stLuna, moar, moarToRoar];
