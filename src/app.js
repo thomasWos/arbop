@@ -1,13 +1,15 @@
-import { strideRedemptionMap } from './strideRedemptionMap.js';
+import { strideRedemptionMap } from './lsds/stride.js';
 import { terraLsds } from './lsds/terra.js';
 import { kujiLsds } from './lsds/kujira.js';
 import { osmoLsds } from './lsds/osmosis.js';
 import { whaleLsds } from './lsds/migaloo.js';
-import { chihuahuaLsds, rHuahuaRedemptionRate } from './lsds/chihuahua.js';
+import { chihuahuaLsds } from './lsds/chihuahua.js';
 import { queryxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
+import { stafiRedemptionMap } from './lsds/stafihub.js';
 import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
+import { stafiLsds } from './lsds/stafihub.js';
 
 async function computeArbs() {
   const strideMap = await strideRedemptionMap();
@@ -26,7 +28,11 @@ async function computeArbs() {
   redemptionMap.set('MOAR', moarRate);
   redemptionMap.set('MOARtoROAR', 1 / moarRate);
 
-  redemptionMap.set('rHUAHUA', await rHuahuaRedemptionRate());
+  const stafiMap = await stafiRedemptionMap();
+  redemptionMap.set('rATOM', stafiMap.get('uratom'));
+  redemptionMap.set('rHUAHUA', stafiMap.get('urhuahua'));
+  redemptionMap.set('rIRIS', stafiMap.get('uriris'));
+  redemptionMap.set('rSWTH', stafiMap.get('urswth'));
 
   const xAstroNeutron = {
     name: 'ASTRO → xASTRO',
@@ -43,7 +49,7 @@ async function computeArbs() {
     poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
   };
 
-  const lsds = [...terraLsds, ...kujiLsds, ...chihuahuaLsds, ...whaleLsds, ...osmoLsds, xAstroNeutron, astroNeutron];
+  const lsds = [...terraLsds, ...kujiLsds, ...chihuahuaLsds, ...whaleLsds, ...osmoLsds, ...stafiLsds, xAstroNeutron, astroNeutron];
 
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index, redemptionMap)));
 
@@ -79,6 +85,8 @@ async function computeArb(lsd, index, redemptionMap) {
     await fetch(quote)
       .then((response) => response.json())
       .then((data) => (tokenOutAmount = data.amount_out));
+  } else if (lsd.simuSwap) {
+    tokenOutAmount = await lsd.simuSwap(tokenInAmount);
   } else {
     // DEX smart contract
     let infoOfferAsset;
