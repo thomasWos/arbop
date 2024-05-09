@@ -35,6 +35,17 @@ const stAtom = {
   },
 };
 
+const rAtom = {
+  name: 'ATOM → rATOM',
+  dex: 'Osmosis',
+  redemptionKey: 'rATOM',
+  unboundingPeriod: 22,
+  osmosis: {
+    tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+    tokenOut: 'ibc/B66CE615C600ED0A8B5AF425ECFE0D57BE2377587F66C45934A76886F34DC9B7',
+  },
+};
+
 const stOsmo = {
   name: 'OSMO → stOsmo',
   dex: 'Osmosis',
@@ -68,4 +79,4 @@ const stStars = {
   },
 };
 
-export const osmoLsds = [stAtom, stOsmo, stJuno, stStars, ampOsmoWW, ampOsmoOsmosis];
+export const osmoLsds = [stAtom, rAtom, stOsmo, stJuno, stStars, ampOsmoWW, ampOsmoOsmosis];
