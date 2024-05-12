@@ -24,6 +24,18 @@ const ampOsmoOsmosis = {
   },
 };
 
+const bOsmoWW = {
+  name: 'OSMO → bOSMO',
+  dex: 'White Whale Osmosis',
+  stakingContract: {
+    contract: 'osmo1s3l0lcqc7tu0vpj6wdjz9wqpxv8nk6eraevje4fuwkyjnwuy82qsx3lduv',
+    exchangeRate: (data) => data.exchange_rate,
+  },
+  unboundingPeriod: 14 + 3,
+  offerNativeTokenDenom: 'uosmo',
+  poolContract: 'osmo166yrd7anjg3h7epjsjghlf2uu403phjflk4gygmlelykwlustwysxvgv4c',
+};
+
 const stAtom = {
   name: 'ATOM → stATOM',
   dex: 'Osmosis',
@@ -79,4 +91,4 @@ const stStars = {
   },
 };
 
-export const osmoLsds = [stAtom, rAtom, stOsmo, stJuno, stStars, ampOsmoWW, ampOsmoOsmosis];
+export const osmoLsds = [stAtom, rAtom, stOsmo, stJuno, stStars, ampOsmoWW, ampOsmoOsmosis, bOsmoWW];
