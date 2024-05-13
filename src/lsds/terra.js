@@ -61,7 +61,7 @@ const ampLunaWw = {
 const stLuna = {
   name: 'LUNA → stLUNA',
   dex: 'Astroport Terra',
-  redemptionKey: 'stLUNA',
+  redemptionKey: 'strideTerra',
   unboundingPeriod: 21 + 3,
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',

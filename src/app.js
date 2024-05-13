@@ -1,28 +1,25 @@
 import { strideRedemptionMap } from './lsds/stride.js';
+import { neutronRedemptionMap } from './lsds/neutron.js';
+
 import { terraLsds } from './lsds/terra.js';
 import { kujiLsds } from './lsds/kujira.js';
 import { osmoLsds } from './lsds/osmosis.js';
 import { whaleLsds } from './lsds/migaloo.js';
 import { chihuahuaLsds } from './lsds/chihuahua.js';
-import { queryxAstroRate } from './xAstroRate.js';
 import { queryMoarRate } from './moarRate.js';
 import { stafiRedemptionMap } from './lsds/stafihub.js';
 import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
 import { stafiLsds } from './lsds/stafihub.js';
 
-async function computeArbs() {
-  const strideMap = await strideRedemptionMap();
-  const redemptionMap = new Map();
-  redemptionMap.set('stLUNA', strideMap.get('terra'));
-  redemptionMap.set('stATOM', strideMap.get('cosmos'));
-  redemptionMap.set('stOSMO', strideMap.get('osmo'));
-  redemptionMap.set('stJUNO', strideMap.get('juno'));
-  redemptionMap.set('stSTARS', strideMap.get('stars'));
+function setAll(from, to) {
+  from.forEach((value, key) => to.set(key, value));
+}
 
-  const xAstroRate = await queryxAstroRate();
-  redemptionMap.set('xASTRO', xAstroRate);
-  redemptionMap.set('ASTRO', 1 / xAstroRate);
+async function computeArbs() {
+  const redemptionMap = new Map();
+  setAll(await strideRedemptionMap(), redemptionMap);
+  setAll(await neutronRedemptionMap(), redemptionMap);
 
   const moarRate = await queryMoarRate();
   redemptionMap.set('MOAR', moarRate);
@@ -33,6 +30,8 @@ async function computeArbs() {
   redemptionMap.set('rHUAHUA', stafiMap.get('urhuahua'));
   redemptionMap.set('rIRIS', stafiMap.get('uriris'));
   redemptionMap.set('rSWTH', stafiMap.get('urswth'));
+
+  console.log(redemptionMap);
 
   const xAstroNeutron = {
     name: 'ASTRO → xASTRO',

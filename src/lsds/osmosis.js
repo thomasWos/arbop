@@ -39,7 +39,7 @@ const bOsmoWW = {
 const stAtom = {
   name: 'ATOM → stATOM',
   dex: 'Osmosis',
-  redemptionKey: 'stATOM',
+  redemptionKey: 'strideCosmos',
   unboundingPeriod: 24,
   osmosis: {
     tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
@@ -61,7 +61,7 @@ const rAtom = {
 const stOsmo = {
   name: 'OSMO → stOsmo',
   dex: 'Osmosis',
-  redemptionKey: 'stOSMO',
+  redemptionKey: 'strideOsmo',
   unboundingPeriod: 17,
   osmosis: {
     tokenIn: 'uosmo',
@@ -72,7 +72,7 @@ const stOsmo = {
 const stJuno = {
   name: 'JUNO → stJUNO',
   dex: 'Osmosis',
-  redemptionKey: 'stJUNO',
+  redemptionKey: 'strideJuno',
   unboundingPeriod: 33,
   osmosis: {
     tokenIn: 'ibc/46B44899322F3CD854D2D46DEEF881958467CDD4B3B10086DA49296BBED94BED',
@@ -83,7 +83,7 @@ const stJuno = {
 const stStars = {
   name: 'STARS → stSTARS',
   dex: 'Osmosis',
-  redemptionKey: 'stSTARS',
+  redemptionKey: 'strideStars',
   unboundingPeriod: 17,
   osmosis: {
     tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
