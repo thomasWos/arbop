@@ -1,5 +1,3 @@
-const ONE_MILLION = Math.pow(10, 6);
-
 const ampHuahua = {
   name: 'HUAHUA → ampHUAHUA',
   dex: 'White Whale Chihuahua',
