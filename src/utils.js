@@ -1,5 +1,9 @@
 import { lcd } from './lcdConfigs.js';
 
+export async function exchangeRateFromState(contractAddr) {
+  return await queryContract(contractAddr, { state: {} }).then((s) => parseFloat(s.exchange_rate));
+}
+
 export async function queryContract(contractAddr, queryMsg) {
   const queryB64Encoded = Buffer.from(JSON.stringify(queryMsg)).toString('base64');
   const lcdUrl = lcd(contractAddr);

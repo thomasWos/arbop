@@ -4,7 +4,7 @@ import { neutronRedemptionMap } from './lsds/neutron.js';
 import { terraLsds } from './lsds/terra.js';
 import { kujiLsds } from './lsds/kujira.js';
 import { osmoLsds } from './lsds/osmosis.js';
-import { whaleLsds } from './lsds/migaloo.js';
+import { migalooRedemptionMap, whaleLsds } from './lsds/migaloo.js';
 import { chihuahuaLsds } from './lsds/chihuahua.js';
 import { queryMoarRate } from './moarRate.js';
 import { stafiRedemptionMap } from './lsds/stafihub.js';
@@ -20,6 +20,7 @@ async function computeArbs() {
   const redemptionMap = new Map();
   setAll(await strideRedemptionMap(), redemptionMap);
   setAll(await neutronRedemptionMap(), redemptionMap);
+  setAll(await migalooRedemptionMap(), redemptionMap);
 
   const moarRate = await queryMoarRate();
   redemptionMap.set('MOAR', moarRate);
