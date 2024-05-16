@@ -11,6 +11,7 @@ import { stafiRedemptionMap } from './lsds/stafihub.js';
 import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
 import { stafiLsds } from './lsds/stafihub.js';
+import { junoRedemptionMap } from './lsds/juno.js';
 
 function setAll(from, to) {
   from.forEach((value, key) => to.set(key, value));
@@ -21,6 +22,7 @@ async function computeArbs() {
   setAll(await strideRedemptionMap(), redemptionMap);
   setAll(await neutronRedemptionMap(), redemptionMap);
   setAll(await migalooRedemptionMap(), redemptionMap);
+  setAll(await junoRedemptionMap(), redemptionMap);
 
   const moarRate = await queryMoarRate();
   redemptionMap.set('MOAR', moarRate);
