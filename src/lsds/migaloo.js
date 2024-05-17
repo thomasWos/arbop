@@ -8,13 +8,16 @@ const bWhaleTContract = 'terra10j3zrymfrkta2pxe0gklc79gu06tqyuy8c3kh6tqdsrrprsjq
 export async function migalooRedemptionMap() {
   const ampWhaleRate = await exchangeRateFromState(ampWhaleContract);
   const bWhaleRate = await exchangeRateFromState(bWhaleContract);
+  const bWhaleTRate = await exchangeRateFromState(bWhaleTContract);
+
   return new Map([
     ['ampWHALE', ampWhaleRate],
     ['ampWHALEtoWHALE', 1 / ampWhaleRate],
     ['bWHALE', bWhaleRate],
     ['bWHALEtoWHALE', 1 / bWhaleRate],
     ['ampWHALEt', await exchangeRateFromState(ampWhaleTContract)],
-    ['bWHALEt', await exchangeRateFromState(bWhaleTContract)],
+    ['bWHALEt', bWhaleTRate],
+    ['bWHALEtTobWHALE', 1 / bWhaleTRate],
   ]);
 }
 
@@ -78,7 +81,7 @@ const bWhaleToWhaleTerra = {
   poolContract: 'terra1j9jmsplecj9ay2py27953p84nfmv7f6ce75ms5fleyhd0aecpc7q0hgmsa',
 };
 
-const bwhaleT = {
+const bWhaleT = {
   name: 'bWHALE → bWHALEt',
   dex: 'White Whale Migaloo',
   redemptionKey: 'bWHALEt',
@@ -86,4 +89,22 @@ const bwhaleT = {
   poolContract: 'migaloo1azqqmeg7zcj9vdtqpc65dmr2fkmkf3x6dcyhnau6d6er0w2r3arq470dzj',
 };
 
-export const whaleLsds = [ampWhaleMigaloo, ampWhaleTerra, ampWhaleToWhaleTerra, ampWhaleT, bWhale, bWhaleTerra, bWhaleToWhaleTerra, bwhaleT];
+const bWhaleTToWhale = {
+  name: 'bWHALEt → bWHALE',
+  dex: 'White Whale Migaloo',
+  redemptionKey: 'bWHALEtTobWHALE',
+  offerNativeTokenDenom: 'ibc/E54A0C1E4A2A79FD4F92765F68E38939867C3DA36E2EA6BBB2CE81C43F4C8ADC',
+  poolContract: 'migaloo1azqqmeg7zcj9vdtqpc65dmr2fkmkf3x6dcyhnau6d6er0w2r3arq470dzj',
+};
+
+export const whaleLsds = [
+  ampWhaleMigaloo,
+  ampWhaleTerra,
+  ampWhaleToWhaleTerra,
+  ampWhaleT,
+  bWhale,
+  bWhaleTerra,
+  bWhaleToWhaleTerra,
+  bWhaleT,
+  bWhaleTToWhale,
+];
