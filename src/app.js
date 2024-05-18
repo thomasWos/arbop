@@ -11,7 +11,7 @@ import { stafiRedemptionMap } from './lsds/stafihub.js';
 import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
 import { stafiLsds } from './lsds/stafihub.js';
-import { junoRedemptionMap } from './lsds/juno.js';
+import { junoRedemptionMap, junoLsds } from './lsds/juno.js';
 
 function setAll(from, to) {
   from.forEach((value, key) => to.set(key, value));
@@ -51,7 +51,7 @@ async function computeArbs() {
     poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
   };
 
-  const lsds = [...terraLsds, ...kujiLsds, ...chihuahuaLsds, ...whaleLsds, ...osmoLsds, ...stafiLsds, xAstroNeutron, astroNeutron];
+  const lsds = [...terraLsds, ...kujiLsds, ...chihuahuaLsds, ...whaleLsds, ...osmoLsds, ...stafiLsds, xAstroNeutron, astroNeutron, ...junoLsds];
 
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index, redemptionMap)));
 

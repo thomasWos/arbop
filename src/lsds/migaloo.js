@@ -9,13 +9,15 @@ export async function migalooRedemptionMap() {
   const ampWhaleRate = await exchangeRateFromState(ampWhaleContract);
   const bWhaleRate = await exchangeRateFromState(bWhaleContract);
   const bWhaleTRate = await exchangeRateFromState(bWhaleTContract);
+  const ampWhaleTRate = await exchangeRateFromState(ampWhaleTContract);
 
   return new Map([
     ['ampWHALE', ampWhaleRate],
     ['ampWHALEtoWHALE', 1 / ampWhaleRate],
     ['bWHALE', bWhaleRate],
     ['bWHALEtoWHALE', 1 / bWhaleRate],
-    ['ampWHALEt', await exchangeRateFromState(ampWhaleTContract)],
+    ['ampWHALEt', ampWhaleTRate],
+    ['ampWHALEtToAmpWHALE', 1 / ampWhaleTRate],
     ['bWHALEt', bWhaleTRate],
     ['bWHALEtTobWHALE', 1 / bWhaleTRate],
   ]);
@@ -52,6 +54,14 @@ const ampWhaleT = {
   dex: 'White Whale Migaloo',
   redemptionKey: 'ampWHALEt',
   offerNativeTokenDenom: 'factory/migaloo1436kxs0w2es6xlqpp9rd35e3d0cjnw4sv8j3a7483sgks29jqwgshqdky4/ampWHALE',
+  poolContract: 'migaloo1ugv3g8lckm70np3u50u5wetnv2dfda073gyazy2v50t5c3wza3xqj5drtk',
+};
+
+const ampWhaleTToAmpWhale = {
+  name: 'ampWHALEt → ampWHALE',
+  dex: 'White Whale Migaloo',
+  redemptionKey: 'ampWHALEtToAmpWHALE',
+  offerNativeTokenDenom: 'ibc/EA459CE57199098BA5FFDBD3194F498AA78439328A92C7D136F06A5220903DA6',
   poolContract: 'migaloo1ugv3g8lckm70np3u50u5wetnv2dfda073gyazy2v50t5c3wza3xqj5drtk',
 };
 
@@ -102,6 +112,7 @@ export const whaleLsds = [
   ampWhaleTerra,
   ampWhaleToWhaleTerra,
   ampWhaleT,
+  ampWhaleTToAmpWhale,
   bWhale,
   bWhaleTerra,
   bWhaleToWhaleTerra,
