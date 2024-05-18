@@ -1,6 +1,7 @@
 const ampKujiFin = {
   name: 'KUJI → ampKUJI',
   dex: 'FIN',
+  unboundingPeriod: 16,
   stakingContract: {
     contract: 'kujira1n3fr5f56r2ce0s37wdvwrk98yhhq3unnxgcqus8nzsfxvllk0yxquurqty',
     exchangeRate: (data) => data.exchange_rate,
@@ -12,6 +13,7 @@ const ampKujiFin = {
 const qcKUJIFin = {
   name: 'KUJI → qcKUJI',
   dex: 'FIN',
+  unboundingPeriod: 14,
   stakingContract: {
     contract: 'kujira1m96ucsfpt2yy72w09z2rxjdj38y5qd8lqx5jtggnejmdua2ynpnsxyvjex',
     exchangeRate: (data) => data.rate,
