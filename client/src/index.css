@@ -9,3 +9,22 @@ body {
   background-color: black;
   color: lightgray;
 }
+
+.arb-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.arb-header, .arb-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.arb-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
+
+.arb-name, .arb-percentage, .arb-dex, .arb-apy {
+  padding: 3px;
+}
