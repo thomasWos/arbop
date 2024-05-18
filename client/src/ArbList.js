@@ -30,7 +30,7 @@ const ArbList = () => {
           <div className="arb-apy">APY</div>
         </div>
         {arbs.map((arb) => (
-          <div key={arb.id} className="arb-item">
+          <div key={arb.id} className={`arb-item ${arb.arb < 0.2 ? 'low-arb' : ''}`}>
             <div className="arb-name">{arb.name}</div>
             <div className="arb-percentage">{arb.arb.toFixed(3)}%</div>
             <div className="arb-dex">{arb.dex}</div>

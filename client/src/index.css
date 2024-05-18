@@ -28,3 +28,7 @@ body {
 .arb-name, .arb-percentage, .arb-dex, .arb-apy {
   padding: 3px;
 }
+
+.low-arb {
+  color: grey; /* or any other color you prefer */
+}
