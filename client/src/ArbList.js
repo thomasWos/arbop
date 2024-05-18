@@ -6,16 +6,16 @@ const ArbList = () => {
   useEffect(() => {
     const fetchArbs = async () => {
       try {
-        const data = await fetch('/api/arbs').then((r) => r.json());
+        const response = await fetch('/api/arbs');
+        const data = await response.json();
         setData(data);
       } catch (error) {
         console.error('Error fetching arbitrage opportunities:', error);
       }
     };
-    fetchArbs();
 
-    const interval = setInterval(fetchArbs, 60000); // Fetch arbs every minute
-    return () => clearInterval(interval); // Clean up the interval on component unmount
+    const intervalId = setInterval(fetchArbs, 60000); // Fetch arbs every minute
+    return () => clearInterval(intervalId); // Clean up the interval on component unmount
   }, []);
 
   const { timestamp, arbs } = data;
@@ -38,7 +38,7 @@ const ArbList = () => {
           </div>
         ))}
       </div>
-      {timestamp && <p>{new Date(timestamp).toLocaleString()}</p>}
+      {timestamp && <p>Last update: {new Date(timestamp).toLocaleString()}</p>}
     </div>
   );
 };
