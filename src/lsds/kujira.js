@@ -22,6 +22,15 @@ const qcKUJIFin = {
   poolContract: 'kujira14wsrem89304kpkl6d0j58dl6479eekwt047ccs0qzv9f60w80wzs8rjq4j',
 };
 
+const stAtomKujira = {
+  name: 'ATOM → stATOM',
+  dex: 'FIN',
+  redemptionKey: 'strideCosmos',
+  unboundingPeriod: 24,
+  offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+  poolContract: 'kujira158zzjcvkz7r3j5hueurcw22qrjerqw4dtrzlalztr7whjykjwvrsrahdnq',
+};
+
 const stOsmoKujira = {
   name: 'OSMO → stOsmo',
   dex: 'FIN',
@@ -31,4 +40,13 @@ const stOsmoKujira = {
   poolContract: 'kujira14rrh06m6rm699psw4dly88n7whqjsustqzcj23rwvmy5egu4vd8qm99rcx',
 };
 
-export const kujiLsds = [ampKujiFin, qcKUJIFin, stOsmoKujira];
+const rAtomKujira = {
+  name: 'ATOM → rATOM',
+  dex: 'FIN',
+  redemptionKey: 'rATOM',
+  unboundingPeriod: 22,
+  offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+  poolContract: 'kujira1ryul6unmsnjccsugtempgdtly3gsdtu8af44yt5sqf4zpkgg7vjqkpxjjx',
+};
+
+export const kujiLsds = [ampKujiFin, qcKUJIFin, stAtomKujira, stOsmoKujira, rAtomKujira];
