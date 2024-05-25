@@ -26,7 +26,6 @@ const stAtomKujira = {
   name: 'ATOM → stATOM',
   dex: 'FIN',
   redemptionKey: 'strideCosmos',
-  unboundingPeriod: 24,
   offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
   poolContract: 'kujira158zzjcvkz7r3j5hueurcw22qrjerqw4dtrzlalztr7whjykjwvrsrahdnq',
 };
@@ -35,7 +34,6 @@ const stOsmoKujira = {
   name: 'OSMO → stOsmo',
   dex: 'FIN',
   redemptionKey: 'strideOsmo',
-  unboundingPeriod: 17,
   offerNativeTokenDenom: 'ibc/47BD209179859CDE4A2806763D7189B6E6FE13A17880FE2B42DE1E6C1E329E23',
   poolContract: 'kujira14rrh06m6rm699psw4dly88n7whqjsustqzcj23rwvmy5egu4vd8qm99rcx',
 };

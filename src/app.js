@@ -1,5 +1,5 @@
 import { strideRedemptionMap } from './lsds/stride.js';
-import { neutronRedemptionMap } from './lsds/neutron.js';
+import { neutronRedemptionMap, neutronLsds } from './lsds/neutron.js';
 
 import { terraLsds } from './lsds/terra.js';
 import { kujiLsds } from './lsds/kujira.js';
@@ -36,22 +36,7 @@ async function computeArbs() {
 
   console.log(redemptionMap);
 
-  const xAstroNeutron = {
-    name: 'ASTRO → xASTRO',
-    dex: 'Astroport Neutron',
-    redemptionKey: 'xASTRO',
-    offerNativeTokenDenom: 'factory/neutron1ffus553eet978k024lmssw0czsxwr97mggyv85lpcsdkft8v9ufsz3sa07/astro',
-    poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
-  };
-  const astroNeutron = {
-    name: 'xASTRO → ASTRO',
-    dex: 'Astroport Neutron',
-    redemptionKey: 'ASTRO',
-    offerNativeTokenDenom: 'factory/neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn/xASTRO',
-    poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
-  };
-
-  const lsds = [...terraLsds, ...kujiLsds, ...chihuahuaLsds, ...whaleLsds, ...osmoLsds, ...stafiLsds, xAstroNeutron, astroNeutron, ...junoLsds];
+  const lsds = [...terraLsds, ...kujiLsds, ...chihuahuaLsds, ...whaleLsds, ...osmoLsds, ...stafiLsds, ...neutronLsds, ...junoLsds];
 
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index, redemptionMap)));
 
@@ -67,8 +52,20 @@ async function computeArbs() {
 
 async function computeArb(lsd, index, redemptionMap) {
   let exchangeRate;
+  let unboundingPeriod;
+
+  if (lsd.unboundingPeriod) {
+    unboundingPeriod = lsd.unboundingPeriod;
+  }
+
   if (lsd.redemptionKey) {
-    exchangeRate = redemptionMap.get(lsd.redemptionKey);
+    const redemption = redemptionMap.get(lsd.redemptionKey);
+    if (redemption instanceof Object) {
+      exchangeRate = redemption.redemptionRate;
+      unboundingPeriod = redemption.unboundingPeriod;
+    } else {
+      exchangeRate = redemptionMap.get(lsd.redemptionKey);
+    }
   } else if (lsd.stakingContract) {
     const data = await queryContract(lsd.stakingContract.contract, { state: {} });
     exchangeRate = lsd.stakingContract.exchangeRate(data);
@@ -122,10 +119,9 @@ async function computeArb(lsd, index, redemptionMap) {
   const arb = arbitrage(exchangeRate, tokenInAmount, tokenOutAmount);
 
   let apy;
-  if (lsd.unboundingPeriod) {
-    apy = calculateApy(arb, lsd.unboundingPeriod);
+  if (unboundingPeriod) {
+    apy = calculateApy(arb, unboundingPeriod);
   }
-
   return { id: index, name: lsd.name, arb: arb, dex: lsd.dex, ...(apy && { apy }) };
 }
 
