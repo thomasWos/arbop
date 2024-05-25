@@ -3,7 +3,7 @@ const restUrl = 'https://public-rest-rpc1.stafihub.io';
 export async function stafiRedemptionMap() {
   return fetch(restUrl + '/stafihub/stafihub/ledger/exchange_rate_all')
     .then((r) => r.json())
-    .then((d) => new Map(d.exchangeRates.map((er) => [er.denom, er.value])));
+    .then((d) => new Map(d.exchangeRates.map((er) => [er.denom, parseFloat(er.value)])));
 }
 
 const rHuahua = {
