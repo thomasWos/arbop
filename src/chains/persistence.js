@@ -31,6 +31,16 @@ const stkAtom = {
   simuSwap: async (tokenInAmount) => simuSwapDexter(tokenInAmount, stkAtom),
 };
 
+const stkHuahua = {
+  name: 'HUAHUA → stkHUAHUA',
+  dex: 'Dexter',
+  redemptionKey: 'stkHUAHUA',
+  poolContract: 'persistence1ny5q57qzkt9cn64mf7grc58tjqx37czxe85nx8aujw8md3hlyruqrspvtc',
+  offerNativeTokenDenom: 'ibc/B597D779FCDD9021263C98A48F1AFA9D2BCCCE980F397CDE5681CCEDE7DEE1A4',
+  askAssetNativeTokenDenom: 'stk/uhuahua',
+  simuSwap: async (tokenInAmount) => simuSwapDexter(tokenInAmount, stkHuahua),
+};
+
 async function simuSwapDexter(tokenInAmount, pairDef) {
   const { trade_params } = await queryContract(pairDef.poolContract, {
     on_swap: {
@@ -51,4 +61,4 @@ async function simuSwapDexter(tokenInAmount, pairDef) {
   return trade_params.amount_out;
 }
 
-export const persistencePairs = [stkAtom];
+export const persistencePairs = [stkAtom, stkHuahua];
