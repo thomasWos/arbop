@@ -1,17 +1,17 @@
-import { strideRedemptionMap } from './lsds/stride.js';
-import { neutronRedemptionMap, neutronLsds } from './lsds/neutron.js';
+import { strideRedemptionMap } from './chains/stride.js';
+import { neutronRedemptionMap, neutronLsds } from './chains/neutron.js';
 
-import { terraLsds } from './lsds/terra.js';
-import { kujiLsds } from './lsds/kujira.js';
-import { osmoLsds } from './lsds/osmosis.js';
-import { migalooRedemptionMap, whaleLsds } from './lsds/migaloo.js';
-import { chihuahuaLsds } from './lsds/chihuahua.js';
+import { terraLsds } from './chains/terra.js';
+import { kujiLsds } from './chains/kujira.js';
+import { osmoLsds } from './chains/osmosis.js';
+import { migalooRedemptionMap, whaleLsds } from './chains/migaloo.js';
+import { chihuahuaLsds } from './chains/chihuahua.js';
 import { queryMoarRate } from './moarRate.js';
-import { stafiRedemptionMap } from './lsds/stafihub.js';
+import { stafiRedemptionMap } from './chains/stafihub.js';
 import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
-import { stafiLsds } from './lsds/stafihub.js';
-import { junoRedemptionMap, junoLsds } from './lsds/juno.js';
+import { stafiLsds } from './chains/stafihub.js';
+import { junoRedemptionMap, junoLsds } from './chains/juno.js';
 
 function setAll(from, to) {
   from.forEach((value, key) => to.set(key, value));
