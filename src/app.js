@@ -12,7 +12,7 @@ import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
 import { stafiLsds } from './chains/stafihub.js';
 import { junoRedemptionMap, junoLsds } from './chains/juno.js';
-import { persistenceRedemptionMap } from './chains/persistence.js';
+import { persistenceRedemptionMap, persistencePairs } from './chains/persistence.js';
 
 function setAll(from, to) {
   from.forEach((value, key) => to.set(key, value));
@@ -38,7 +38,17 @@ async function computeArbs() {
 
   console.log(redemptionMap);
 
-  const lsds = [...terraLsds, ...kujiLsds, ...chihuahuaLsds, ...whaleLsds, ...osmoLsds, ...stafiLsds, ...neutronLsds, ...junoLsds];
+  const lsds = [
+    ...terraLsds,
+    ...kujiLsds,
+    ...chihuahuaLsds,
+    ...whaleLsds,
+    ...osmoLsds,
+    ...stafiLsds,
+    ...neutronLsds,
+    ...junoLsds,
+    ...persistencePairs,
+  ];
 
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index, redemptionMap)));
 
