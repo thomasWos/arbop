@@ -12,6 +12,7 @@ import { sEgldArb } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
 import { stafiLsds } from './chains/stafihub.js';
 import { junoRedemptionMap, junoLsds } from './chains/juno.js';
+import { persistenceRedemptionMap } from './chains/persistence.js';
 
 function setAll(from, to) {
   from.forEach((value, key) => to.set(key, value));
@@ -23,6 +24,7 @@ async function computeArbs() {
   setAll(await neutronRedemptionMap(), redemptionMap);
   setAll(await migalooRedemptionMap(), redemptionMap);
   setAll(await junoRedemptionMap(), redemptionMap);
+  setAll(await persistenceRedemptionMap(), redemptionMap);
 
   const moarRate = await queryMoarRate();
   redemptionMap.set('MOAR', moarRate);
