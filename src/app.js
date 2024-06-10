@@ -7,7 +7,7 @@ import { osmoLsds } from './chains/osmosis.js';
 import { migalooRedemptionMap, whaleLsds } from './chains/migaloo.js';
 import { chihuahuaLsds } from './chains/chihuahua.js';
 import { stafiRedemptionMap } from './chains/stafihub.js';
-import { multiversxRedemptionMap, multiversxArbs } from './multiversx.js';
+import { multiversxRedemptionMap, multiversxArbs } from './chains/multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
 import { stafiLsds } from './chains/stafihub.js';
 import { junoRedemptionMap, junoLsds } from './chains/juno.js';
