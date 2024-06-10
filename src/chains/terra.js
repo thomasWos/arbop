@@ -1,11 +1,49 @@
+import { exchangeRateFromState, queryState } from '../utils.js';
+
+const lunaXContract = 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk';
+const bLunaContract = 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea';
+const ampLunaContract = 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk';
+const moarStakingContract = 'terra1dndhtdr2v7ca8rrn67chlqw3cl3xhm3m2uxls62vghcg3fsh5tpss5xmcu';
+const ampRoarStackingContract = 'terra1vklefn7n6cchn0u962w3gaszr4vf52wjvd4y95t2sydwpmpdtszsqvk9wy';
+
+export async function terraRedemptionMap() {
+  const lunaXredemption = {
+    redemptionRate: await queryState(lunaXContract).then((data) => parseFloat(data.state.exchange_rate)),
+    unboundingPeriod: 21 + 3,
+  };
+
+  const bLunaRedemption = {
+    redemptionRate: await exchangeRateFromState(bLunaContract),
+    unboundingPeriod: 21 + 3,
+  };
+
+  const ampLunaRedemption = {
+    redemptionRate: await exchangeRateFromState(ampLunaContract),
+    unboundingPeriod: 21 + 3,
+  };
+
+  const moarRate = await exchangeRateFromState(moarStakingContract);
+  const ampRoarRate = await exchangeRateFromState(ampRoarStackingContract);
+  const roarToMoar = moarRate * ampRoarRate;
+
+  const roarToMoarRedemption = {
+    redemptionRate: roarToMoar,
+    unboundingPeriod: 21 + 3 + 7 + 1,
+  };
+
+  return new Map([
+    ['LunaX', lunaXredemption],
+    ['bLUNA', bLunaRedemption],
+    ['ampLUNA', ampLunaRedemption],
+    ['ROARtoMOAR', roarToMoarRedemption],
+    ['MOARtoROAR', 1 / roarToMoar],
+  ]);
+}
+
 const lunaX = {
   name: 'LUNA → LunaX',
   dex: 'Astroport Terra',
-  stakingContract: {
-    contract: 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk',
-    exchangeRate: (data) => data.state.exchange_rate,
-  },
-  unboundingPeriod: 21 + 3,
+  redemptionKey: 'LunaX',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1mpj7j25fw5a0q5vfasvsvdp6xytaqxh006lh6f5zpwxvadem9hwsy6m508',
 };
@@ -13,11 +51,7 @@ const lunaX = {
 const blunaAstro = {
   name: 'LUNA → bLUNA',
   dex: 'Astroport Terra',
-  stakingContract: {
-    contract: 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  unboundingPeriod: 21 + 3,
+  redemptionKey: 'bLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1h32epkd72x7st0wk49z35qlpsxf26pw4ydacs8acq6uka7hgshmq7z7vl9',
 };
@@ -25,11 +59,7 @@ const blunaAstro = {
 const blunaWw = {
   name: 'LUNA → bLUNA',
   dex: 'White Whale Terra',
-  stakingContract: {
-    contract: 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  unboundingPeriod: 21 + 3,
+  redemptionKey: 'bLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1j5znhs9jeyty9u9jcagl3vefkvzwqp6u9tq9a3e5qrz4gmj2udyqp0z0xc',
 };
@@ -37,11 +67,7 @@ const blunaWw = {
 const ampLunaAstro = {
   name: 'LUNA → ampLUNA',
   dex: 'Astroport Terra',
-  stakingContract: {
-    contract: 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  unboundingPeriod: 21 + 3,
+  redemptionKey: 'ampLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1cr8dg06sh343hh4xzn3gxd3ayetsjtet7q5gp4kfrewul2kql8sqvhaey4',
 };
@@ -49,11 +75,7 @@ const ampLunaAstro = {
 const ampLunaWw = {
   name: 'LUNA → ampLUNA',
   dex: 'White Whale Terra',
-  stakingContract: {
-    contract: 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  unboundingPeriod: 21 + 3,
+  redemptionKey: 'ampLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
 };
@@ -69,8 +91,7 @@ const stLuna = {
 const moar = {
   name: 'ROAR → MOAR',
   dex: 'White Whale Terra',
-  redemptionKey: 'MOAR',
-  unboundingPeriod: 21 + 3 + 7 + 1,
+  redemptionKey: 'ROARtoMOAR',
   offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
   poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
 };

@@ -1,0 +1,80 @@
+{
+  "endpoints": [
+    {
+      "name": "estimateAmountOut",
+      "mutability": "readonly",
+      "inputs": [
+        {
+          "name": "token_in",
+          "type": "TokenIdentifier"
+        },
+        {
+          "name": "token_out",
+          "type": "TokenIdentifier"
+        },
+        {
+          "name": "amount_in",
+          "type": "BigUint"
+        }
+      ],
+      "outputs": [
+        {
+          "type": "ExchangeResultType"
+        }
+      ]
+    }
+  ],
+  "types": {
+    "TokenAttributes": {
+      "type": "struct",
+      "fields": [
+        {
+          "name": "reserve",
+          "type": "BigUint"
+        },
+        {
+          "name": "rate",
+          "type": "BigUint"
+        }
+      ]
+    },
+    "ExchangeAttributes": {
+      "type": "struct",
+      "fields": [
+        {
+          "name": "token",
+          "type": "TokenIdentifier"
+        },
+        {
+          "name": "attribute",
+          "type": "TokenAttributes"
+        },
+        {
+          "name": "final_amount",
+          "type": "BigUint"
+        }
+      ]
+    },
+    "ExchangeResultType": {
+      "type": "struct",
+      "fields": [
+        {
+          "name": "total_fee",
+          "type": "BigUint"
+        },
+        {
+          "name": "admin_fee",
+          "type": "BigUint"
+        },
+        {
+          "name": "token_in",
+          "type": "ExchangeAttributes"
+        },
+        {
+          "name": "token_out",
+          "type": "ExchangeAttributes"
+        }
+      ]
+    }
+  }
+}

@@ -18,8 +18,7 @@ async function computePayload() {
 }
 computePayload();
 
-// Recompute arbs every minute
-setInterval(computePayload, 60 * 1000);
+setInterval(computePayload, 45 * 1000);
 
 const app = express();
 const clientBuildPath = path.resolve('client/build');

@@ -12,6 +12,7 @@
   "author": "T.Wostyn",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "@multiversx/sdk-core": "^13.2.1"
   }
 }

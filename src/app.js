@@ -1,14 +1,13 @@
 import { strideRedemptionMap } from './chains/stride.js';
 import { neutronRedemptionMap, neutronLsds } from './chains/neutron.js';
 
-import { terraLsds } from './chains/terra.js';
+import { terraRedemptionMap, terraLsds } from './chains/terra.js';
 import { kujiLsds } from './chains/kujira.js';
 import { osmoLsds } from './chains/osmosis.js';
 import { migalooRedemptionMap, whaleLsds } from './chains/migaloo.js';
 import { chihuahuaLsds } from './chains/chihuahua.js';
-import { queryMoarRate } from './moarRate.js';
 import { stafiRedemptionMap } from './chains/stafihub.js';
-import { sEgldArb } from './multiversx.js';
+import { multiversxRedemptionMap, multiversxArbs } from './multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
 import { stafiLsds } from './chains/stafihub.js';
 import { junoRedemptionMap, junoLsds } from './chains/juno.js';
@@ -19,22 +18,20 @@ function setAll(from, to) {
 }
 
 async function computeArbs() {
+  const redemptionsList = [
+    terraRedemptionMap(),
+    strideRedemptionMap(),
+    neutronRedemptionMap(),
+    migalooRedemptionMap(),
+    junoRedemptionMap(),
+    persistenceRedemptionMap(),
+    stafiRedemptionMap(),
+    multiversxRedemptionMap(),
+  ];
+  const redemptions = await Promise.all(redemptionsList);
+
   const redemptionMap = new Map();
-  setAll(await strideRedemptionMap(), redemptionMap);
-  setAll(await neutronRedemptionMap(), redemptionMap);
-  setAll(await migalooRedemptionMap(), redemptionMap);
-  setAll(await junoRedemptionMap(), redemptionMap);
-  setAll(await persistenceRedemptionMap(), redemptionMap);
-
-  const moarRate = await queryMoarRate();
-  redemptionMap.set('MOAR', moarRate);
-  redemptionMap.set('MOARtoROAR', 1 / moarRate);
-
-  const stafiMap = await stafiRedemptionMap();
-  redemptionMap.set('rATOM', stafiMap.get('uratom'));
-  redemptionMap.set('rHUAHUA', stafiMap.get('urhuahua'));
-  redemptionMap.set('rIRIS', stafiMap.get('uriris'));
-  redemptionMap.set('rSWTH', stafiMap.get('urswth'));
+  redemptions.forEach((m) => setAll(m, redemptionMap));
 
   console.log(redemptionMap);
 
@@ -50,15 +47,17 @@ async function computeArbs() {
     ...persistencePairs,
   ];
 
+  // Mainly cosmos chains
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index, redemptionMap)));
+  console.log('Fetch arbs - COSMOS done');
 
-  const sEgld = await sEgldArb();
-  const apy = calculateApy(sEgld.arb, 10);
+  const arbsMultiversx = await multiversxArbs(redemptionMap);
+  arbsMultiversx.forEach((a, index) => {
+    a.id = lsds.length + index;
+    arbs.push(a);
+  });
 
-  sEgld.id = lsds.length;
-  arbs.push(sEgld);
-
-  console.log('Fetch arbs SUCCESS');
+  console.log('Fetch arbs - All done');
   return arbs.sort((a, b) => b.arb - a.arb);
 }
 

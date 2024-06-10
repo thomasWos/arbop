@@ -1,7 +1,11 @@
 import { lcd } from './lcdConfigs.js';
 
 export async function exchangeRateFromState(contractAddr) {
-  return await queryContract(contractAddr, { state: {} }).then((s) => parseFloat(s.exchange_rate));
+  return queryState(contractAddr).then((s) => parseFloat(s.exchange_rate));
+}
+
+export async function queryState(contractAddr) {
+  return queryContract(contractAddr, { state: {} });
 }
 
 export async function queryContract(contractAddr, queryMsg) {

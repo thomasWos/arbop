@@ -14,7 +14,7 @@ const ArbList = () => {
     };
     fetchArbs();
 
-    const interval = setInterval(fetchArbs, 60000); // Fetch arbs every minute
+    const interval = setInterval(fetchArbs, 10000);
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, []);
 
