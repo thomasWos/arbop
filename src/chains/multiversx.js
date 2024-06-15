@@ -15,6 +15,7 @@ export async function multiversxRedemptionMap() {
   return new Map([
     ['sEGLD', sEgldRate],
     ['JWLEGLD', 1],
+    ['sEGLDtoJWLEGLD', 1 / sEgldRate],
   ]);
 }
 
@@ -63,6 +64,15 @@ const jwlEgldTosEgld = {
   to: 'SEGLD-3ad2d0',
 };
 
+const sEgldtoJwlEgld = {
+  name: 'sEGLD → JWLEGLD',
+  redemptionKey: 'sEGLDtoJWLEGLD',
+  dex: 'AshSwap',
+  poolAddr: 'erd1qqqqqqqqqqqqqpgqlsgfr6xteusallzcspt3ehp8cewlp3s04fvsjm87cw',
+  from: 'SEGLD-3ad2d0',
+  to: 'JWLEGLD-023462',
+};
+
 async function computeArb(def, redemptionMap) {
   const redemptionRate = redemptionMap.get(def.redemptionKey);
   const tokenInAmount = oneQuintillion;
@@ -72,7 +82,7 @@ async function computeArb(def, redemptionMap) {
 }
 
 export async function multiversxArbs(redemptionMap) {
-  return Promise.all([sEgld, jwlEgld, jwlEgldTosEgld].map((d) => computeArb(d, redemptionMap)));
+  return Promise.all([sEgld, jwlEgld, jwlEgldTosEgld, sEgldtoJwlEgld].map((d) => computeArb(d, redemptionMap)));
 }
 
 async function jwlEgldDynamicFee() {
