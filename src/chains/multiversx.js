@@ -1,6 +1,3 @@
-// Update defi llama
-// Update doc multiversX
-
 import { promises } from 'fs';
 import { AbiRegistry, BinaryCodec } from '@multiversx/sdk-core';
 import { arbitrage, calculateApy } from '../utils.js';

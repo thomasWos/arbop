@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './ArbList.css'; // Import the CSS file
 
 const ArbList = () => {
   const [data, setData] = useState({ timestamp: null, arbs: [] });

@@ -26,6 +26,11 @@ export async function terraRedemptionMap() {
   const ampRoarRate = await exchangeRateFromState(ampRoarStackingContract);
   const roarToMoar = moarRate * ampRoarRate;
 
+  const ampRoarRedemption = {
+    redemptionRate: ampRoarRate,
+    unboundingPeriod: 7 + 1,
+  };
+
   const roarToMoarRedemption = {
     redemptionRate: roarToMoar,
     unboundingPeriod: 21 + 3 + 7 + 1,
@@ -35,6 +40,7 @@ export async function terraRedemptionMap() {
     ['LunaX', lunaXredemption],
     ['bLUNA', bLunaRedemption],
     ['ampLUNA', ampLunaRedemption],
+    ['ampROAR', ampRoarRedemption],
     ['ROARtoMOAR', roarToMoarRedemption],
     ['MOARtoROAR', 1 / roarToMoar],
   ]);
@@ -104,4 +110,12 @@ const moarToRoar = {
   poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
 };
 
-export const terraLsds = [lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw, stLuna, moar, moarToRoar];
+const ampRoar = {
+  name: 'ROAR → ampROAR',
+  dex: 'White Whale Terra',
+  redemptionKey: 'ampROAR',
+  offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
+  poolContract: 'terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze',
+};
+
+export const terraLsds = [lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw, stLuna, ampRoar, moar, moarToRoar];
