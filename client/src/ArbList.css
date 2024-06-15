@@ -1,0 +1,22 @@
+.arb-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.arb-header, .arb-item {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr 0.8fr;
+}
+
+.arb-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
+
+.arb-name, .arb-percentage, .arb-dex, .arb-apy {
+  padding: 3px;
+}
+
+.low-arb {
+  color: grey; /* or any other color you prefer */
+}
