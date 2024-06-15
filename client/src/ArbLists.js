@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ArbList from './ArbList';
 
+const arbListSorting = (arbList1, arblist2) => {
+  const maxArb1 = Math.max(...arbList1.map((a) => a.arb));
+  const maxArb2 = Math.max(...arblist2.map((a) => a.arb));
+  return maxArb2 - maxArb1;
+};
+
 const ArbLists = () => {
   const [data, setData] = useState({ timestamp: null, arbs: [] });
 
@@ -30,21 +36,16 @@ const ArbLists = () => {
   const osmoArbs = arbs.filter((a) => a.name.includes('OSMO'));
   const atomArbs = arbs.filter((a) => a.name.includes('ATOM'));
 
-  const combinedList = [...roarArbs, ...huahuaArbs, ...junoArbs, ...whaleArbs, ...egldArbs, ...lunaArbs, ...osmoArbs, ...atomArbs];
-  const exclusionSet = new Set(combinedList.map((a) => a.id));
+  const combinedList = [roarArbs, huahuaArbs, junoArbs, whaleArbs, egldArbs, lunaArbs, osmoArbs, atomArbs];
+
+  const exclusionSet = new Set(combinedList.flat(1).map((a) => a.id));
   const remainingArbs = arbs.filter((a) => !exclusionSet.has(a.id));
 
   return (
     <div>
-      <ArbList arbs={roarArbs} />
-      <ArbList arbs={huahuaArbs} />
-      <ArbList arbs={junoArbs} />
-      <ArbList arbs={whaleArbs} />
-      <ArbList arbs={egldArbs} />
-      <ArbList arbs={lunaArbs} />
-      <ArbList arbs={osmoArbs} />
-      <ArbList arbs={atomArbs} />
-
+      {combinedList.sort(arbListSorting).map((arbList) => (
+        <ArbList arbs={arbList} />
+      ))}
       <ArbList arbs={remainingArbs} />
       {timestamp && <p>{new Date(timestamp).toLocaleString()}</p>}
     </div>
