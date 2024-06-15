@@ -36,6 +36,16 @@ const bOsmoWW = {
   poolContract: 'osmo166yrd7anjg3h7epjsjghlf2uu403phjflk4gygmlelykwlustwysxvgv4c',
 };
 
+const stkOsmos = {
+  name: 'OSMO → stkOSMO',
+  dex: 'Osmosis',
+  redemptionKey: 'stkOSMO',
+  osmosis: {
+    tokenIn: 'uosmo',
+    tokenOut: 'ibc/ECBE78BF7677320A93E7BA1761D144BCBF0CBC247C290C049655E106FE5DC68E',
+  },
+};
+
 const stAtom = {
   name: 'ATOM → stATOM',
   dex: 'Osmosis',
@@ -97,4 +107,4 @@ const stkAtom = {
   },
 };
 
-export const osmoLsds = [stAtom, rAtom, stOsmo, stJuno, stStars, ampOsmoWW, ampOsmoOsmosis, bOsmoWW, stkAtom];
+export const osmoLsds = [stAtom, rAtom, stOsmo, stkOsmos, stJuno, stStars, ampOsmoWW, ampOsmoOsmosis, bOsmoWW, stkAtom];
