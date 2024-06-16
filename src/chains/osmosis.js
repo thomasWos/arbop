@@ -1,11 +1,29 @@
+import { exchangeRateFromState } from '../utils.js';
+
+const ampOsmoContract = 'osmo1dv8wz09tckslr2wy5z86r46dxvegylhpt97r9yd6qc3kyc6tv42qa89dr9';
+const bOsmoContract = 'osmo1s3l0lcqc7tu0vpj6wdjz9wqpxv8nk6eraevje4fuwkyjnwuy82qsx3lduv';
+
+export async function osmosisRedemptionMap() {
+  const ampOsmoRedemption = {
+    redemptionRate: await exchangeRateFromState(ampOsmoContract),
+    unboundingPeriod: 14 + 2,
+  };
+
+  const bOsmoRedemption = {
+    redemptionRate: await exchangeRateFromState(bOsmoContract),
+    unboundingPeriod: 14 + 3,
+  };
+
+  return new Map([
+    ['ampOSMO', ampOsmoRedemption],
+    ['bOSMO', bOsmoRedemption],
+  ]);
+}
+
 const ampOsmoWW = {
   name: 'OSMO → ampOSMO',
   dex: 'White Whale Osmosis',
-  stakingContract: {
-    contract: 'osmo1dv8wz09tckslr2wy5z86r46dxvegylhpt97r9yd6qc3kyc6tv42qa89dr9',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  unboundingPeriod: 14 + 2,
+  redemptionKey: 'ampOSMO',
   offerNativeTokenDenom: 'uosmo',
   poolContract: 'osmo1692tluwzzmnx56tm5v7r0n8v5fg32nrd9nuukp9jz458ap7wmcls9cz20m',
 };
@@ -13,11 +31,7 @@ const ampOsmoWW = {
 const ampOsmoOsmosis = {
   name: 'OSMO → ampOSMO',
   dex: 'Osmosis',
-  stakingContract: {
-    contract: 'osmo1dv8wz09tckslr2wy5z86r46dxvegylhpt97r9yd6qc3kyc6tv42qa89dr9',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  unboundingPeriod: 14 + 2,
+  redemptionKey: 'ampOSMO',
   osmosis: {
     tokenIn: 'uosmo',
     tokenOut: 'factory/osmo1dv8wz09tckslr2wy5z86r46dxvegylhpt97r9yd6qc3kyc6tv42qa89dr9/ampOSMO',
@@ -27,11 +41,7 @@ const ampOsmoOsmosis = {
 const bOsmoWW = {
   name: 'OSMO → bOSMO',
   dex: 'White Whale Osmosis',
-  stakingContract: {
-    contract: 'osmo1s3l0lcqc7tu0vpj6wdjz9wqpxv8nk6eraevje4fuwkyjnwuy82qsx3lduv',
-    exchangeRate: (data) => data.exchange_rate,
-  },
-  unboundingPeriod: 14 + 3,
+  redemptionKey: 'bOSMO',
   offerNativeTokenDenom: 'uosmo',
   poolContract: 'osmo166yrd7anjg3h7epjsjghlf2uu403phjflk4gygmlelykwlustwysxvgv4c',
 };

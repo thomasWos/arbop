@@ -1,9 +1,8 @@
 import { strideRedemptionMap } from './chains/stride.js';
 import { neutronRedemptionMap, neutronLsds } from './chains/neutron.js';
-
 import { terraRedemptionMap, terraLsds } from './chains/terra.js';
 import { kujiraRedemptionMap, kujiLsds } from './chains/kujira.js';
-import { osmoLsds } from './chains/osmosis.js';
+import { osmosisRedemptionMap, osmoLsds } from './chains/osmosis.js';
 import { migalooRedemptionMap, whaleLsds } from './chains/migaloo.js';
 import { chihuahuaRedemptionMap, chihuahuaLsds } from './chains/chihuahua.js';
 import { stafiRedemptionMap } from './chains/stafihub.js';
@@ -21,6 +20,7 @@ async function computeArbs() {
   const redemptionsList = [
     terraRedemptionMap(),
     kujiraRedemptionMap(),
+    osmosisRedemptionMap(),
     chihuahuaRedemptionMap(),
     strideRedemptionMap(),
     neutronRedemptionMap(),
@@ -79,9 +79,6 @@ async function computeArb(lsd, index, redemptionMap) {
     } else {
       exchangeRate = redemptionMap.get(lsd.redemptionKey);
     }
-  } else if (lsd.stakingContract) {
-    const data = await queryContract(lsd.stakingContract.contract, { state: {} });
-    exchangeRate = lsd.stakingContract.exchangeRate(data);
   }
 
   const tokenInAmount = 1000000;
