@@ -1,6 +1,7 @@
 .arb-list {
   display: flex;
   flex-direction: column;
+  border-top: 1px solid #ccc;
 }
 
 .arb-header, .arb-item {
@@ -10,7 +11,6 @@
 
 .arb-header {
   font-weight: bold;
-  border-bottom: 1px solid #ccc;
 }
 
 .arb-name, .arb-percentage, .arb-dex, .arb-apy {
