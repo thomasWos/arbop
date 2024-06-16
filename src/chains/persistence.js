@@ -23,25 +23,25 @@ function buildName(host_denom) {
 
 const stkAtom = {
   name: 'ATOM → stkATOM',
-  dex: 'Persistence',
+  dex: 'Persistence DEX',
   redemptionKey: 'stkATOM',
   poolContract: 'persistence1335rlmhujm0gj5e9gh7at9jpqvqckz0mpe4v284ar4lw5mlkryzszkpfrs',
   offerNativeTokenDenom: 'ibc/C8A74ABBE2AF892E15680D916A7C22130585CE5704F9B17A10F184A90D53BECA',
   askAssetNativeTokenDenom: 'stk/uatom',
-  simuSwap: async (tokenInAmount) => simuSwapDexter(tokenInAmount, stkAtom),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkAtom),
 };
 
 const stkHuahua = {
   name: 'HUAHUA → stkHUAHUA',
-  dex: 'Persistence',
+  dex: 'Persistence DEX',
   redemptionKey: 'stkHUAHUA',
   poolContract: 'persistence1ny5q57qzkt9cn64mf7grc58tjqx37czxe85nx8aujw8md3hlyruqrspvtc',
   offerNativeTokenDenom: 'ibc/B597D779FCDD9021263C98A48F1AFA9D2BCCCE980F397CDE5681CCEDE7DEE1A4',
   askAssetNativeTokenDenom: 'stk/uhuahua',
-  simuSwap: async (tokenInAmount) => simuSwapDexter(tokenInAmount, stkHuahua),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkHuahua),
 };
 
-async function simuSwapDexter(tokenInAmount, pairDef) {
+async function simuSwap(tokenInAmount, pairDef) {
   const { trade_params } = await queryContract(pairDef.poolContract, {
     on_swap: {
       swap_type: { give_in: {} },
