@@ -5,7 +5,7 @@ import { terraRedemptionMap, terraLsds } from './chains/terra.js';
 import { kujiLsds } from './chains/kujira.js';
 import { osmoLsds } from './chains/osmosis.js';
 import { migalooRedemptionMap, whaleLsds } from './chains/migaloo.js';
-import { chihuahuaLsds } from './chains/chihuahua.js';
+import { chihuahuaRedemptionMap, chihuahuaLsds } from './chains/chihuahua.js';
 import { stafiRedemptionMap } from './chains/stafihub.js';
 import { multiversxRedemptionMap, multiversxArbs } from './chains/multiversx.js';
 import { queryContract, arbitrage, calculateApy } from './utils.js';
@@ -20,6 +20,7 @@ function setAll(from, to) {
 async function computeArbs() {
   const redemptionsList = [
     terraRedemptionMap(),
+    chihuahuaRedemptionMap(),
     strideRedemptionMap(),
     neutronRedemptionMap(),
     migalooRedemptionMap(),
