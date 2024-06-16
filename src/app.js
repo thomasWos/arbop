@@ -2,7 +2,7 @@ import { strideRedemptionMap } from './chains/stride.js';
 import { neutronRedemptionMap, neutronLsds } from './chains/neutron.js';
 
 import { terraRedemptionMap, terraLsds } from './chains/terra.js';
-import { kujiLsds } from './chains/kujira.js';
+import { kujiraRedemptionMap, kujiLsds } from './chains/kujira.js';
 import { osmoLsds } from './chains/osmosis.js';
 import { migalooRedemptionMap, whaleLsds } from './chains/migaloo.js';
 import { chihuahuaRedemptionMap, chihuahuaLsds } from './chains/chihuahua.js';
@@ -20,6 +20,7 @@ function setAll(from, to) {
 async function computeArbs() {
   const redemptionsList = [
     terraRedemptionMap(),
+    kujiraRedemptionMap(),
     chihuahuaRedemptionMap(),
     strideRedemptionMap(),
     neutronRedemptionMap(),

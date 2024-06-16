@@ -1,4 +1,4 @@
-import { exchangeRateFromState, queryState } from '../utils.js';
+import { exchangeRateFromState } from '../utils.js';
 
 const ampHuahuaContract = 'chihuahua1nktfhalzvtx82kyn4dh6l8htcl0prfpnu380a39zj52nzu3j467qqg23ry';
 const bHuahuaContract = 'chihuahua1psf89r2g9vdlttrjphspcpzzfx87r2r4nl5fg703ky42mp2706wsw5330f';
