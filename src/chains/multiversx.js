@@ -1,8 +1,7 @@
 import { promises } from 'fs';
 import { AbiRegistry, BinaryCodec } from '@multiversx/sdk-core';
-import { arbitrage, calculateApy } from '../utils.js';
+import { arbitrage, calculateApy, oneQuintillion } from '../utils.js';
 
-const oneQuintillion = Math.pow(10, 18);
 const gatewayUrl = 'https://gateway.multiversx.com';
 const codec = new BinaryCodec();
 const sEgldExchangeRate = { scAddress: 'erd1qqqqqqqqqqqqqpgq4gzfcw7kmkjy8zsf04ce6dl0auhtzjx078sslvrf4e', funcName: 'getExchangeRate' };

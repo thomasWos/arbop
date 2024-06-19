@@ -81,20 +81,10 @@ async function computeArb(lsd, index, redemptionMap) {
     }
   }
 
-  const tokenInAmount = 1000000;
+  const tokenInAmount = lsd.tokenInAmount || 1000000;
+
   let tokenOutAmount;
-
-  if (lsd.osmosis) {
-    const quote =
-      'https://sqsprod.osmosis.zone/router/quote' +
-      `?tokenIn=${tokenInAmount}` +
-      `${encodeURIComponent(lsd.osmosis.tokenIn)}` +
-      `&tokenOutDenom=${encodeURIComponent(lsd.osmosis.tokenOut)}`;
-
-    await fetch(quote)
-      .then((response) => response.json())
-      .then((data) => (tokenOutAmount = data.amount_out));
-  } else if (lsd.simuSwap) {
+  if (lsd.simuSwap) {
     tokenOutAmount = await lsd.simuSwap(tokenInAmount);
   } else {
     // DEX smart contract

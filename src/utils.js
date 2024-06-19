@@ -1,5 +1,7 @@
 import { lcd } from './lcdConfigs.js';
 
+export const oneQuintillion = Math.pow(10, 18);
+
 export async function exchangeRateFromState(contractAddr) {
   return queryState(contractAddr).then((s) => parseFloat(s.exchange_rate));
 }
