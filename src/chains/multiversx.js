@@ -76,7 +76,7 @@ async function computeArb(def, redemptionMap) {
   const redemptionRate = redemptionMap.get(def.redemptionKey);
   const tokenInAmount = oneQuintillion;
   const tokenOutAmount = await simulateAshSwap(tokenInAmount, def);
-  const arb = arbitrage(redemptionRate, tokenInAmount, tokenOutAmount);
+  const arb = arbitrage(tokenInAmount, 1, tokenOutAmount, redemptionRate);
   return { name: def.name, arb: arb, dex: def.dex, apy: calculateApy(arb, 10) };
 }
 

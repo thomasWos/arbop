@@ -19,9 +19,10 @@ export async function queryContract(contractAddr, queryMsg) {
     .then((data) => data.data);
 }
 
-export function arbitrage(exchangeRate, tokenInAmount, tokenOutAmount) {
-  const returnAmount = exchangeRate * tokenOutAmount;
-  const rate = returnAmount / tokenInAmount;
+export function arbitrage(tokenInAmount, exchangeRateIn, tokenOutAmount, exchangeRateOut) {
+  const offerAmount = tokenInAmount * exchangeRateIn;
+  const returnAmount = tokenOutAmount * exchangeRateOut;
+  const rate = returnAmount / offerAmount;
   return (rate - 1) * 100;
 }
 

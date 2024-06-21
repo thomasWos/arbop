@@ -64,23 +64,6 @@ async function computeArbs() {
 }
 
 async function computeArb(lsd, index, redemptionMap) {
-  let exchangeRate;
-  let unboundingPeriod;
-
-  if (lsd.unboundingPeriod) {
-    unboundingPeriod = lsd.unboundingPeriod;
-  }
-
-  if (lsd.redemptionKey) {
-    const redemption = redemptionMap.get(lsd.redemptionKey);
-    if (redemption instanceof Object) {
-      exchangeRate = redemption.redemptionRate;
-      unboundingPeriod = redemption.unboundingPeriod;
-    } else {
-      exchangeRate = redemptionMap.get(lsd.redemptionKey);
-    }
-  }
-
   const tokenInAmount = lsd.tokenInAmount || 1000000;
 
   let tokenOutAmount;
@@ -116,7 +99,18 @@ async function computeArb(lsd, index, redemptionMap) {
     tokenOutAmount = return_amount;
   }
 
-  const arb = arbitrage(exchangeRate, tokenInAmount, tokenOutAmount);
+  let exchangeRate = redemptionMap.get(lsd.redemptionKey);
+  let unboundingPeriod = lsd.unboundingPeriod;
+
+  const redemption = redemptionMap.get(lsd.redemptionKey);
+  if (redemption instanceof Object) {
+    exchangeRate = redemption.redemptionRate;
+    unboundingPeriod = redemption.unboundingPeriod;
+  }
+
+  const exchangeRateIn = redemptionMap.get(lsd.offerRedemptionKey) || 1;
+
+  const arb = arbitrage(tokenInAmount, exchangeRateIn, tokenOutAmount, exchangeRate);
 
   let apy;
   if (unboundingPeriod) {
