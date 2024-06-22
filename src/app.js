@@ -108,7 +108,10 @@ async function computeArb(lsd, index, redemptionMap) {
     unboundingPeriod = redemption.unboundingPeriod;
   }
 
-  const exchangeRateIn = redemptionMap.get(lsd.offerRedemptionKey) || 1;
+  let exchangeRateIn = redemptionMap.get(lsd.offerRedemptionKey) || 1;
+  if (exchangeRateIn instanceof Object) {
+    exchangeRateIn = exchangeRateIn.redemptionRate;
+  }
 
   const arb = arbitrage(tokenInAmount, exchangeRateIn, tokenOutAmount, exchangeRate);
 
