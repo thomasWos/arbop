@@ -45,6 +45,15 @@ const ampOsmoOsmosis = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, ampOsmoOsmosis),
 };
 
+const bOsmoOsmosis = {
+  name: 'OSMO → bOSMO',
+  dex: 'Osmosis',
+  redemptionKey: 'bOSMO',
+  tokenIn: 'uosmo',
+  tokenOut: 'factory/osmo1s3l0lcqc7tu0vpj6wdjz9wqpxv8nk6eraevje4fuwkyjnwuy82qsx3lduv/boneOsmo',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, bOsmoOsmosis),
+};
+
 const stkOsmos = {
   name: 'OSMO → stkOSMO',
   dex: 'Osmosis',
@@ -52,6 +61,15 @@ const stkOsmos = {
   tokenIn: 'uosmo',
   tokenOut: 'ibc/ECBE78BF7677320A93E7BA1761D144BCBF0CBC247C290C049655E106FE5DC68E',
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkOsmos),
+};
+
+const qOsmos = {
+  name: 'OSMO → qOSMO',
+  dex: 'Osmosis',
+  redemptionKey: 'qOSMO',
+  tokenIn: 'uosmo',
+  tokenOut: 'ibc/42D24879D4569CE6477B7E88206ADBFE47C222C6CAD51A54083E4A72594269FC',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qOsmos),
 };
 
 const stAtom = {
@@ -180,10 +198,12 @@ export const osmoLsds = [
   rAtom,
   stOsmo,
   stkOsmos,
+  qOsmos,
   stJuno,
   stStars,
   ampOsmoWW,
   ampOsmoOsmosis,
+  bOsmoOsmosis,
   bOsmoWW,
   stkAtom,
   stEvmos,
