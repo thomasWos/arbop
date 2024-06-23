@@ -119,6 +119,15 @@ const stEvmos = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stEvmos),
 };
 
+const qAtom = {
+  name: 'ATOM → qATOM',
+  dex: 'Osmosis',
+  redemptionKey: 'qATOM',
+  tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+  tokenOut: 'ibc/FA602364BEC305A696CBDF987058E99D8B479F0318E47314C49173E8838C5BAC',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom),
+};
+
 async function simuSwap(tokenInAmount, pairDef) {
   const quote =
     'https://sqsprod.osmosis.zone/router/quote' +
@@ -130,4 +139,4 @@ async function simuSwap(tokenInAmount, pairDef) {
     .then((data) => data.amount_out);
 }
 
-export const osmoLsds = [stAtom, rAtom, stOsmo, stkOsmos, stJuno, stStars, ampOsmoWW, ampOsmoOsmosis, bOsmoWW, stkAtom, stEvmos];
+export const osmoLsds = [stAtom, rAtom, stOsmo, stkOsmos, stJuno, stStars, ampOsmoWW, ampOsmoOsmosis, bOsmoWW, stkAtom, stEvmos, qAtom];
