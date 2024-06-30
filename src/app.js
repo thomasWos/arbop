@@ -12,6 +12,7 @@ import { stafiLsds } from './chains/stafihub.js';
 import { junoRedemptionMap, junoLsds } from './chains/juno.js';
 import { persistenceRedemptionMap, persistencePairs } from './chains/persistence.js';
 import { quicksilverRedemptionMap } from './chains/quicksilver.js';
+import { secretPairs } from './chains/secret.js';
 
 function setAll(from, to) {
   from.forEach((value, key) => to.set(key, value));
@@ -49,6 +50,7 @@ async function computeArbs() {
     ...neutronLsds,
     ...junoLsds,
     ...persistencePairs,
+    ...secretPairs,
   ];
 
   // Mainly cosmos chains

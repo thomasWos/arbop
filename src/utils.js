@@ -16,7 +16,8 @@ export async function queryContract(contractAddr, queryMsg) {
   const url = `${lcdUrl}/cosmwasm/wasm/v1/contract/${contractAddr}/smart/${queryB64Encoded}`;
   return fetch(url)
     .then((response) => response.json())
-    .then((data) => data.data);
+    .then((data) => data.data)
+    .catch((e) => console.log(e));
 }
 
 export function arbitrage(tokenInAmount, exchangeRateIn, tokenOutAmount, exchangeRateOut) {
