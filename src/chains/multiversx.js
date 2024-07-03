@@ -1,6 +1,6 @@
 import { promises } from 'fs';
 import { AbiRegistry, BinaryCodec } from '@multiversx/sdk-core';
-import { arbitrage, calculateApy, oneQuintillion } from '../utils.js';
+import { arbitrage, calculateApy, oneQuintillion, fromBase64 } from '../utils.js';
 
 const gatewayUrl = 'https://gateway.multiversx.com';
 const codec = new BinaryCodec();
@@ -98,7 +98,7 @@ async function simulateAshSwap(tokenInAmount, def) {
   };
   return fetchQuery(payload).then((r) => {
     const exchangeCustomType = ashswapPoolAbi.getCustomType('ExchangeResultType');
-    const decoded = codec.decodeTopLevel(Buffer.from(r, 'base64'), exchangeCustomType);
+    const decoded = codec.decodeTopLevel(fromBase64(r), exchangeCustomType);
     return decoded.valueOf().token_out.final_amount.toString();
   });
 }
