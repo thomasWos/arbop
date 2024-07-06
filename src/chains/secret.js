@@ -14,6 +14,13 @@ const fakeKey = new Uint8Array([
 ]);
 const txEncryptionKey = new Uint8Array(fakeKey);
 
+function handleResponse(data) {
+  return new Promise((resolve, reject) => {
+    data.data && resolve(fromBase64(data.data));
+    reject(fromBase64(data.message.split(':')[1].trim()));
+  });
+}
+
 export async function querySecretContract(contractAddr, contractCodeHash, queryMsg) {
   const cryptoProvider = new miscreant.PolyfillCryptoProvider();
   const siv = await miscreant.SIV.importKey(txEncryptionKey, 'AES-SIV', cryptoProvider);
@@ -22,9 +29,13 @@ export async function querySecretContract(contractAddr, contractCodeHash, queryM
   const url = `${lcdUrl}/compute/v1beta1/query/${contractAddr}?query=${encodedQuery}`;
   return fetch(url)
     .then((response) => response.json())
-    .then((data) => decrypt(siv, fromBase64(data.data)))
-    .then((decrypted) => JSON.parse(fromUtf8(fromBase64(fromUtf8(decrypted)))))
-    .catch((e) => console.log(e));
+    .then((data) => handleResponse(data))
+    .then((data) => decrypt(siv, data))
+    .then((decrypted) => {
+      //  console.log(fromUtf8(decrypted));
+      return JSON.parse(fromUtf8(fromBase64(fromUtf8(decrypted))));
+    })
+    .catch((e) => decrypt(siv, e).then((decrypted) => console.log(fromUtf8(decrypted))));
 }
 
 async function encrypt(siv, contractCodeHash, msg) {
@@ -75,7 +86,7 @@ const qAtom = {
   poolCodeHash: 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2',
   offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom).catch((e) => 0),
 };
 
 const stkdSCRT = {
@@ -86,10 +97,21 @@ const stkdSCRT = {
   poolCodeHash: 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2',
   offerContractAddr: 'secret1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek',
   tokenCodeHash: 'af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkdSCRT),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkdSCRT).catch((e) => 0),
 };
 
-export const secretPairs = [stkdSCRT, qAtom];
+const stATOM = {
+  name: 'ATOM → stATOM',
+  dex: 'Shade',
+  redemptionKey: 'strideCosmos',
+  poolContract: 'secret1a65a9xgqrlsgdszqjtxhz069pgsh8h4a83hwt0',
+  poolCodeHash: 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2',
+  offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
+  tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stATOM).catch((e) => 0),
+};
+
+export const secretPairs = [stkdSCRT, qAtom, stATOM];
 
 async function simuSwap(tokenInAmount, pairDef) {
   const msg = {
