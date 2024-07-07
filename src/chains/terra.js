@@ -5,6 +5,7 @@ const bLunaContract = 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52
 const ampLunaContract = 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2yzaqyd3enk';
 const moarStakingContract = 'terra1dndhtdr2v7ca8rrn67chlqw3cl3xhm3m2uxls62vghcg3fsh5tpss5xmcu';
 const ampRoarStackingContract = 'terra1vklefn7n6cchn0u962w3gaszr4vf52wjvd4y95t2sydwpmpdtszsqvk9wy';
+const cLunaContract = 'terra188mmw2vsp0yahen3vh2clup543qrttvdzkxl0h9myfuwjj56nausztpegt';
 
 export async function terraRedemptionMap() {
   const lunaXredemption = {
@@ -19,6 +20,11 @@ export async function terraRedemptionMap() {
 
   const ampLunaRedemption = {
     redemptionRate: await exchangeRateFromState(ampLunaContract),
+    unboundingPeriod: 21 + 3,
+  };
+
+  const cLunaRedemption = {
+    redemptionRate: await exchangeRateFromState(cLunaContract),
     unboundingPeriod: 21 + 3,
   };
 
@@ -40,6 +46,7 @@ export async function terraRedemptionMap() {
     ['LunaX', lunaXredemption],
     ['bLUNA', bLunaRedemption],
     ['ampLUNA', ampLunaRedemption],
+    ['cLUNA', cLunaRedemption],
     ['ampROAR', ampRoarRedemption],
     ['ROARtoMOAR', roarToMoarRedemption],
     ['MOARtoROAR', 1 / roarToMoar],
@@ -60,6 +67,14 @@ const blunaAstro = {
   redemptionKey: 'bLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1h32epkd72x7st0wk49z35qlpsxf26pw4ydacs8acq6uka7hgshmq7z7vl9',
+};
+
+const cLuna = {
+  name: 'LUNA → cLUNA',
+  dex: 'Astroport Terra',
+  redemptionKey: 'cLUNA',
+  offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra1pxm9qtnrchzy90d99clpa0rkx8fyztlc67wt5t999pc8yvsrx90snpfe4v',
 };
 
 const blunaWw = {
@@ -118,4 +133,4 @@ const ampRoar = {
   poolContract: 'terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze',
 };
 
-export const terraLsds = [lunaX, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw, stLuna, ampRoar, moar, moarToRoar];
+export const terraLsds = [lunaX, cLuna, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw, stLuna, ampRoar, moar, moarToRoar];
