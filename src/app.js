@@ -13,6 +13,7 @@ import { junoRedemptionMap, junoLsds } from './chains/juno.js';
 import { persistenceRedemptionMap, persistencePairs } from './chains/persistence.js';
 import { quicksilverRedemptionMap } from './chains/quicksilver.js';
 import { secretRedemptionMap, secretPairs } from './chains/secret.js';
+import { evmosPair } from './chains/evmos.js';
 
 function setAll(from, to) {
   from.forEach((value, key) => to.set(key, value));
@@ -52,6 +53,7 @@ async function computeArbs() {
     ...junoLsds,
     ...persistencePairs,
     ...secretPairs,
+    ...evmosPair,
   ];
 
   // Mainly cosmos chains
