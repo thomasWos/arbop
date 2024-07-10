@@ -7,6 +7,7 @@ const lcds = [
   ['migaloo', 'https://migaloo-api.polkachu.com'],
   ['chihuahua', 'https://chihua.api.m.stavr.tech'],
   ['persistence', 'https://persistence-rest.publicnode.com'],
+  ['archway', 'https://rest-archway.theamsolutions.info'],
 ];
 console.log(lcds);
 

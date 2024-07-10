@@ -25,4 +25,4 @@ async function simuSwap(tokenInAmount, pairDef) {
     .then((data) => data.quote);
 }
 
-export const evmosPair = [stEvmos];
+export const evmosPairs = [stEvmos];
