@@ -7,7 +7,9 @@ export const toBase64 = (str) => Buffer.from(str).toString('base64');
 export const fromBase64 = (str) => Buffer.from(str, 'base64');
 
 export async function exchangeRateFromState(contractAddr) {
-  return queryState(contractAddr).then((s) => parseFloat(s.exchange_rate));
+  return queryState(contractAddr)
+    .then((s) => parseFloat(s.exchange_rate))
+    .catch((e) => 1);
 }
 
 export async function queryState(contractAddr) {
