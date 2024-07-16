@@ -146,15 +146,6 @@ const qAtom = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom),
 };
 
-const qRegen = {
-  name: 'REGEN → qREGEN',
-  dex: 'Osmosis',
-  redemptionKey: 'qREGEN',
-  tokenIn: 'ibc/1DCC8A6CB5689018431323953344A9F6CC4D0BFB261E88C9F7777372C10CD076',
-  tokenOut: 'ibc/79A676508A2ECA1021EDDC7BB9CF70CEEC9514C478DA526A5A8B3E78506C2206',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qRegen),
-};
-
 const qStars = {
   name: 'STARS → qSTARS',
   dex: 'Osmosis',
@@ -208,7 +199,6 @@ export const osmoLsds = [
   stkAtom,
   stEvmos,
   qAtom,
-  qRegen,
   qStars,
   qSomm,
   stSomm,
