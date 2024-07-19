@@ -15,6 +15,7 @@ import { quicksilverRedemptionMap } from './chains/quicksilver.js';
 import { secretRedemptionMap, secretPairs } from './chains/secret.js';
 import { evmosPairs } from './chains/evmos.js';
 import { archwayPairs } from './chains/archway.js';
+import { ethereumRedemptionMap, ethPairs } from './chains/ethereum.js';
 
 function setAll(from, to) {
   from.forEach((value, key) => to.set(key, value));
@@ -35,6 +36,7 @@ async function computeArbs() {
     multiversxRedemptionMap(),
     quicksilverRedemptionMap(),
     secretRedemptionMap(),
+    ethereumRedemptionMap(),
   ];
   const redemptions = await Promise.all(redemptionsList);
 
@@ -56,6 +58,7 @@ async function computeArbs() {
     ...secretPairs,
     ...evmosPairs,
     ...archwayPairs,
+    ...ethPairs,
   ];
 
   // Mainly cosmos chains

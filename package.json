@@ -15,6 +15,7 @@
     "@multiversx/sdk-core": "^13.2.2",
     "curve25519-js": "^0.0.4",
     "express": "^4.19.2",
-    "miscreant": "^0.3.2"
+    "miscreant": "^0.3.2",
+    "web3": "^4.11.0"
   }
 }
