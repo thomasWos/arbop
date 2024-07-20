@@ -5,10 +5,10 @@ const ampJunoConstract = 'juno17cya4sw72h4886zsm2lk3udxaw5m8ssgpsl6nd6xl6a4ukepd
 
 export async function junoRedemptionMap() {
   const wyJunoRate = await queryContract(wyJunoContract, { exchange_rate: {} }).then((d) => parseFloat(d.exchange_rate));
-  return new Map([
+  return [
     ['wyJUNO', wyJunoRate],
     ['ampJUNO', await exchangeRateFromState(ampJunoConstract)],
-  ]);
+  ];
 }
 
 const wyJuno = {

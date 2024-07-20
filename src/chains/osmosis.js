@@ -14,10 +14,10 @@ export async function osmosisRedemptionMap() {
     unboundingPeriod: 14 + 3,
   };
 
-  return new Map([
+  return [
     ['ampOSMO', ampOsmoRedemption],
     ['bOSMO', bOsmoRedemption],
-  ]);
+  ];
 }
 
 const ampOsmoWW = {

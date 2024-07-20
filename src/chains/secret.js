@@ -75,7 +75,7 @@ export async function secretRedemptionMap() {
     }).then((d) => parseFloat(d.staking_info.price) / oneMillion),
     unboundingPeriod: 21 + 3,
   };
-  return new Map([['stkdSCRT', stkdScrtRedemption]]);
+  return [['stkdSCRT', stkdScrtRedemption]];
 }
 
 const qAtom = {

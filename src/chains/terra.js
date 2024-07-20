@@ -42,16 +42,14 @@ export async function terraRedemptionMap() {
     unboundingPeriod: 21 + 3 + 7 + 1,
   };
 
-  return new Map([
+  return [
     ['LunaX', lunaXredemption],
     ['bLUNA', bLunaRedemption],
     ['ampLUNA', ampLunaRedemption],
     ['cLUNA', cLunaRedemption],
     ['ampROAR', ampRoarRedemption],
     ['ROARtoMOAR', roarToMoarRedemption],
-    ['MOARtoROAR', 1 / roarToMoar],
-    ['ampROARInv', 1 / ampRoarRedemption.redemptionRate],
-  ]);
+  ];
 }
 
 const lunaX = {
@@ -121,7 +119,7 @@ const moar = {
 const moarToRoar = {
   name: 'MOAR → ROAR',
   dex: 'White Whale Terra',
-  redemptionKey: 'MOARtoROAR',
+  redemptionKey: 'ROARtoMOARinv',
   offerNativeTokenDenom: 'factory/terra1dndhtdr2v7ca8rrn67chlqw3cl3xhm3m2uxls62vghcg3fsh5tpss5xmcu/MOAR',
   poolContract: 'terra1j0ackj0wru4ndj74e3mhhq6rffe63y8xd0e56spqcjygv2r0cfsqxr36k6',
 };
@@ -137,7 +135,7 @@ const ampRoar = {
 const ampRoarInv = {
   name: 'ampROAR → ROAR',
   dex: 'White Whale Terra',
-  redemptionKey: 'ampROARInv',
+  redemptionKey: 'ampROARinv',
   offerNativeTokenDenom: 'factory/terra1vklefn7n6cchn0u962w3gaszr4vf52wjvd4y95t2sydwpmpdtszsqvk9wy/ampROAR',
   poolContract: 'terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze',
 };

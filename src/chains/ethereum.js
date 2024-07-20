@@ -2,7 +2,7 @@ import { Web3 } from 'web3';
 import { oneQuintillion } from '../utils.js';
 
 export async function ethereumRedemptionMap() {
-  return new Map([['stETH', 1]]);
+  return [['stETH', 1]];
 }
 
 const stEthAbi = [

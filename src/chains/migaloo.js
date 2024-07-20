@@ -18,17 +18,13 @@ export async function migalooRedemptionMap() {
   const ampWhaleTRate = await exchangeRateFromState(ampWhaleTContract);
   const arbWhaleRate = await exchangeRateFromState(arbWhaleContract);
 
-  return new Map([
+  return [
     ['ampWHALE', ampWhaleRedemption],
-    ['ampWHALEtoWHALE', 1 / ampWhaleRate],
     ['bWHALE', bWhaleRate],
-    ['bWHALEtoWHALE', 1 / bWhaleRate],
     ['ampWHALEt', ampWhaleTRate],
-    ['ampWHALEtToAmpWHALE', 1 / ampWhaleTRate],
     ['bWHALEt', bWhaleTRate],
-    ['bWHALEtTobWHALE', 1 / bWhaleTRate],
     ['arbWHALE', arbWhaleRate],
-  ]);
+  ];
 }
 
 const ampWhaleMigaloo = {
@@ -47,10 +43,10 @@ const ampWhaleTerra = {
   poolContract: 'terra1ntx595elf3ukxcd0wy76h24rzztcv2p6n3wmfd358ks95prv42fs9mn63n',
 };
 
-const ampWhaleToWhaleTerra = {
+const ampWhaleInvTerra = {
   name: 'ampWHALE → WHALE',
   dex: 'White Whale Terra',
-  redemptionKey: 'ampWHALEtoWHALE',
+  redemptionKey: 'ampWHALEinv',
   offerNativeTokenDenom: 'ibc/B3F639855EE7478750CC8F82072307ED6E131A8EFF20345E1D136B50C4E5EC36',
   poolContract: 'terra1ntx595elf3ukxcd0wy76h24rzztcv2p6n3wmfd358ks95prv42fs9mn63n',
 };
@@ -63,10 +59,10 @@ const ampWhaleT = {
   poolContract: 'migaloo1ugv3g8lckm70np3u50u5wetnv2dfda073gyazy2v50t5c3wza3xqj5drtk',
 };
 
-const ampWhaleTToAmpWhale = {
+const ampWhaleTInvWhale = {
   name: 'ampWHALEt → ampWHALE',
   dex: 'White Whale Migaloo',
-  redemptionKey: 'ampWHALEtToAmpWHALE',
+  redemptionKey: 'ampWHALEtinv',
   offerNativeTokenDenom: 'ibc/EA459CE57199098BA5FFDBD3194F498AA78439328A92C7D136F06A5220903DA6',
   poolContract: 'migaloo1ugv3g8lckm70np3u50u5wetnv2dfda073gyazy2v50t5c3wza3xqj5drtk',
 };
@@ -89,10 +85,10 @@ const bWhaleTerra = {
   poolContract: 'terra1j9jmsplecj9ay2py27953p84nfmv7f6ce75ms5fleyhd0aecpc7q0hgmsa',
 };
 
-const bWhaleToWhaleTerra = {
+const bWhaleInvTerra = {
   name: 'bWHALE → WHALE',
   dex: 'White Whale Terra',
-  redemptionKey: 'bWHALEtoWHALE',
+  redemptionKey: 'bWHALEinv',
   offerNativeTokenDenom: 'ibc/517E13F14A1245D4DE8CF467ADD4DA0058974CDCC880FA6AE536DBCA1D16D84E',
   poolContract: 'terra1j9jmsplecj9ay2py27953p84nfmv7f6ce75ms5fleyhd0aecpc7q0hgmsa',
 };
@@ -105,10 +101,10 @@ const bWhaleT = {
   poolContract: 'migaloo1azqqmeg7zcj9vdtqpc65dmr2fkmkf3x6dcyhnau6d6er0w2r3arq470dzj',
 };
 
-const bWhaleTToWhale = {
+const bWhaleTInv = {
   name: 'bWHALEt → bWHALE',
   dex: 'White Whale Migaloo',
-  redemptionKey: 'bWHALEtTobWHALE',
+  redemptionKey: 'bWHALEtinv',
   offerNativeTokenDenom: 'ibc/E54A0C1E4A2A79FD4F92765F68E38939867C3DA36E2EA6BBB2CE81C43F4C8ADC',
   poolContract: 'migaloo1azqqmeg7zcj9vdtqpc65dmr2fkmkf3x6dcyhnau6d6er0w2r3arq470dzj',
 };
@@ -126,13 +122,13 @@ const ampWhaleToArbWhale = {
 export const whaleLsds = [
   ampWhaleMigaloo,
   ampWhaleTerra,
-  ampWhaleToWhaleTerra,
+  ampWhaleInvTerra,
   ampWhaleT,
-  ampWhaleTToAmpWhale,
+  ampWhaleTInvWhale,
   bWhale,
   bWhaleTerra,
-  bWhaleToWhaleTerra,
+  bWhaleInvTerra,
   bWhaleT,
-  bWhaleTToWhale,
+  bWhaleTInv,
   ampWhaleToArbWhale,
 ];

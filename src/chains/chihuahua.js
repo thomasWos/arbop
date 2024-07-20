@@ -14,10 +14,10 @@ export async function chihuahuaRedemptionMap() {
     unboundingPeriod: 21 + 3,
   };
 
-  return new Map([
+  return [
     ['ampHUAHUA', ampHuahuaRedemption],
     ['bHUAHUA', bHuahuaRedemption],
-  ]);
+  ];
 }
 
 const ampHuahua = {

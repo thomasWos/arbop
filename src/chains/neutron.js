@@ -9,10 +9,7 @@ async function queryxAstroRate() {
 
 export async function neutronRedemptionMap() {
   const xAstroRate = await queryxAstroRate();
-  return new Map([
-    ['xASTRO', xAstroRate],
-    ['ASTRO', 1 / xAstroRate],
-  ]);
+  return [['xASTRO', xAstroRate]];
 }
 
 const xAstroNeutron = {
@@ -26,7 +23,7 @@ const xAstroNeutron = {
 const astroNeutron = {
   name: 'xASTRO → ASTRO',
   dex: 'Astroport Neutron',
-  redemptionKey: 'ASTRO',
+  redemptionKey: 'xASTROinv',
   offerNativeTokenDenom: 'factory/neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn/xASTRO',
   poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
 };

@@ -16,12 +16,11 @@ export async function multiversxRedemptionMap() {
   const sEgldRate = await fetchInt(sEgldExchangeRate).then((r) => r / oneQuintillion);
   const lEgldRate = await fetchInt(lEgldExchangeRate).then((r) => r / oneQuintillion);
 
-  return new Map([
+  return [
     ['sEGLD', sEgldRate],
     ['JWLEGLD', 1],
-    ['sEGLDtoJWLEGLD', 1 / sEgldRate],
     ['LEGLD', lEgldRate],
-  ]);
+  ];
 }
 
 async function fetchInt(payload) {
@@ -74,7 +73,7 @@ const jwlEgldTosEgld = {
 
 const sEgldtoJwlEgld = {
   name: 'sEGLD → JWLEGLD',
-  redemptionKey: 'sEGLDtoJWLEGLD',
+  redemptionKey: 'sEGLDinv',
   dex: 'AshSwap',
   poolAddr: 'erd1qqqqqqqqqqqqqpgqlsgfr6xteusallzcspt3ehp8cewlp3s04fvsjm87cw',
   from: 'SEGLD-3ad2d0',

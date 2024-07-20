@@ -14,10 +14,10 @@ export async function kujiraRedemptionMap() {
     unboundingPeriod: 14,
   };
 
-  return new Map([
+  return [
     ['ampKUJI', ampKujiRedemption],
     ['qcKUJI', qcKujiRedemption],
-  ]);
+  ];
 }
 
 const ampKujiFin = {
@@ -41,6 +41,14 @@ const stAtomKujira = {
   dex: 'FIN',
   redemptionKey: 'strideCosmos',
   offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+  poolContract: 'kujira158zzjcvkz7r3j5hueurcw22qrjerqw4dtrzlalztr7whjykjwvrsrahdnq',
+};
+
+const stAtomInvKujira = {
+  name: 'stATOM → ATOM',
+  dex: 'FIN',
+  redemptionKey: 'strideCosmosinv',
+  offerNativeTokenDenom: 'ibc/0306D6B66EAA2EDBB7EAD23C0EC9DDFC69BB43E80B398035E90FBCFEF3FD1A87',
   poolContract: 'kujira158zzjcvkz7r3j5hueurcw22qrjerqw4dtrzlalztr7whjykjwvrsrahdnq',
 };
 
@@ -77,4 +85,4 @@ const ampWhale = {
   poolContract: 'kujira10vkk8ulf3rvfuzlfpqflklr2zkq6586pl9amcsafp2s6t4j7qn7seemml3',
 };
 
-export const kujiLsds = [ampKujiFin, qcKUJIFin, stAtomKujira, stOsmoKujira, rAtomKujira, ampLuna, ampWhale];
+export const kujiLsds = [ampKujiFin, qcKUJIFin, stAtomKujira, stAtomInvKujira, stOsmoKujira, rAtomKujira, ampLuna, ampWhale];

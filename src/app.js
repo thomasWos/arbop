@@ -17,12 +17,8 @@ import { evmosPairs } from './chains/evmos.js';
 import { archwayPairs } from './chains/archway.js';
 import { ethereumRedemptionMap, ethPairs } from './chains/ethereum.js';
 
-function setAll(from, to) {
-  from.forEach((value, key) => to.set(key, value));
-}
-
 async function computeArbs() {
-  const redemptionsList = [
+  const redemptionPromosises = [
     terraRedemptionMap(),
     kujiraRedemptionMap(),
     osmosisRedemptionMap(),
@@ -38,11 +34,18 @@ async function computeArbs() {
     secretRedemptionMap(),
     ethereumRedemptionMap(),
   ];
-  const redemptions = await Promise.all(redemptionsList);
 
-  const redemptionMap = new Map();
-  redemptions.forEach((m) => setAll(m, redemptionMap));
+  const redemptionsResult = await Promise.all(redemptionPromosises);
+  const redemptionsList = [].concat(...redemptionsResult);
 
+  /* Compute inverse rates */
+  const redemptionsInv = redemptionsList.map((r) => {
+    const redemp = r[1] instanceof Object ? r[1].redemptionRate : r[1];
+    return [r[0] + 'inv', 1 / redemp];
+  });
+
+  const allRedemptionsList = [...redemptionsList, ...redemptionsInv].sort((a, b) => a[0].localeCompare(b[0]));
+  const redemptionMap = new Map(allRedemptionsList);
   console.log(redemptionMap);
 
   const lsds = [
