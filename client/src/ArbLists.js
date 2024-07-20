@@ -37,8 +37,25 @@ const ArbLists = () => {
   const atomArbs = arbs.filter((a) => a.name.includes('ATOM'));
   const starsArbs = arbs.filter((a) => a.name.includes('STAR'));
   const evmosArbs = arbs.filter((a) => a.name.includes('EVMOS'));
+  const ethArbs = arbs.filter((a) => a.name.includes('ETH'));
+  const kujiArbs = arbs.filter((a) => a.name.includes('KUJI'));
+  const astroArbs = arbs.filter((a) => a.name.includes('ASTRO'));
 
-  const combinedList = [roarArbs, huahuaArbs, junoArbs, whaleArbs, egldArbs, lunaArbs, osmoArbs, atomArbs, starsArbs, evmosArbs];
+  const combinedList = [
+    roarArbs,
+    huahuaArbs,
+    junoArbs,
+    whaleArbs,
+    egldArbs,
+    lunaArbs,
+    osmoArbs,
+    atomArbs,
+    starsArbs,
+    evmosArbs,
+    ethArbs,
+    kujiArbs,
+    astroArbs,
+  ];
 
   const exclusionSet = new Set(combinedList.flat(1).map((a) => a.id));
   const remainingArbs = arbs.filter((a) => !exclusionSet.has(a.id));

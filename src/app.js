@@ -44,7 +44,7 @@ async function computeArbs() {
     return [r[0] + 'inv', 1 / redemp];
   });
 
-  const allRedemptionsList = [...redemptionsList, ...redemptionsInv].sort((a, b) => a[0].localeCompare(b[0]));
+  const allRedemptionsList = [['identity', 1], ...redemptionsList, ...redemptionsInv].sort((a, b) => a[0].localeCompare(b[0]));
   const redemptionMap = new Map(allRedemptionsList);
   console.log(redemptionMap);
 

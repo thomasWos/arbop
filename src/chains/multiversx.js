@@ -18,7 +18,6 @@ export async function multiversxRedemptionMap() {
 
   return [
     ['sEGLD', sEgldRate],
-    ['JWLEGLD', 1],
     ['LEGLD', lEgldRate],
   ];
 }
@@ -53,7 +52,7 @@ const sEgld = {
 
 const jwlEgld = {
   name: 'EGLD → JWLEGLD',
-  redemptionKey: 'JWLEGLD',
+  redemptionKey: 'identity',
   dex: 'AshSwap',
   poolAddr: 'erd1qqqqqqqqqqqqqpgqa60cy30kdzzd8mygg20zhe4ppfhrp0tv4fvs9vd4hp',
   from: 'WEGLD-bd4d79',

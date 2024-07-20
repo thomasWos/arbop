@@ -1,9 +1,16 @@
 import { Web3 } from 'web3';
 import { oneQuintillion } from '../utils.js';
 
-export async function ethereumRedemptionMap() {
-  return [['stETH', 1]];
-}
+const web3 = new Web3('https://ethereum-rpc.publicnode.com');
+const wstEthAbi = [
+  {
+    inputs: [],
+    name: 'stEthPerToken',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+];
 
 const stEthAbi = [
   {
@@ -16,11 +23,22 @@ const stEthAbi = [
     ],
     stateMutability: 'view',
     type: 'function',
-    gas: 2654541,
   },
 ];
 
-const web3 = new Web3('https://ethereum-rpc.publicnode.com');
+const wstEthContract = new web3.eth.Contract(wstEthAbi, '0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0');
+
+export async function ethereumRedemptionMap() {
+  const wstEthRate = await wstEthContract.methods
+    .stEthPerToken()
+    .call()
+    .then((r) => parseInt(r) / oneQuintillion);
+
+  return [
+    ['stETH', 1],
+    ['wstEth', wstEthRate],
+  ];
+}
 
 const stEth = {
   name: 'ETH → stETH',
