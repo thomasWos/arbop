@@ -112,7 +112,7 @@ const stATOM = {
 };
 
 const wstETHaxl = {
-  name: 'WETH → wstETH.axl',
+  name: 'axlWETH → wstETH.axl',
   dex: 'Shade',
   redemptionKey: 'wstEth',
   poolContract: 'secret1dpqfh2qkxj2s4qz5u9dduux0vcjezp5h7d48lh',
