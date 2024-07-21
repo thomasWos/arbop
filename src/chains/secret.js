@@ -1,7 +1,7 @@
 // https://secret-4.api.trivium.network:1317/swagger/
 // https://docs.scrt.network/secret-network-documentation/development/resources-api-contract-addresses/secret-token-contracts
 
-import { oneMillion, toBase64, fromBase64 } from '../utils.js';
+import { oneMillion, toBase64, fromBase64, oneQuintillion } from '../utils.js';
 import * as miscreant from 'miscreant';
 import { generateKeyPair } from 'curve25519-js';
 
@@ -111,7 +111,19 @@ const stATOM = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stATOM).catch((e) => 0),
 };
 
-export const secretPairs = [stkdSCRT, qAtom, stATOM];
+const wstETHaxl = {
+  name: 'WETH → wstETH.axl',
+  dex: 'Shade',
+  redemptionKey: 'wstEth',
+  poolContract: 'secret1dpqfh2qkxj2s4qz5u9dduux0vcjezp5h7d48lh',
+  poolCodeHash: 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2',
+  offerContractAddr: 'secret139qfh3nmuzfgwsx2npnmnjl4hrvj3xq5rmq8a0',
+  tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, wstETHaxl).catch((e) => 0),
+};
+
+export const secretPairs = [stkdSCRT, qAtom, stATOM, wstETHaxl];
 
 async function simuSwap(tokenInAmount, pairDef) {
   const msg = {
