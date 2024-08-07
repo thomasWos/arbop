@@ -103,15 +103,15 @@ async function computeArb(lsd, index, redemptionMap) {
       };
     }
 
-    const { return_amount } = await queryContract(lsd.poolContract, {
+    const simulationResult = await queryContract(lsd.poolContract, {
       simulation: {
         offer_asset: {
           info: infoOfferAsset,
           amount: `${tokenInAmount}`,
         },
       },
-    });
-    tokenOutAmount = return_amount;
+    }).catch((e) => console.log(e));
+    tokenOutAmount = simulationResult?.return_amount || tokenInAmount;
   }
 
   let exchangeRate = redemptionMap.get(lsd.redemptionKey);
