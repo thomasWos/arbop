@@ -8,7 +8,7 @@ const ArbList = ({ arbs }) => {
           <div className="arb-name">{arb.name}</div>
           <div className="arb-percentage">{arb.arb && `${arb.arb.toFixed(3)}%`}</div>
           <div className="arb-dex">{arb.dex}</div>
-          <div className="arb-apy">{arb.apy && `≈ ${arb.apy.toFixed(1)}% APY`}</div>
+          <div className="arb-apy">{arb.apy && `≈ ${arb.apy.toFixed(1)}%`}</div>
         </div>
       ))}
     </div>
