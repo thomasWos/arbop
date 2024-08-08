@@ -155,24 +155,6 @@ const qStars = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qStars),
 };
 
-const qSomm = {
-  name: 'SOMM → qSOMM',
-  dex: 'Osmosis',
-  redemptionKey: 'qSOMM',
-  tokenIn: 'ibc/9BBA9A1C257E971E38C1422780CE6F0B0686F0A3085E2D61118D904BFE0F5F5E',
-  tokenOut: 'ibc/EAF76AD1EEF7B16D167D87711FB26ABE881AC7D9F7E6D0CF313D5FA530417208',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qSomm),
-};
-
-const stSomm = {
-  name: 'SOMM → stSOMM',
-  dex: 'Osmosis',
-  redemptionKey: 'strideSomm',
-  tokenIn: 'ibc/9BBA9A1C257E971E38C1422780CE6F0B0686F0A3085E2D61118D904BFE0F5F5E',
-  tokenOut: 'ibc/5A0060579D24FBE5268BEA74C3281E7FE533D361C41A99307B4998FEC611E46B',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stSomm),
-};
-
 async function simuSwap(tokenInAmount, pairDef) {
   const quote =
     'https://sqsprod.osmosis.zone/router/quote' +
@@ -200,6 +182,4 @@ export const osmoLsds = [
   stEvmos,
   qAtom,
   qStars,
-  qSomm,
-  stSomm,
 ];
