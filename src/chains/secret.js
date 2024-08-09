@@ -5,7 +5,8 @@ import { oneMillion, toBase64, fromBase64, oneQuintillion } from '../utils.js';
 import * as miscreant from 'miscreant';
 import { generateKeyPair } from 'curve25519-js';
 
-const lcdUrl = 'https://secretnetwork-api.highstakes.ch';
+// https://docs.scrt.network/secret-network-documentation/development/resources-api-contract-addresses/connecting-to-the-network/mainnet-secret-4#api-endpoints
+const lcdUrl = 'https://rest-secret.01node.com';
 
 const empty32Array = new Uint8Array(Buffer.alloc(32, 0));
 const nonce = empty32Array;
@@ -21,7 +22,7 @@ function handleResponse(data) {
   });
 }
 
-export async function querySecretContract(contractAddr, contractCodeHash, queryMsg) {
+async function querySecretContract(contractAddr, contractCodeHash, queryMsg) {
   const cryptoProvider = new miscreant.PolyfillCryptoProvider();
   const siv = await miscreant.SIV.importKey(txEncryptionKey, 'AES-SIV', cryptoProvider);
   const encrypted = await encrypt(siv, contractCodeHash, queryMsg);
@@ -34,8 +35,8 @@ export async function querySecretContract(contractAddr, contractCodeHash, queryM
     .then((decrypted) => {
       //  console.log(fromUtf8(decrypted));
       return JSON.parse(fromUtf8(fromBase64(fromUtf8(decrypted))));
-    })
-    .catch((e) => decrypt(siv, e).then((decrypted) => console.log(fromUtf8(decrypted))));
+    });
+  // .catch((e) => decrypt(siv, e).then((decrypted) => console.log(fromUtf8(decrypted))));
 }
 
 async function encrypt(siv, contractCodeHash, msg) {
@@ -72,7 +73,9 @@ export async function secretRedemptionMap() {
       staking_info: {
         time: Math.round(new Date().getTime() / 1000),
       },
-    }).then((d) => parseFloat(d.staking_info.price) / oneMillion),
+    })
+      .then((d) => parseFloat(d.staking_info.price) / oneMillion)
+      .catch((e) => 1),
     unboundingPeriod: 21 + 3,
   };
   return [['stkdSCRT', stkdScrtRedemption]];
@@ -86,7 +89,7 @@ const qAtom = {
   poolCodeHash: 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2',
   offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom).catch((e) => 0),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom),
 };
 
 const stkdSCRT = {
@@ -97,7 +100,7 @@ const stkdSCRT = {
   poolCodeHash: 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2',
   offerContractAddr: 'secret1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek',
   tokenCodeHash: 'af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkdSCRT).catch((e) => 0),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkdSCRT),
 };
 
 const stATOM = {
@@ -108,7 +111,7 @@ const stATOM = {
   poolCodeHash: 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2',
   offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stATOM).catch((e) => 0),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stATOM),
 };
 
 const wstETHaxl = {
@@ -120,7 +123,7 @@ const wstETHaxl = {
   offerContractAddr: 'secret139qfh3nmuzfgwsx2npnmnjl4hrvj3xq5rmq8a0',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
   tokenInAmount: oneQuintillion,
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, wstETHaxl).catch((e) => 0),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, wstETHaxl),
 };
 
 export const secretPairs = [stkdSCRT, qAtom, stATOM, wstETHaxl];
@@ -139,5 +142,7 @@ async function simuSwap(tokenInAmount, pairDef) {
       },
     },
   };
-  return querySecretContract(pairDef.poolContract, pairDef.poolCodeHash, msg).then((d) => d.swap_simulation.result.return_amount);
+  return querySecretContract(pairDef.poolContract, pairDef.poolCodeHash, msg)
+    .then((d) => d.swap_simulation.result.return_amount)
+    .catch((e) => 0);
 }
