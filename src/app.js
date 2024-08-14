@@ -16,6 +16,7 @@ import { secretRedemptionMap, secretPairs } from './chains/secret.js';
 import { evmosPairs } from './chains/evmos.js';
 import { archwayPairs } from './chains/archway.js';
 import { ethereumRedemptionMap, ethPairs } from './chains/ethereum.js';
+import { injectivePairs } from './chains/injective.js';
 
 async function computeArbs() {
   const redemptionPromosises = [
@@ -62,6 +63,7 @@ async function computeArbs() {
     ...evmosPairs,
     ...archwayPairs,
     ...ethPairs,
+    ...injectivePairs,
   ];
 
   // Mainly cosmos chains
