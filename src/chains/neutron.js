@@ -1,15 +1,24 @@
 import { queryContract, oneQuintillion } from '../utils.js';
 
+const xAstroContract = 'neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn';
+const dAtomContract = 'neutron16m3hjh7l04kap086jgwthduma0r5l0wh8kc6kaqk92ge9n5aqvys9q6lxr';
+
 async function queryxAstroRate() {
-  const contract = 'neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn';
-  const totalDeposit = await queryContract(contract, { total_deposit: {} });
-  const totalShares = await queryContract(contract, { total_shares: {} });
+  const totalDeposit = await queryContract(xAstroContract, { total_deposit: {} });
+  const totalShares = await queryContract(xAstroContract, { total_shares: {} });
   return totalDeposit / totalShares;
 }
 
 export async function neutronRedemptionMap() {
   const xAstroRate = await queryxAstroRate();
-  return [['xASTRO', xAstroRate]];
+  const dAtomRate = {
+    redemptionRate: await queryContract(dAtomContract, { exchange_rate: {} }).then((d) => parseFloat(d)),
+    unboundingPeriod: 21 + 3,
+  };
+  return [
+    ['xASTRO', xAstroRate],
+    ['dATOM', dAtomRate],
+  ];
 }
 
 const xAstroNeutron = {
@@ -34,6 +43,14 @@ const stAtomNeutron = {
   redemptionKey: 'strideCosmos',
   offerNativeTokenDenom: 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9',
   poolContract: 'neutron1l7ny0rckx9rks2p2aq94wd74sehjczym6n9y4yax8lcy9s39uans4uga62',
+};
+
+const dAtom = {
+  name: 'ATOM → dATOM',
+  dex: 'Astroport Neutron',
+  redemptionKey: 'dATOM',
+  offerNativeTokenDenom: 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9',
+  poolContract: 'neutron1yem82r0wf837lfkwvcu2zxlyds5qrzwkz8alvmg0apyrjthk64gqeq2e98',
 };
 
 const stkAtomNeutron = {
@@ -71,4 +88,4 @@ const wstEthAxlTowstEth = {
   tokenInAmount: oneQuintillion,
 };
 
-export const neutronLsds = [xAstroNeutron, astroNeutron, stAtomNeutron, stkAtomNeutron, wstETH, wstEthToWstEthAxl, wstEthAxlTowstEth];
+export const neutronLsds = [xAstroNeutron, astroNeutron, stAtomNeutron, dAtom, stkAtomNeutron, wstETH, wstEthToWstEthAxl, wstEthAxlTowstEth];
