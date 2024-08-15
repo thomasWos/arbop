@@ -145,7 +145,7 @@ async function simuSwap(tokenInAmount, pairDef) {
 
   return fetch(quote)
     .then((response) => response.json())
-    .then((data) => data.amount_out);
+    .then((data) => data.amount_out || 0);
 }
 
 export const osmoLsds = [stAtom, rAtom, stOsmo, stkOsmos, qOsmos, stJuno, stStars, ampOsmoWW, bOsmoWW, stkAtom, stEvmos, qAtom, qStars];
