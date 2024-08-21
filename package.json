@@ -12,7 +12,7 @@
   "author": "T.Wostyn",
   "license": "ISC",
   "dependencies": {
-    "@multiversx/sdk-core": "^13.4.0",
+    "@multiversx/sdk-core": "^13.4.1",
     "curve25519-js": "^0.0.4",
     "express": "^4.19.2",
     "miscreant": "^0.3.2",
