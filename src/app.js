@@ -80,32 +80,32 @@ async function computeArbs() {
   return arbs.sort((a, b) => b.arb - a.arb);
 }
 
-async function computeArb(lsd, index, redemptionMap) {
-  const tokenInAmount = lsd.tokenInAmount || 1000000;
+async function computeArb(pair, index, redemptionMap) {
+  const tokenInAmount = pair.tokenInAmount || 1000000;
 
   let tokenOutAmount;
-  if (lsd.simuSwap) {
-    tokenOutAmount = await lsd.simuSwap(tokenInAmount);
+  if (pair.simuSwap) {
+    tokenOutAmount = await pair.simuSwap(tokenInAmount);
   } else {
     // DEX smart contract
     let infoOfferAsset;
-    if (lsd.offerTokenAddr) {
+    if (pair.offerTokenAddr) {
       // Token
       infoOfferAsset = {
         token: {
-          contract_addr: lsd.offerTokenAddr,
+          contract_addr: pair.offerTokenAddr,
         },
       };
     } else {
       // Native token
       infoOfferAsset = {
         native_token: {
-          denom: lsd.offerNativeTokenDenom,
+          denom: pair.offerNativeTokenDenom,
         },
       };
     }
 
-    const simulationResult = await queryContract(lsd.poolContract, {
+    const simulationResult = await queryContract(pair.poolContract, {
       simulation: {
         offer_asset: {
           info: infoOfferAsset,
@@ -116,16 +116,16 @@ async function computeArb(lsd, index, redemptionMap) {
     tokenOutAmount = simulationResult?.return_amount || tokenInAmount;
   }
 
-  let exchangeRate = redemptionMap.get(lsd.redemptionKey);
-  let unboundingPeriod = lsd.unboundingPeriod;
+  let exchangeRate = redemptionMap.get(pair.redemptionKey);
+  let unboundingPeriod = pair.unboundingPeriod;
 
-  const redemption = redemptionMap.get(lsd.redemptionKey);
+  const redemption = redemptionMap.get(pair.redemptionKey);
   if (redemption instanceof Object) {
     exchangeRate = redemption.redemptionRate;
     unboundingPeriod = redemption.unboundingPeriod;
   }
 
-  let exchangeRateIn = redemptionMap.get(lsd.offerRedemptionKey) || 1;
+  let exchangeRateIn = redemptionMap.get(pair.offerRedemptionKey) || 1;
   if (exchangeRateIn instanceof Object) {
     exchangeRateIn = exchangeRateIn.redemptionRate;
   }
@@ -136,7 +136,7 @@ async function computeArb(lsd, index, redemptionMap) {
   if (unboundingPeriod) {
     apy = calculateApy(arb, unboundingPeriod);
   }
-  return { id: index, name: lsd.name, arb: arb, dex: lsd.dex, ...(apy && { apy }) };
+  return { id: index, name: pair.name, arb: arb, dex: pair.dex, ...(apy && { apy }) };
 }
 
 export async function tryComputeArbs() {
