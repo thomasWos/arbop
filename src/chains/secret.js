@@ -6,7 +6,7 @@ import * as miscreant from 'miscreant';
 import { generateKeyPair } from 'curve25519-js';
 
 // https://docs.scrt.network/secret-network-documentation/development/resources-api-contract-addresses/connecting-to-the-network/mainnet-secret-4#api-endpoints
-const lcdUrl = 'https://rest-secret.01node.com';
+const lcdUrl = 'https://public.stakewolle.com/cosmos/secretnetwork/rest';
 
 const empty32Array = new Uint8Array(Buffer.alloc(32, 0));
 const nonce = empty32Array;
