@@ -47,7 +47,7 @@ async function computeArbs() {
 
   const allRedemptionsList = [['identity', 1], ...redemptionsList, ...redemptionsInv].sort((a, b) => a[0].localeCompare(b[0]));
   const redemptionMap = new Map(allRedemptionsList);
-  console.log(redemptionMap);
+  printMap(redemptionMap);
 
   const lsds = [
     ...terraLsds,
@@ -145,4 +145,14 @@ export async function tryComputeArbs() {
   } catch (error) {
     console.error(`Error computing arbs`, error);
   }
+}
+
+function printMap(map) {
+  map.forEach((value, key) => {
+    if (typeof value === 'object') {
+      console.log(`${key}: ${JSON.stringify(value)}`);
+    } else {
+      console.log(`${key}: ${value}`);
+    }
+  });
 }
