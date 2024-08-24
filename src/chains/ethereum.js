@@ -12,7 +12,7 @@ const wstEthAbi = [
   },
 ];
 
-const stEthAbi = [
+const getDyAbi = [
   {
     name: 'get_dy',
     outputs: [{ type: 'uint256', name: '' }],
@@ -44,13 +44,25 @@ const stEth = {
   name: 'ETH → stETH',
   dex: 'Curve',
   redemptionKey: 'stETH',
-  poolContact: new web3.eth.Contract(stEthAbi, '0xdc24316b9ae028f1497c275eb9192a3ea0f67022'),
+  poolContact: new web3.eth.Contract(getDyAbi, '0xdc24316b9ae028f1497c275eb9192a3ea0f67022'),
   tokenInAmount: oneQuintillion,
-  simuSwap: async (tokenInAmount) => simuSwapCurve(tokenInAmount, stEth).then((dy) => parseInt(dy)),
+  simuSwap: async (tokenInAmount) => simuSwapCurve(tokenInAmount, stEth),
+};
+
+const stEthNg = {
+  name: 'ETH → stETH ng',
+  dex: 'Curve',
+  redemptionKey: 'stETH',
+  poolContact: new web3.eth.Contract(getDyAbi, '0x21e27a5e5513d6e65c4f830167390997aa84843a'),
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwapCurve(tokenInAmount, stEthNg),
 };
 
 async function simuSwapCurve(tokenInAmount, pairDef) {
-  return pairDef.poolContact.methods.get_dy(0, 1, tokenInAmount).call();
+  return pairDef.poolContact.methods
+    .get_dy(0, 1, tokenInAmount)
+    .call()
+    .then((dy) => parseInt(dy));
 }
 
-export const ethPairs = [stEth];
+export const ethPairs = [stEth, stEthNg];
