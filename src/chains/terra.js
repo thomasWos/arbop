@@ -100,6 +100,14 @@ const ampLunaWw = {
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
 };
 
+const ampLunaPcl = {
+  name: 'LUNA → ampLUNA pcl',
+  dex: 'Astroport Terra',
+  redemptionKey: 'ampLUNA',
+  offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra1cupwgntu082ypw2ztgtxfzcenexcu6ggp5zzunn3yzfwgrvdcclqgjrjqg',
+};
+
 const stLuna = {
   name: 'LUNA → stLUNA',
   dex: 'Astroport Terra',
@@ -140,4 +148,4 @@ const ampRoarInv = {
   poolContract: 'terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze',
 };
 
-export const terraLsds = [lunaX, cLuna, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw, stLuna, ampRoar, moar, moarToRoar, ampRoarInv];
+export const terraLsds = [lunaX, cLuna, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw, stLuna, ampRoar, moar, moarToRoar, ampRoarInv, ampLunaPcl];
