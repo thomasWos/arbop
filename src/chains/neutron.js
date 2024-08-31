@@ -70,6 +70,15 @@ const wstETH = {
   tokenInAmount: oneQuintillion,
 };
 
+const wstETHToAxlWETH = {
+  name: 'wstETH → axlWETH',
+  dex: 'Astroport Neutron',
+  redemptionKey: 'wstEthinv',
+  offerNativeTokenDenom: 'factory/neutron1ug740qrkquxzrk2hh29qrlx3sktkfml3je7juusc2te7xmvsscns0n2wry/wstETH',
+  poolContract: 'neutron1yw0a7nxa8jdgzmdsme4gwxhj76n44z305qgwrzvlfavgna9epcys3k9m2f',
+  tokenInAmount: oneQuintillion,
+};
+
 const wstEthToWstEthAxl = {
   name: 'wstETH → wstETH.axl',
   dex: 'Astroport Neutron',
@@ -88,4 +97,14 @@ const wstEthAxlTowstEth = {
   tokenInAmount: oneQuintillion,
 };
 
-export const neutronLsds = [xAstroNeutron, astroNeutron, stAtomNeutron, dAtom, stkAtomNeutron, wstETH, wstEthToWstEthAxl, wstEthAxlTowstEth];
+export const neutronLsds = [
+  xAstroNeutron,
+  astroNeutron,
+  stAtomNeutron,
+  dAtom,
+  stkAtomNeutron,
+  wstETH,
+  wstETHToAxlWETH,
+  wstEthToWstEthAxl,
+  wstEthAxlTowstEth,
+];
