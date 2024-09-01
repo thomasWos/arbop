@@ -137,6 +137,46 @@ const qStars = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qStars),
 };
 
+const ETHAxlTowstETH = {
+  name: 'ETH.axl → wstETH',
+  dex: 'Osmosis',
+  redemptionKey: 'wstEth',
+  tokenIn: 'ibc/EA1D43981D5C9A1C4AAEA9C23BB1D4FA126BA9BC7020A25E0AE4AA841EA25DC5',
+  tokenOut: 'ibc/2F21E6D4271DE3F561F20A02CD541DAF7405B1E9CB3B9B07E3C2AC7D8A4338A5',
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, ETHAxlTowstETH),
+};
+
+const wstETHtoETHAxl = {
+  name: 'wstETH → ETH.axl',
+  dex: 'Osmosis',
+  redemptionKey: 'wstEthinv',
+  tokenIn: 'ibc/2F21E6D4271DE3F561F20A02CD541DAF7405B1E9CB3B9B07E3C2AC7D8A4338A5',
+  tokenOut: 'ibc/EA1D43981D5C9A1C4AAEA9C23BB1D4FA126BA9BC7020A25E0AE4AA841EA25DC5',
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, wstETHtoETHAxl),
+};
+
+const ETHtowstETH = {
+  name: 'ETH → wstETH',
+  dex: 'Osmosis',
+  redemptionKey: 'wstEth',
+  tokenIn: 'factory/osmo1k6c8jln7ejuqwtqmay3yvzrg3kueaczl96pk067ldg8u835w0yhsw27twm/alloyed/allETH',
+  tokenOut: 'ibc/2F21E6D4271DE3F561F20A02CD541DAF7405B1E9CB3B9B07E3C2AC7D8A4338A5',
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, ETHtowstETH),
+};
+
+const wstETHtoETH = {
+  name: 'ETH → wstETH',
+  dex: 'Osmosis',
+  redemptionKey: 'wstEthinv',
+  tokenIn: 'ibc/2F21E6D4271DE3F561F20A02CD541DAF7405B1E9CB3B9B07E3C2AC7D8A4338A5',
+  tokenOut: 'factory/osmo1k6c8jln7ejuqwtqmay3yvzrg3kueaczl96pk067ldg8u835w0yhsw27twm/alloyed/allETH',
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, wstETHtoETH),
+};
+
 async function simuSwap(tokenInAmount, pairDef) {
   const quote =
     'https://sqsprod.osmosis.zone/router/quote' +
@@ -148,4 +188,22 @@ async function simuSwap(tokenInAmount, pairDef) {
     .then((data) => data.amount_out || 0);
 }
 
-export const osmoLsds = [stAtom, rAtom, stOsmo, stkOsmos, qOsmos, stJuno, stStars, ampOsmoWW, bOsmoWW, stkAtom, stEvmos, qAtom, qStars];
+export const osmoLsds = [
+  stAtom,
+  rAtom,
+  stOsmo,
+  stkOsmos,
+  qOsmos,
+  stJuno,
+  stStars,
+  ampOsmoWW,
+  bOsmoWW,
+  stkAtom,
+  stEvmos,
+  qAtom,
+  qStars,
+  ETHAxlTowstETH,
+  wstETHtoETHAxl,
+  ETHtowstETH,
+  wstETHtoETH,
+];
