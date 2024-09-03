@@ -116,6 +116,14 @@ const stLuna = {
   poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
 };
 
+const stLunaWW = {
+  name: 'LUNA → stLUNA',
+  dex: 'White Whale Terra',
+  redemptionKey: 'strideTerra',
+  offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra12exvyhctk6ggqvzj2tlhsv769llctntf5zdj9erz6q2uq4h8hn8q5k5xpg',
+};
+
 const moar = {
   name: 'ROAR → MOAR',
   dex: 'White Whale Terra',
@@ -148,4 +156,18 @@ const ampRoarInv = {
   poolContract: 'terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze',
 };
 
-export const terraLsds = [lunaX, cLuna, blunaAstro, blunaWw, ampLunaAstro, ampLunaWw, stLuna, ampRoar, moar, moarToRoar, ampRoarInv, ampLunaPcl];
+export const terraLsds = [
+  lunaX,
+  cLuna,
+  blunaAstro,
+  blunaWw,
+  ampLunaAstro,
+  ampLunaWw,
+  stLuna,
+  stLunaWW,
+  ampRoar,
+  moar,
+  moarToRoar,
+  ampRoarInv,
+  ampLunaPcl,
+];
