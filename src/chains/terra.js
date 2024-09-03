@@ -100,12 +100,36 @@ const ampLunaWw = {
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
 };
 
+const ampLunaToLunaWw = {
+  name: 'LUNA → ampLUNA',
+  dex: 'White Whale Terra',
+  redemptionKey: 'ampLUNAinv',
+  offerTokenAddr: 'terra1ecgazyd0waaj3g7l9cmy5gulhxkps2gmxu9ghducvuypjq68mq2s5lvsct',
+  poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
+};
+
 const ampLunaPcl = {
   name: 'LUNA → ampLUNA pcl',
   dex: 'Astroport Terra',
   redemptionKey: 'ampLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1cupwgntu082ypw2ztgtxfzcenexcu6ggp5zzunn3yzfwgrvdcclqgjrjqg',
+};
+
+const ampLunaTs = {
+  name: 'LUNA → ampLUNA',
+  dex: 'Terra Swap',
+  redemptionKey: 'ampLUNA',
+  offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra1ccxwgew8aup6fysd7eafjzjz6hw89n40h273sgu3pl4lxrajnk5st2hvfh',
+};
+
+const ampLunaToLunaTs = {
+  name: 'ampLUNA → LUNA',
+  dex: 'Terra Swap',
+  redemptionKey: 'ampLUNAinv',
+  offerTokenAddr: 'terra1ecgazyd0waaj3g7l9cmy5gulhxkps2gmxu9ghducvuypjq68mq2s5lvsct',
+  poolContract: 'terra1ccxwgew8aup6fysd7eafjzjz6hw89n40h273sgu3pl4lxrajnk5st2hvfh',
 };
 
 const stLuna = {
@@ -163,11 +187,14 @@ export const terraLsds = [
   blunaWw,
   ampLunaAstro,
   ampLunaWw,
+  ampLunaToLunaWw,
+  ampLunaPcl,
+  ampLunaTs,
+  ampLunaToLunaTs,
   stLuna,
   stLunaWW,
   ampRoar,
   moar,
   moarToRoar,
   ampRoarInv,
-  ampLunaPcl,
 ];
