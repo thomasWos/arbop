@@ -64,7 +64,7 @@ const stkAtomNeutron = {
 const wstETH = {
   name: 'axlWETH → wstETH',
   dex: 'Astroport Neutron',
-  redemptionKey: 'wstEth',
+  redemptionKey: 'wstETH',
   offerNativeTokenDenom: 'ibc/A585C2D15DCD3B010849B453A2CFCB5E213208A5AB665691792684C26274304D',
   poolContract: 'neutron1yw0a7nxa8jdgzmdsme4gwxhj76n44z305qgwrzvlfavgna9epcys3k9m2f',
   tokenInAmount: oneQuintillion,
@@ -73,7 +73,7 @@ const wstETH = {
 const wstETHToAxlWETH = {
   name: 'wstETH → axlWETH',
   dex: 'Astroport Neutron',
-  redemptionKey: 'wstEthinv',
+  redemptionKey: 'wstETHinv',
   offerNativeTokenDenom: 'factory/neutron1ug740qrkquxzrk2hh29qrlx3sktkfml3je7juusc2te7xmvsscns0n2wry/wstETH',
   poolContract: 'neutron1yw0a7nxa8jdgzmdsme4gwxhj76n44z305qgwrzvlfavgna9epcys3k9m2f',
   tokenInAmount: oneQuintillion,

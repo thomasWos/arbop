@@ -36,8 +36,9 @@ async function computeArbs() {
     ethereumRedemptionMap(),
   ];
 
-  const redemptionsResult = await Promise.all(redemptionPromosises);
-  const redemptionsList = [].concat(...redemptionsResult);
+  const redemptionsResult = await Promise.allSettled(redemptionPromosises);
+  const validRedemptions = redemptionsResult.filter((result) => result.status === 'fulfilled').map((result) => result.value);
+  const redemptionsList = [].concat(...validRedemptions);
 
   /* Compute inverse rates */
   const redemptionsInv = redemptionsList.map((r) => {

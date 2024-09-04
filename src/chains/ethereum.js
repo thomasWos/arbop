@@ -12,6 +12,28 @@ const wstEthAbi = [
   },
 ];
 
+const mevEthAbi = [
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'shares',
+        type: 'uint256',
+      },
+    ],
+    name: 'convertToAssets',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'assets',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+];
+
 const getDyAbi = [
   {
     name: 'get_dy',
@@ -26,7 +48,36 @@ const getDyAbi = [
   },
 ];
 
+const getDyAbi2 = [
+  {
+    stateMutability: 'view',
+    type: 'function',
+    name: 'get_dy',
+    inputs: [
+      {
+        name: 'i',
+        type: 'uint256',
+      },
+      {
+        name: 'j',
+        type: 'uint256',
+      },
+      {
+        name: 'dx',
+        type: 'uint256',
+      },
+    ],
+    outputs: [
+      {
+        name: '',
+        type: 'uint256',
+      },
+    ],
+  },
+];
+
 const wstEthContract = new web3.eth.Contract(wstEthAbi, '0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0');
+const mevEthContract = new web3.eth.Contract(mevEthAbi, '0x24Ae2dA0f361AA4BE46b48EB19C91e02c5e4f27E');
 
 export async function ethereumRedemptionMap() {
   const wstEthRate = await wstEthContract.methods
@@ -34,9 +85,15 @@ export async function ethereumRedemptionMap() {
     .call()
     .then((r) => parseInt(r) / oneQuintillion);
 
+  const mevEth = await mevEthContract.methods
+    .convertToAssets(oneQuintillion)
+    .call()
+    .then((r) => parseInt(r) / oneQuintillion);
+
   return [
     ['stETH', 1],
-    ['wstEth', wstEthRate],
+    ['wstETH', wstEthRate],
+    ['mevETH', mevEth],
   ];
 }
 
@@ -58,6 +115,24 @@ const stEthNg = {
   simuSwap: async (tokenInAmount) => simuSwapCurve(tokenInAmount, stEthNg),
 };
 
+const frxETHtoMevETH = {
+  name: 'frxETH → mevETH',
+  dex: 'Curve',
+  redemptionKey: 'mevETH',
+  poolContact: new web3.eth.Contract(getDyAbi2, '0xf1b0382a141040601bd4c98ee1a05b44a7392a80'),
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwapCurve(tokenInAmount, frxETHtoMevETH),
+};
+
+const mevETHtofrxETH = {
+  name: 'mevETH → frxETH',
+  dex: 'Curve',
+  redemptionKey: 'mevETHinv',
+  poolContact: new web3.eth.Contract(getDyAbi2, '0xf1b0382a141040601bd4c98ee1a05b44a7392a80'),
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwapCurveInv(tokenInAmount, mevETHtofrxETH),
+};
+
 async function simuSwapCurve(tokenInAmount, pairDef) {
   return pairDef.poolContact.methods
     .get_dy(0, 1, tokenInAmount)
@@ -65,4 +140,11 @@ async function simuSwapCurve(tokenInAmount, pairDef) {
     .then((dy) => parseInt(dy));
 }
 
-export const ethPairs = [stEth, stEthNg];
+async function simuSwapCurveInv(tokenInAmount, pairDef) {
+  return pairDef.poolContact.methods
+    .get_dy(1, 0, tokenInAmount)
+    .call()
+    .then((dy) => parseInt(dy));
+}
+
+export const ethPairs = [stEth, stEthNg, frxETHtoMevETH, mevETHtofrxETH];
