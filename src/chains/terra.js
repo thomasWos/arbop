@@ -101,7 +101,7 @@ const ampLunaWw = {
 };
 
 const ampLunaToLunaWw = {
-  name: 'LUNA → ampLUNA',
+  name: 'ampLUNA → LUNA',
   dex: 'White Whale Terra',
   redemptionKey: 'ampLUNAinv',
   offerTokenAddr: 'terra1ecgazyd0waaj3g7l9cmy5gulhxkps2gmxu9ghducvuypjq68mq2s5lvsct',
@@ -113,6 +113,14 @@ const ampLunaPcl = {
   dex: 'Astroport Terra',
   redemptionKey: 'ampLUNA',
   offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra1cupwgntu082ypw2ztgtxfzcenexcu6ggp5zzunn3yzfwgrvdcclqgjrjqg',
+};
+
+const lunaToAmpLunaPcl = {
+  name: 'ampLUNA  → LUNA pcl',
+  dex: 'Astroport Terra',
+  redemptionKey: 'ampLUNAinv',
+  offerTokenAddr: 'terra1ecgazyd0waaj3g7l9cmy5gulhxkps2gmxu9ghducvuypjq68mq2s5lvsct',
   poolContract: 'terra1cupwgntu082ypw2ztgtxfzcenexcu6ggp5zzunn3yzfwgrvdcclqgjrjqg',
 };
 
@@ -189,6 +197,7 @@ export const terraLsds = [
   ampLunaWw,
   ampLunaToLunaWw,
   ampLunaPcl,
+  lunaToAmpLunaPcl,
   ampLunaTs,
   ampLunaToLunaTs,
   stLuna,
