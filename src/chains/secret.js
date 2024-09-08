@@ -14,7 +14,11 @@ const fakeKey = new Uint8Array([
   248, 24, 153, 160, 20, 71, 22, 226, 185, 239, 57, 17, 11, 65, 67, 231, 36, 199, 102, 223, 164, 45, 133, 137, 223, 33, 119, 169, 155, 169, 194, 224,
 ]);
 const txEncryptionKey = new Uint8Array(fakeKey);
-const cryptoProvider = new miscreant.PolyfillCryptoProvider();
+
+async function newSiv() {
+  const cryptoProvider = new miscreant.PolyfillCryptoProvider();
+  return miscreant.SIV.importKey(txEncryptionKey, 'AES-SIV', cryptoProvider);
+}
 
 function handleResponse(data) {
   return new Promise((resolve, reject) => {
@@ -24,7 +28,7 @@ function handleResponse(data) {
 }
 
 async function querySecretContract(contractAddr, contractCodeHash, queryMsg) {
-  const siv = await miscreant.SIV.importKey(txEncryptionKey, 'AES-SIV', cryptoProvider);
+  const siv = await newSiv();
   const encrypted = await encrypt(siv, contractCodeHash, queryMsg);
   const encodedQuery = encodeURIComponent(toBase64(encrypted));
   const url = `${lcdUrl}/compute/v1beta1/query/${contractAddr}?query=${encodedQuery}`;
@@ -201,8 +205,7 @@ async function simuSwap(tokenInAmount, pairDef) {
   return querySecretContract(pairDef.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', msg)
     .then((d) => d.swap_simulation.result.return_amount)
     .catch(async (e) => {
-      const siv = await miscreant.SIV.importKey(txEncryptionKey, 'AES-SIV', cryptoProvider);
-      decrypt(siv, e).then((decrypted) => console.log(fromUtf8(decrypted)));
+      decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
       return 0;
     });
 }
