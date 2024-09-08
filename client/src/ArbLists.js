@@ -41,6 +41,7 @@ const ArbLists = () => {
   const kujiArbs = arbs.filter((a) => a.name.includes('KUJI'));
   const astroArbs = arbs.filter((a) => a.name.includes('ASTRO'));
   const secretArbs = arbs.filter((a) => a.name.includes('SCRT'));
+  const archArbs = arbs.filter((a) => a.name.includes('ARCH'));
 
   const combinedList = [
     roarArbs,
@@ -57,6 +58,7 @@ const ArbLists = () => {
     kujiArbs,
     astroArbs,
     secretArbs,
+    archArbs,
   ];
 
   const exclusionSet = new Set(combinedList.flat(1).map((a) => a.id));

@@ -14,7 +14,7 @@ import { persistenceRedemptionMap, persistencePairs } from './chains/persistence
 import { quicksilverRedemptionMap } from './chains/quicksilver.js';
 import { secretRedemptionMap, secretPairs } from './chains/secret.js';
 import { evmosPairs } from './chains/evmos.js';
-import { archwayPairs } from './chains/archway.js';
+import { archwayRedemptionMap, archwayPairs } from './chains/archway.js';
 import { ethereumRedemptionMap, ethPairs } from './chains/ethereum.js';
 import { injectivePairs } from './chains/injective.js';
 
@@ -34,6 +34,7 @@ async function computeArbs() {
     quicksilverRedemptionMap(),
     secretRedemptionMap(),
     ethereumRedemptionMap(),
+    archwayRedemptionMap(),
   ];
 
   const redemptionsResult = await Promise.allSettled(redemptionPromosises);
