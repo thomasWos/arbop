@@ -132,7 +132,7 @@ const sINJ = {
   poolContract: 'secret1c26v64jmesejsauxx5uamaycfe4zt3rth3yg4e',
   offerContractAddr: 'secret14706vxakdzkz9a36872cs62vpl5qd84kpwvpew',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  // tokenInAmount: oneQuintillion,
+  tokenInAmount: oneQuintillion,
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, sINJ),
 };
 
