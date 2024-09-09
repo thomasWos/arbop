@@ -132,7 +132,7 @@ const sINJ = {
   poolContract: 'secret1c26v64jmesejsauxx5uamaycfe4zt3rth3yg4e',
   offerContractAddr: 'secret14706vxakdzkz9a36872cs62vpl5qd84kpwvpew',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  tokenInAmount: oneQuintillion,
+  // tokenInAmount: oneQuintillion,
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, sINJ),
 };
 
@@ -205,6 +205,7 @@ async function simuSwap(tokenInAmount, pairDef) {
   return querySecretContract(pairDef.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', msg)
     .then((d) => d.swap_simulation.result.return_amount)
     .catch(async (e) => {
+      console.log(e);
       decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
       return 0;
     });
