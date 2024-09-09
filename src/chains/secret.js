@@ -206,7 +206,9 @@ async function simuSwap(tokenInAmount, pairDef) {
     .then((d) => d.swap_simulation.result.return_amount)
     .catch(async (e) => {
       console.log(e);
-      decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
+      if (e instanceof Uint8Array) {
+        decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
+      }
       return 0;
     });
 }
