@@ -125,15 +125,15 @@ const wstETHaxl = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, wstETHaxl),
 };
 
-const sINJ = {
-  name: 'INJ → sINJ',
+const stInj = {
+  name: 'INJ → stINJ',
   dex: 'Shade',
   redemptionKey: 'strideInj',
   poolContract: 'secret1c26v64jmesejsauxx5uamaycfe4zt3rth3yg4e',
   offerContractAddr: 'secret14706vxakdzkz9a36872cs62vpl5qd84kpwvpew',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
   tokenInAmount: oneQuintillion,
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, sINJ),
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stInj),
 };
 
 const stOsmo = {
@@ -186,7 +186,7 @@ const stJUNO = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stJUNO),
 };
 
-export const secretPairs = [stkdSCRT, qAtom, stATOM, wstETHaxl, sINJ, stOsmo, ampKuji, stkAtom, ampWhale, stJUNO];
+export const secretPairs = [stkdSCRT, qAtom, stATOM, wstETHaxl, stInj, stOsmo, ampKuji, stkAtom, ampWhale, stJUNO];
 
 async function simuSwap(tokenInAmount, pairDef) {
   const msg = {
