@@ -1,3 +1,5 @@
+import { oneQuintillion } from '../utils.js';
+
 const restUrl = 'https://injective-rest.publicnode.com';
 
 const ampWhale = {
@@ -38,6 +40,7 @@ const stInjAstro = {
   dex: 'Astroport Injective',
   redemptionKey: 'strideInj',
   offerNativeTokenDenom: 'inj',
+  tokenInAmount: oneQuintillion,
   poolContract: 'inj10fd06xl4q6jp9qlhemvm6ymmm83ppj2g8rzquw',
 };
 
