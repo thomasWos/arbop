@@ -21,22 +21,6 @@ export async function neutronRedemptionMap() {
   ];
 }
 
-const xAstroNeutron = {
-  name: 'ASTRO → xASTRO',
-  dex: 'Astroport Neutron',
-  redemptionKey: 'xASTRO',
-  offerNativeTokenDenom: 'factory/neutron1ffus553eet978k024lmssw0czsxwr97mggyv85lpcsdkft8v9ufsz3sa07/astro',
-  poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
-};
-
-const astroNeutron = {
-  name: 'xASTRO → ASTRO',
-  dex: 'Astroport Neutron',
-  redemptionKey: 'xASTROinv',
-  offerNativeTokenDenom: 'factory/neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn/xASTRO',
-  poolContract: 'neutron1kmkukaad9v0vc60xacgygtz9saukyhjutr60zj7weyjlnuf8eymq3tdqny',
-};
-
 const stAtomNeutron = {
   name: 'ATOM → stATOM',
   dex: 'Astroport Neutron',
@@ -97,14 +81,4 @@ const wstEthAxlTowstEth = {
   tokenInAmount: oneQuintillion,
 };
 
-export const neutronLsds = [
-  xAstroNeutron,
-  astroNeutron,
-  stAtomNeutron,
-  dAtom,
-  stkAtomNeutron,
-  wstETH,
-  wstETHToAxlWETH,
-  wstEthToWstEthAxl,
-  wstEthAxlTowstEth,
-];
+export const neutronLsds = [stAtomNeutron, dAtom, stkAtomNeutron, wstETH, wstETHToAxlWETH, wstEthToWstEthAxl, wstEthAxlTowstEth];

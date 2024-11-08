@@ -39,7 +39,6 @@ const ArbLists = () => {
   const evmosArbs = arbs.filter((a) => a.name.includes('EVMOS'));
   const ethArbs = arbs.filter((a) => a.name.includes('ETH'));
   const kujiArbs = arbs.filter((a) => a.name.includes('KUJI'));
-  const astroArbs = arbs.filter((a) => a.name.includes('ASTRO'));
   const secretArbs = arbs.filter((a) => a.name.includes('SCRT'));
   const archArbs = arbs.filter((a) => a.name.includes('ARCH'));
   const injArbs = arbs.filter((a) => a.name.includes('INJ'));
@@ -57,7 +56,6 @@ const ArbLists = () => {
     evmosArbs,
     ethArbs,
     kujiArbs,
-    astroArbs,
     secretArbs,
     archArbs,
     injArbs,
