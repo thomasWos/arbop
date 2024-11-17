@@ -1,4 +1,4 @@
-import { exchangeRateFromState, queryState } from '../utils.js';
+import { exchangeRateFromState, queryState, oneQuintillion } from '../utils.js';
 
 const lunaXContract = 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk';
 const bLunaContract = 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea';
@@ -258,6 +258,26 @@ const ampWhaleAstroInv = {
   poolContract: 'terra129hvq9mgqtye4kg0cfmv9z6sq5f7sgpmrspr72968xx20gx4t2rqvpue0z',
 };
 
+const wETHwstETH = {
+  name: 'wETH → wstETH',
+  dex: 'White Whale Terra',
+  redemptionKey: 'wstETH',
+  offerTokenAddr: 'terra15hhqg8gyz04zapynqtk7uvlsp7lzay7etrt9ann0276v94yae63sxygeat',
+  poolContract: 'terra12252e02w0k5yv9mryctth4j3y2sdas0xremw0jznzwal5v3xeqjst7q537',
+  decimalIn: 8,
+  decimalOut: 18,
+};
+
+const wETHwstETHInv = {
+  name: 'wstETH → wETH',
+  dex: 'White Whale Terra',
+  redemptionKey: 'wstETHinv',
+  offerNativeTokenDenom: 'ibc/A356EC90DC3AE43D485514DA7260EDC7ABB5CFAA0654CE2524C739392975AD3C',
+  poolContract: 'terra12252e02w0k5yv9mryctth4j3y2sdas0xremw0jznzwal5v3xeqjst7q537',
+  decimalIn: 18,
+  decimalOut: 8,
+};
+
 export const terraLsds = [
   lunaX,
   cLuna,
@@ -287,4 +307,7 @@ export const terraLsds = [
   ampWhaleWWInv,
   ampWhaleAstro,
   ampWhaleAstroInv,
+  // ETH
+  wETHwstETH,
+  wETHwstETHInv,
 ];

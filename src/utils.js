@@ -32,6 +32,13 @@ export function arbitrage(tokenInAmount, exchangeRateIn, tokenOutAmount, exchang
   return (rate - 1) * 100;
 }
 
+export function arbitrageDecimals(tokenInAmount, exchangeRateIn, decimalIn, tokenOutAmount, exchangeRateOut, decimalOut) {
+  const offerAmount = (tokenInAmount / Math.pow(10, decimalIn)) * exchangeRateIn;
+  const returnAmount = (tokenOutAmount / Math.pow(10, decimalOut)) * exchangeRateOut;
+  const rate = returnAmount / offerAmount;
+  return (rate - 1) * 100;
+}
+
 export function calculateApy(arb, periodInDays) {
   const period = 365 / periodInDays;
   const apy = (1 + arb / 100) ** period;

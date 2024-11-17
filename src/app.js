@@ -7,7 +7,7 @@ import { migalooRedemptionMap, whaleLsds } from './chains/migaloo.js';
 import { chihuahuaRedemptionMap, chihuahuaLsds } from './chains/chihuahua.js';
 import { stafiRedemptionMap } from './chains/stafihub.js';
 import { multiversxRedemptionMap, multiversxArbs } from './chains/multiversx.js';
-import { queryContract, arbitrage, calculateApy } from './utils.js';
+import { queryContract, arbitrage, arbitrageDecimals, calculateApy } from './utils.js';
 import { stafiLsds } from './chains/stafihub.js';
 import { junoRedemptionMap, junoLsds } from './chains/juno.js';
 import { persistenceRedemptionMap, persistencePairs } from './chains/persistence.js';
@@ -83,7 +83,8 @@ async function computeArbs() {
 }
 
 async function computeArb(pair, index, redemptionMap) {
-  const tokenInAmount = pair.tokenInAmount || 1000000;
+  let decimalIn = pair.decimalIn;
+  const tokenInAmount = pair.tokenInAmount || (decimalIn && Math.pow(10, pair.decimalIn)) || 1000000;
 
   let tokenOutAmount;
   if (pair.simuSwap) {
@@ -115,7 +116,7 @@ async function computeArb(pair, index, redemptionMap) {
         },
       },
     }).catch((e) => console.log(e));
-    tokenOutAmount = simulationResult?.return_amount || tokenInAmount;
+    tokenOutAmount = (simulationResult?.return_amount && parseInt(simulationResult.return_amount)) || tokenInAmount;
   }
 
   let exchangeRate = redemptionMap.get(pair.redemptionKey);
@@ -132,7 +133,10 @@ async function computeArb(pair, index, redemptionMap) {
     exchangeRateIn = exchangeRateIn.redemptionRate;
   }
 
-  const arb = arbitrage(tokenInAmount, exchangeRateIn, tokenOutAmount, exchangeRate);
+  const arb =
+    pair.decimalIn && pair.decimalOut
+      ? arbitrageDecimals(tokenInAmount, exchangeRateIn, pair.decimalIn, tokenOutAmount, exchangeRate, pair.decimalOut)
+      : arbitrage(tokenInAmount, exchangeRateIn, tokenOutAmount, exchangeRate);
 
   let apy;
   if (unboundingPeriod) {
