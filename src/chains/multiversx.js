@@ -80,12 +80,21 @@ const sEgldtoJwlEgld = {
   simuSwap: async () => simuSwapAshSwap(sEgldtoJwlEgld),
 };
 
-const lEgldToEgld = {
+const egldToLEgld = {
   name: 'EGLD → LEGLD',
   redemptionKey: 'LEGLD',
   dex: 'xEchange',
   poolAddr: 'erd1qqqqqqqqqqqqqpgq9nnx7n40snv899ejwcrtepc5qn6apxvm2jps88s0v7',
   from: 'WEGLD-bd4d79',
+  simuSwap: async () => simuSwapXechange(egldToLEgld),
+};
+
+const lEgldToEgld = {
+  name: 'LEGLD → EGLD',
+  redemptionKey: 'LEGLDinv',
+  dex: 'xEchange',
+  poolAddr: 'erd1qqqqqqqqqqqqqpgq9nnx7n40snv899ejwcrtepc5qn6apxvm2jps88s0v7',
+  from: 'LEGLD-d74da9',
   simuSwap: async () => simuSwapXechange(lEgldToEgld),
 };
 
@@ -97,7 +106,7 @@ async function computeArb(def, redemptionMap) {
 }
 
 export async function multiversxArbs(redemptionMap) {
-  return Promise.all([sEgld, jwlEgld, jwlEgldTosEgld, sEgldtoJwlEgld, lEgldToEgld].map((d) => computeArb(d, redemptionMap)));
+  return Promise.all([sEgld, jwlEgld, jwlEgldTosEgld, sEgldtoJwlEgld, egldToLEgld, lEgldToEgld].map((d) => computeArb(d, redemptionMap)));
 }
 
 async function simuSwapAshSwap(def) {
