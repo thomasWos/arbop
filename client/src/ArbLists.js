@@ -66,11 +66,14 @@ const ArbLists = () => {
 
   return (
     <div>
+      {timestamp && <p>{new Date(timestamp).toLocaleString()}</p>}
+
       <div className="arb-header">
         <div className="arb-name">Name</div>
         <div className="arb-percentage">Arb</div>
         <div className="arb-dex">DEX</div>
         <div className="arb-apy">APY</div>
+        <div className="arb-max">MAX</div>
       </div>
       <div>
         {combinedList.sort(arbListSorting).map((arbList) => (

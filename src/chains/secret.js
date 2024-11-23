@@ -1,9 +1,10 @@
 // https://secret-4.api.trivium.network:1317/swagger/
 // https://docs.scrt.network/secret-network-documentation/development/resources-api-contract-addresses/secret-token-contracts
 
-import { oneMillion, toBase64, fromBase64, oneQuintillion } from '../utils.js';
-import * as miscreant from 'miscreant';
 import { generateKeyPair } from 'curve25519-js';
+import * as miscreant from 'miscreant';
+import { computeMaxSwap } from '../pool.js';
+import { fromBase64, oneMillion, oneQuintillion, toBase64 } from '../utils.js';
 
 // https://docs.scrt.network/secret-network-documentation/development/resources-api-contract-addresses/connecting-to-the-network/mainnet-secret-4#api-endpoints
 const lcdUrl = 'https://rpc.ankr.com/http/scrt_cosmos';
@@ -92,6 +93,7 @@ const qAtom = {
   offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom),
+  maxSwap: async (exchangeRate) => maxSwap(qAtom, exchangeRate),
 };
 
 const stkdSCRT = {
@@ -102,6 +104,7 @@ const stkdSCRT = {
   offerContractAddr: 'secret1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek',
   tokenCodeHash: 'af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e',
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkdSCRT),
+  maxSwap: async (exchangeRate) => maxSwap(stkdSCRT, exchangeRate),
 };
 
 const stATOM = {
@@ -144,6 +147,7 @@ const stOsmo = {
   offerContractAddr: 'secret150jec8mc2hzyyqak4umv6cfevelr0x9p0mjxgg',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stOsmo),
+  maxSwap: async (exchangeRate) => maxSwap(stOsmo, exchangeRate),
 };
 
 const ampKuji = {
@@ -184,6 +188,7 @@ const stJUNO = {
   offerContractAddr: 'secret1z6e4skg5g9w65u5sqznrmagu05xq8u6zjcdg4a',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stJUNO),
+  maxSwap: async (exchangeRate) => maxSwap(stJUNO, exchangeRate),
 };
 
 export const secretPairs = [stkdSCRT, qAtom, stATOM, wstETHaxl, stInj, stOsmo, ampKuji, stkAtom, ampWhale, stJUNO];
@@ -211,4 +216,19 @@ async function simuSwap(tokenInAmount, pairDef) {
       }
       return 0;
     });
+}
+
+async function maxSwap(pair, exchangeRate) {
+  const r = await querySecretContract(pair.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', {
+    get_pair_info: {},
+  }).catch(async (e) => {
+    console.log(e);
+    if (e instanceof Uint8Array) {
+      decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
+    }
+  });
+  const asset0Amount = parseInt(r.get_pair_info.amount_0);
+  const asset1Amount = parseInt(r.get_pair_info.amount_1);
+  const asset0Name = r.get_pair_info.pair[0].custom_token.contract_addr;
+  return computeMaxSwap(asset0Name, pair.offerContractAddr, asset0Amount, asset1Amount, exchangeRate);
 }

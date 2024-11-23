@@ -44,3 +44,13 @@ export function calculateApy(arb, periodInDays) {
   const apy = (1 + arb / 100) ** period;
   return (apy - 1) * 100;
 }
+
+export function printMap(map) {
+  map.forEach((value, key) => {
+    if (typeof value === 'object') {
+      console.log(`${key}: ${JSON.stringify(value)}`);
+    } else {
+      console.log(`${key}: ${value}`);
+    }
+  });
+}

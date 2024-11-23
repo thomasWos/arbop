@@ -1,55 +1,24 @@
-import { strideRedemptionMap } from './chains/stride.js';
-import { neutronRedemptionMap, neutronLsds } from './chains/neutron.js';
-import { terraRedemptionMap, terraLsds } from './chains/terra.js';
-import { kujiraRedemptionMap, kujiLsds } from './chains/kujira.js';
-import { osmosisRedemptionMap, osmoLsds } from './chains/osmosis.js';
-import { migalooRedemptionMap, whaleLsds } from './chains/migaloo.js';
-import { chihuahuaRedemptionMap, chihuahuaLsds } from './chains/chihuahua.js';
-import { stafiRedemptionMap } from './chains/stafihub.js';
-import { multiversxRedemptionMap, multiversxArbs } from './chains/multiversx.js';
-import { queryContract, arbitrage, arbitrageDecimals, calculateApy } from './utils.js';
-import { stafiLsds } from './chains/stafihub.js';
-import { junoRedemptionMap, junoLsds } from './chains/juno.js';
-import { persistenceRedemptionMap, persistencePairs } from './chains/persistence.js';
-import { quicksilverRedemptionMap } from './chains/quicksilver.js';
-import { secretRedemptionMap, secretPairs } from './chains/secret.js';
+import { archwayPairs } from './chains/archway.js';
+import { chihuahuaLsds } from './chains/chihuahua.js';
+import { ethPairs } from './chains/ethereum.js';
 import { evmosPairs } from './chains/evmos.js';
-import { archwayRedemptionMap, archwayPairs } from './chains/archway.js';
-import { ethereumRedemptionMap, ethPairs } from './chains/ethereum.js';
 import { injectivePairs } from './chains/injective.js';
+import { junoLsds } from './chains/juno.js';
+import { kujiLsds } from './chains/kujira.js';
+import { whaleLsds } from './chains/migaloo.js';
+import { multiversxArbs } from './chains/multiversx.js';
+import { neutronLsds } from './chains/neutron.js';
+import { osmoLsds } from './chains/osmosis.js';
+import { persistencePairs } from './chains/persistence.js';
+import { secretPairs } from './chains/secret.js';
+import { stafiLsds } from './chains/stafihub.js';
+import { terraLsds } from './chains/terra.js';
+import { fetchRedemptionsMap } from './redemptions.js';
+import { arbitrage, arbitrageDecimals, calculateApy, queryContract } from './utils.js';
+import { maxSwap } from './pool.js';
 
 async function computeArbs() {
-  const redemptionPromosises = [
-    terraRedemptionMap(),
-    kujiraRedemptionMap(),
-    osmosisRedemptionMap(),
-    chihuahuaRedemptionMap(),
-    strideRedemptionMap(),
-    neutronRedemptionMap(),
-    migalooRedemptionMap(),
-    junoRedemptionMap(),
-    persistenceRedemptionMap(),
-    stafiRedemptionMap(),
-    multiversxRedemptionMap(),
-    quicksilverRedemptionMap(),
-    secretRedemptionMap(),
-    ethereumRedemptionMap(),
-    archwayRedemptionMap(),
-  ];
-
-  const redemptionsResult = await Promise.allSettled(redemptionPromosises);
-  const validRedemptions = redemptionsResult.filter((result) => result.status === 'fulfilled').map((result) => result.value);
-  const redemptionsList = [].concat(...validRedemptions);
-
-  /* Compute inverse rates */
-  const redemptionsInv = redemptionsList.map((r) => {
-    const redemp = r[1] instanceof Object ? r[1].redemptionRate : r[1];
-    return [r[0] + 'inv', 1 / redemp];
-  });
-
-  const allRedemptionsList = [['identity', 1], ...redemptionsList, ...redemptionsInv].sort((a, b) => a[0].localeCompare(b[0]));
-  const redemptionMap = new Map(allRedemptionsList);
-  printMap(redemptionMap);
+  const redemptionMap = await fetchRedemptionsMap();
 
   const lsds = [
     ...terraLsds,
@@ -86,9 +55,26 @@ async function computeArb(pair, index, redemptionMap) {
   let decimalIn = pair.decimalIn;
   const tokenInAmount = pair.tokenInAmount || (decimalIn && Math.pow(10, pair.decimalIn)) || 1000000;
 
+  let exchangeRate = redemptionMap.get(pair.redemptionKey);
+  let unboundingPeriod = pair.unboundingPeriod;
+
+  const redemption = redemptionMap.get(pair.redemptionKey);
+  if (redemption instanceof Object) {
+    exchangeRate = redemption.redemptionRate;
+    unboundingPeriod = redemption.unboundingPeriod;
+  }
+
+  let exchangeRateIn = redemptionMap.get(pair.offerRedemptionKey) || 1;
+  if (exchangeRateIn instanceof Object) {
+    exchangeRateIn = exchangeRateIn.redemptionRate;
+  }
+
   let tokenOutAmount;
+  let maxSwapInPool;
+
   if (pair.simuSwap) {
     tokenOutAmount = await pair.simuSwap(tokenInAmount);
+    maxSwapInPool = pair.maxSwap && (await pair.maxSwap(exchangeRate));
   } else {
     // DEX smart contract
     let infoOfferAsset;
@@ -117,20 +103,7 @@ async function computeArb(pair, index, redemptionMap) {
       },
     }).catch((e) => console.log(e));
     tokenOutAmount = (simulationResult?.return_amount && parseInt(simulationResult.return_amount)) || tokenInAmount;
-  }
-
-  let exchangeRate = redemptionMap.get(pair.redemptionKey);
-  let unboundingPeriod = pair.unboundingPeriod;
-
-  const redemption = redemptionMap.get(pair.redemptionKey);
-  if (redemption instanceof Object) {
-    exchangeRate = redemption.redemptionRate;
-    unboundingPeriod = redemption.unboundingPeriod;
-  }
-
-  let exchangeRateIn = redemptionMap.get(pair.offerRedemptionKey) || 1;
-  if (exchangeRateIn instanceof Object) {
-    exchangeRateIn = exchangeRateIn.redemptionRate;
+    maxSwapInPool = pair.dex !== 'FIN' && (await maxSwap(pair, exchangeRate).catch((e) => 0));
   }
 
   const arb =
@@ -142,7 +115,8 @@ async function computeArb(pair, index, redemptionMap) {
   if (unboundingPeriod) {
     apy = calculateApy(arb, unboundingPeriod);
   }
-  return { id: index, name: pair.name, arb: arb, dex: pair.dex, ...(apy && { apy }) };
+
+  return { id: index, name: pair.name, arb: arb, dex: pair.dex, ...(apy && { apy }), ...(maxSwapInPool && { maxSwapInPool }) };
 }
 
 export async function tryComputeArbs() {
@@ -151,14 +125,4 @@ export async function tryComputeArbs() {
   } catch (error) {
     console.error(`Error computing arbs`, error);
   }
-}
-
-function printMap(map) {
-  map.forEach((value, key) => {
-    if (typeof value === 'object') {
-      console.log(`${key}: ${JSON.stringify(value)}`);
-    } else {
-      console.log(`${key}: ${value}`);
-    }
-  });
 }

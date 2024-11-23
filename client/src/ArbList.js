@@ -9,6 +9,7 @@ const ArbList = ({ arbs }) => {
           <div className="arb-percentage">{arb.arb && `${arb.arb.toFixed(3)}%`}</div>
           <div className="arb-dex">{arb.dex}</div>
           <div className="arb-apy">{arb.apy && `≈ ${arb.apy.toFixed(1)}%`}</div>
+          <div className="arb-max">{arb.maxSwapInPool && `${arb.maxSwapInPool.toFixed(2)}`}</div>
         </div>
       ))}
     </div>
