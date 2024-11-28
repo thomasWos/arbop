@@ -311,6 +311,22 @@ const atomDatomAstroinv = {
   poolContract: 'terra1a0h6vrzkztjystg8sd949qyrc6mw9gzxk2870cr2mukg53uzgvqs46qul9',
 };
 
+const stAtomAstro = {
+  name: 'ATOM → stATOM',
+  dex: 'Astroport Terra',
+  redemptionKey: 'strideCosmos',
+  offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+  poolContract: 'terra1f9vmtntpjmkyhkxtlc49jcq6cv8rfz0kr06zv6efdtdgae4m9y9qlzm36t',
+};
+
+const stAtomAstroInv = {
+  name: 'stATOM → ATOM',
+  dex: 'Astroport Terra',
+  redemptionKey: 'strideCosmosinv',
+  offerNativeTokenDenom: 'ibc/FD9DBF0DB4D301313195159303811FD2FD72185C4B11A51659EFCD49D7FF1228',
+  poolContract: 'terra1f9vmtntpjmkyhkxtlc49jcq6cv8rfz0kr06zv6efdtdgae4m9y9qlzm36t',
+};
+
 export const terraLsds = [
   lunaX,
   cLuna,
@@ -348,4 +364,6 @@ export const terraLsds = [
   atomDatomWWinv,
   atomDatomAstro,
   atomDatomAstroinv,
+  stAtomAstro,
+  stAtomAstroInv,
 ];
