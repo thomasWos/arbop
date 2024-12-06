@@ -85,39 +85,85 @@ export async function secretRedemptionMap() {
   return [['stkdSCRT', stkdScrtRedemption]];
 }
 
-const qAtom = {
+class ShadeSecretPair {
+  constructor({ name, dex, redemptionKey, poolContract, offerContractAddr, tokenCodeHash }) {
+    this.name = name;
+    this.dex = dex;
+    this.redemptionKey = redemptionKey;
+    this.poolContract = poolContract;
+    this.offerContractAddr = offerContractAddr;
+    this.tokenCodeHash = tokenCodeHash;
+  }
+
+  async simuSwap(tokenInAmount) {
+    const msg = {
+      swap_simulation: {
+        offer: {
+          token: {
+            custom_token: {
+              contract_addr: this.offerContractAddr,
+              token_code_hash: this.tokenCodeHash,
+            },
+          },
+          amount: `${tokenInAmount}`,
+        },
+      },
+    };
+    return querySecretContract(this.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', msg)
+      .then((d) => d.swap_simulation.result.return_amount)
+      .catch(async (e) => {
+        console.log(e);
+        if (e instanceof Uint8Array) {
+          decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
+        }
+        return 0;
+      });
+  }
+
+  async maxSwap(exchangeRate) {
+    const r = await querySecretContract(this.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', {
+      get_pair_info: {},
+    }).catch(async (e) => {
+      console.log(e);
+      if (e instanceof Uint8Array) {
+        decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
+      }
+    });
+    const asset0Amount = parseInt(r.get_pair_info.amount_0);
+    const asset1Amount = parseInt(r.get_pair_info.amount_1);
+    const asset0Name = r.get_pair_info.pair[0].custom_token.contract_addr;
+    return computeMaxSwap(asset0Name, this.offerContractAddr, asset0Amount, asset1Amount, exchangeRate);
+  }
+}
+
+const qAtom = new ShadeSecretPair({
   name: 'ATOM → qATOM',
   dex: 'Shade',
   redemptionKey: 'qATOM',
   poolContract: 'secret1f6kw62rzgn3fwc0jfp7nxjks0l45jv3r6tpc0x',
   offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom),
-  maxSwap: async (exchangeRate) => maxSwap(qAtom, exchangeRate),
-};
+});
 
-const stkdSCRT = {
+const stkdSCRT = new ShadeSecretPair({
   name: 'sSCRT → stkdSCRT',
   dex: 'Shade',
   redemptionKey: 'stkdSCRT',
   poolContract: 'secret1y6w45fwg9ln9pxd6qys8ltjlntu9xa4f2de7sp',
   offerContractAddr: 'secret1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek',
   tokenCodeHash: 'af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkdSCRT),
-  maxSwap: async (exchangeRate) => maxSwap(stkdSCRT, exchangeRate),
-};
+});
 
-const stATOM = {
+const stATOM = new ShadeSecretPair({
   name: 'ATOM → stATOM',
   dex: 'Shade',
   redemptionKey: 'strideCosmos',
   poolContract: 'secret1a65a9xgqrlsgdszqjtxhz069pgsh8h4a83hwt0',
   offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stATOM),
-};
+});
 
-const wstETHaxl = {
+const wstETHaxl = new ShadeSecretPair({
   name: 'axlWETH → wstETH.axl',
   dex: 'Shade',
   redemptionKey: 'wstETH',
@@ -125,10 +171,9 @@ const wstETHaxl = {
   offerContractAddr: 'secret139qfh3nmuzfgwsx2npnmnjl4hrvj3xq5rmq8a0',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
   tokenInAmount: oneQuintillion,
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, wstETHaxl),
-};
+});
 
-const stInj = {
+const stInj = new ShadeSecretPair({
   name: 'INJ → stINJ',
   dex: 'Shade',
   redemptionKey: 'strideInj',
@@ -136,99 +181,51 @@ const stInj = {
   offerContractAddr: 'secret14706vxakdzkz9a36872cs62vpl5qd84kpwvpew',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
   tokenInAmount: oneQuintillion,
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stInj),
-};
+});
 
-const stOsmo = {
+const stOsmo = new ShadeSecretPair({
   name: 'OSMO → stOSMO',
   dex: 'Shade',
   redemptionKey: 'strideOsmo',
   poolContract: 'secret1gxqsuht45uh2tpqdpru6z6tsw3uyll6md7mzka',
   offerContractAddr: 'secret150jec8mc2hzyyqak4umv6cfevelr0x9p0mjxgg',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stOsmo),
-  maxSwap: async (exchangeRate) => maxSwap(stOsmo, exchangeRate),
-};
+});
 
-const ampKuji = {
+const ampKuji = new ShadeSecretPair({
   name: 'KUJI → ampKUJI',
   dex: 'Shade',
   redemptionKey: 'ampKUJI',
   poolContract: 'secret1gsl3rg9tg4qt5rapcvpg2thgfm4lzqy2qu4etc',
   offerContractAddr: 'secret13hvh0rn0rcf5zr486yxlrucvwpzwqu2dsz6zu8',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, ampKuji),
-};
+});
 
-const stkAtom = {
+const stkAtom = new ShadeSecretPair({
   name: 'ATOM → stkATOM',
   dex: 'Shade',
   redemptionKey: 'stkATOM',
   poolContract: 'secret18537ttv4l4k2ea0xp6ay3sv4c243fyjtj2uqz7',
   offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkAtom),
-};
+});
 
-const ampWhale = {
+const ampWhale = new ShadeSecretPair({
   name: 'WHALE → ampWHALE',
   dex: 'Shade',
   redemptionKey: 'ampWHALE',
   poolContract: 'secret1p92v2fmjt3h4jhwrhhxxetrl0kc3ld9mewrdgp',
   offerContractAddr: 'secret1pcftk3ny87zm6thuxyfrtrlm2t8yev5unuvx6c',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, ampWhale),
-};
+});
 
-const stJUNO = {
+const stJUNO = new ShadeSecretPair({
   name: 'JUNO → stJUNO',
   dex: 'Shade',
   redemptionKey: 'strideJuno',
   poolContract: 'secret12wxpcquw2jx6an6da5nxyz6l7qd955u23ljcjn',
   offerContractAddr: 'secret1z6e4skg5g9w65u5sqznrmagu05xq8u6zjcdg4a',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stJUNO),
-  maxSwap: async (exchangeRate) => maxSwap(stJUNO, exchangeRate),
-};
+});
 
 export const secretPairs = [stkdSCRT, qAtom, stATOM, wstETHaxl, stInj, stOsmo, ampKuji, stkAtom, ampWhale, stJUNO];
-
-async function simuSwap(tokenInAmount, pairDef) {
-  const msg = {
-    swap_simulation: {
-      offer: {
-        token: {
-          custom_token: {
-            contract_addr: pairDef.offerContractAddr,
-            token_code_hash: pairDef.tokenCodeHash,
-          },
-        },
-        amount: `${tokenInAmount}`,
-      },
-    },
-  };
-  return querySecretContract(pairDef.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', msg)
-    .then((d) => d.swap_simulation.result.return_amount)
-    .catch(async (e) => {
-      console.log(e);
-      if (e instanceof Uint8Array) {
-        decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
-      }
-      return 0;
-    });
-}
-
-async function maxSwap(pair, exchangeRate) {
-  const r = await querySecretContract(pair.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', {
-    get_pair_info: {},
-  }).catch(async (e) => {
-    console.log(e);
-    if (e instanceof Uint8Array) {
-      decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
-    }
-  });
-  const asset0Amount = parseInt(r.get_pair_info.amount_0);
-  const asset1Amount = parseInt(r.get_pair_info.amount_1);
-  const asset0Name = r.get_pair_info.pair[0].custom_token.contract_addr;
-  return computeMaxSwap(asset0Name, pair.offerContractAddr, asset0Amount, asset1Amount, exchangeRate);
-}
