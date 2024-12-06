@@ -6,6 +6,7 @@ const ampLunaContract = 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2y
 const moarStakingContract = 'terra1dndhtdr2v7ca8rrn67chlqw3cl3xhm3m2uxls62vghcg3fsh5tpss5xmcu';
 const ampRoarStackingContract = 'terra1vklefn7n6cchn0u962w3gaszr4vf52wjvd4y95t2sydwpmpdtszsqvk9wy';
 const cLunaContract = 'terra188mmw2vsp0yahen3vh2clup543qrttvdzkxl0h9myfuwjj56nausztpegt';
+const arbLunaContract = 'terra1r9gls56glvuc4jedsvc3uwh6vj95mqm9efc7hnweqxa2nlme5cyqxygy5m';
 
 export async function terraRedemptionMap() {
   const lunaXredemption = {
@@ -42,6 +43,11 @@ export async function terraRedemptionMap() {
     unboundingPeriod: 21 + 3 + 7 + 1,
   };
 
+  const arbLunaRedemption = {
+    redemptionRate: await exchangeRateFromState(arbLunaContract),
+    unboundingPeriod: 25,
+  };
+
   return [
     ['LunaX', lunaXredemption],
     ['bLUNA', bLunaRedemption],
@@ -49,6 +55,7 @@ export async function terraRedemptionMap() {
     ['cLUNA', cLunaRedemption],
     ['ampROAR', ampRoarRedemption],
     ['ROARtoMOAR', roarToMoarRedemption],
+    ['arbLUNA', arbLunaRedemption],
   ];
 }
 
@@ -327,6 +334,39 @@ const stAtomAstroInv = {
   poolContract: 'terra1f9vmtntpjmkyhkxtlc49jcq6cv8rfz0kr06zv6efdtdgae4m9y9qlzm36t',
 };
 
+// ArbLUNA
+const arbLunaAstro = {
+  name: 'LUNA → arbLUNA',
+  dex: 'Astroport Terra',
+  redemptionKey: 'arbLUNA',
+  offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra16nfwldn9j5xhry2y78gvm3x4vte8vu77zr3ctlan79w5f5aheawqnz7a4f',
+};
+
+const arbLunaAstroInv = {
+  name: 'arbLUNA → LUNA',
+  dex: 'Astroport Terra',
+  redemptionKey: 'arbLUNAinv',
+  offerTokenAddr: 'terra1se7rvuerys4kd2snt6vqswh9wugu49vhyzls8ymc02wl37g2p2ms5yz490',
+  poolContract: 'terra16nfwldn9j5xhry2y78gvm3x4vte8vu77zr3ctlan79w5f5aheawqnz7a4f',
+};
+
+const arbLunaWW = {
+  name: 'LUNA → arbLUNA',
+  dex: 'White Whale Terra',
+  redemptionKey: 'arbLUNA',
+  offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra1wttdzwa6pdegtrdjdw49y0pd3dd8qd3cqn89j6t9v978lx05rr8sew5jyq',
+};
+
+const arbLunaWWInv = {
+  name: 'arbLUNA → LUNA',
+  dex: 'White Whale Terra',
+  redemptionKey: 'arbLUNAinv',
+  offerTokenAddr: 'terra1se7rvuerys4kd2snt6vqswh9wugu49vhyzls8ymc02wl37g2p2ms5yz490',
+  poolContract: 'terra1wttdzwa6pdegtrdjdw49y0pd3dd8qd3cqn89j6t9v978lx05rr8sew5jyq',
+};
+
 export const terraLsds = [
   lunaX,
   cLuna,
@@ -366,4 +406,9 @@ export const terraLsds = [
   atomDatomAstroinv,
   stAtomAstro,
   stAtomAstroInv,
+  // arbLUNA
+  arbLunaAstro,
+  arbLunaAstroInv,
+  arbLunaWW,
+  arbLunaWWInv,
 ];
