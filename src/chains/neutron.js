@@ -1,4 +1,4 @@
-import { queryContract, oneQuintillion } from '../utils.js';
+import { queryContract } from '../utils.js';
 
 const xAstroContract = 'neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn';
 const dAtomContract = 'neutron16m3hjh7l04kap086jgwthduma0r5l0wh8kc6kaqk92ge9n5aqvys9q6lxr';
@@ -59,7 +59,7 @@ const wstETH = {
   redemptionKey: 'wstETH',
   offerNativeTokenDenom: 'ibc/A585C2D15DCD3B010849B453A2CFCB5E213208A5AB665691792684C26274304D',
   poolContract: 'neutron1yw0a7nxa8jdgzmdsme4gwxhj76n44z305qgwrzvlfavgna9epcys3k9m2f',
-  tokenInAmount: oneQuintillion,
+  decimal: 18,
 };
 
 const wstETHToAxlWETH = {
@@ -68,7 +68,7 @@ const wstETHToAxlWETH = {
   redemptionKey: 'wstETHinv',
   offerNativeTokenDenom: 'factory/neutron1ug740qrkquxzrk2hh29qrlx3sktkfml3je7juusc2te7xmvsscns0n2wry/wstETH',
   poolContract: 'neutron1yw0a7nxa8jdgzmdsme4gwxhj76n44z305qgwrzvlfavgna9epcys3k9m2f',
-  tokenInAmount: oneQuintillion,
+  decimal: 18,
 };
 
 const wstEthToWstEthAxl = {
@@ -77,7 +77,7 @@ const wstEthToWstEthAxl = {
   redemptionKey: 'identity',
   offerNativeTokenDenom: 'factory/neutron1ug740qrkquxzrk2hh29qrlx3sktkfml3je7juusc2te7xmvsscns0n2wry/wstETH',
   poolContract: 'neutron1ghhlz6zfc33r49u0y77u3shf5a88hcw2wrpwvuky7ucs24ye9ypqj3aypu',
-  tokenInAmount: oneQuintillion,
+  decimal: 18,
 };
 
 const wstEthAxlTowstEth = {
@@ -86,7 +86,7 @@ const wstEthAxlTowstEth = {
   redemptionKey: 'identity',
   offerNativeTokenDenom: 'ibc/4D04085167777659C11784A356D6B0D13D5C7F0CE77F7DB1152FE03A2DE2CBF2',
   poolContract: 'neutron1ghhlz6zfc33r49u0y77u3shf5a88hcw2wrpwvuky7ucs24ye9ypqj3aypu',
-  tokenInAmount: oneQuintillion,
+  decimal: 18,
 };
 
 export const neutronLsds = [stAtomNeutron, dAtom, dAtomInv, stkAtomNeutron, wstETH, wstETHToAxlWETH, wstEthToWstEthAxl, wstEthAxlTowstEth];

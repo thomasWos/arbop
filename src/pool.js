@@ -1,6 +1,6 @@
 import { queryContract } from './utils.js';
 
-export async function maxSwap(pair, exchangeRate) {
+export async function maxSwap(pair, exchangeRate, decimal = 6) {
   const r = await queryContract(pair.poolContract, { pool: {} });
   const asset0 = r.assets[0];
   const asset0Amount = parseInt(r.assets[0].amount);
@@ -11,18 +11,23 @@ export async function maxSwap(pair, exchangeRate) {
   const asset0Name = asset0Denom || asset0ContractAdd;
 
   const pairOfferName = pair.offerNativeTokenDenom || pair.offerTokenAddr;
-  return computeMaxSwap(asset0Name, pairOfferName, asset0Amount, asset1Amount, exchangeRate);
+  const decimalIn = pair.decimalIn || pair.decimal || 6;
+  const decimalOut = pair.decimalOut || pair.decimal || 6;
+  return computeMaxSwap(asset0Name, pairOfferName, asset0Amount, asset1Amount, exchangeRate, decimalIn, decimalOut);
 }
 
-export function computeMaxSwap(asset0Name, pairOfferName, asset0Amount, asset1Amount, exchangeRate) {
+export function computeMaxSwap(asset0Name, pairOfferName, asset0Amount, asset1Amount, exchangeRate, decimalIn = 6, decimalOut = 6) {
   let maxToSwap;
   if (asset0Name === pairOfferName) {
-    const asset1AmountWithRedemption = asset1Amount * exchangeRate;
-    maxToSwap = (asset1AmountWithRedemption - asset0Amount) / 2;
+    const asset0Human = asset0Amount / Math.pow(10, decimalIn);
+    const asset1Human = asset1Amount / Math.pow(10, decimalOut);
+    const asset1AmountWithRedemption = asset1Human * exchangeRate;
+    maxToSwap = (asset1AmountWithRedemption - asset0Human) / 2;
   } else {
-    const asset0AmountWithRedemption = asset0Amount * exchangeRate;
-    maxToSwap = (asset0AmountWithRedemption - asset1Amount) / 2;
+    const asset0Human = asset0Amount / Math.pow(10, decimalOut);
+    const asset1Human = asset1Amount / Math.pow(10, decimalIn);
+    const asset0AmountWithRedemption = asset0Human * exchangeRate;
+    maxToSwap = (asset0AmountWithRedemption - asset1Human) / 2;
   }
-  const maxToSwapForHuman = maxToSwap / Math.pow(10, 6);
-  return maxToSwapForHuman;
+  return maxToSwap;
 }

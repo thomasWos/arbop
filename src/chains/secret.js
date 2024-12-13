@@ -4,7 +4,7 @@
 import { generateKeyPair } from 'curve25519-js';
 import * as miscreant from 'miscreant';
 import { computeMaxSwap } from '../pool.js';
-import { fromBase64, oneMillion, oneQuintillion, toBase64 } from '../utils.js';
+import { fromBase64, oneMillion, toBase64 } from '../utils.js';
 
 // https://docs.scrt.network/secret-network-documentation/development/resources-api-contract-addresses/connecting-to-the-network/mainnet-secret-4#api-endpoints
 const lcdUrl = 'https://rpc.ankr.com/http/scrt_cosmos';
@@ -86,13 +86,14 @@ export async function secretRedemptionMap() {
 }
 
 class ShadeSecretPair {
-  constructor({ name, dex, redemptionKey, poolContract, offerContractAddr, tokenCodeHash }) {
+  constructor({ name, dex, redemptionKey, poolContract, offerContractAddr, tokenCodeHash, decimal = 6 }) {
     this.name = name;
     this.dex = dex;
     this.redemptionKey = redemptionKey;
     this.poolContract = poolContract;
     this.offerContractAddr = offerContractAddr;
     this.tokenCodeHash = tokenCodeHash;
+    this.decimal = decimal;
   }
 
   async simuSwap(tokenInAmount) {
@@ -105,13 +106,14 @@ class ShadeSecretPair {
               token_code_hash: this.tokenCodeHash,
             },
           },
-          amount: `${tokenInAmount}`,
+          amount: `${Math.pow(10, this.decimal)}`,
         },
       },
     };
     return querySecretContract(this.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', msg)
       .then((d) => d.swap_simulation.result.return_amount)
       .catch(async (e) => {
+        console.log(`querySecretContract - ${this.name}`);
         console.log(e);
         if (e instanceof Uint8Array) {
           decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
@@ -124,6 +126,7 @@ class ShadeSecretPair {
     const r = await querySecretContract(this.poolContract, 'e88165353d5d7e7847f2c84134c3f7871b2eee684ffac9fcf8d99a4da39dc2f2', {
       get_pair_info: {},
     }).catch(async (e) => {
+      console.log(`maxSwap - ${this.name}`);
       console.log(e);
       if (e instanceof Uint8Array) {
         decrypt(await newSiv(), e).then((decrypted) => console.log(fromUtf8(decrypted)));
@@ -132,7 +135,7 @@ class ShadeSecretPair {
     const asset0Amount = parseInt(r.get_pair_info.amount_0);
     const asset1Amount = parseInt(r.get_pair_info.amount_1);
     const asset0Name = r.get_pair_info.pair[0].custom_token.contract_addr;
-    return computeMaxSwap(asset0Name, this.offerContractAddr, asset0Amount, asset1Amount, exchangeRate);
+    return computeMaxSwap(asset0Name, this.offerContractAddr, asset0Amount, asset1Amount, exchangeRate, this.decimal, this.decimal);
   }
 }
 
@@ -170,7 +173,7 @@ const wstETHaxl = new ShadeSecretPair({
   poolContract: 'secret1dpqfh2qkxj2s4qz5u9dduux0vcjezp5h7d48lh',
   offerContractAddr: 'secret139qfh3nmuzfgwsx2npnmnjl4hrvj3xq5rmq8a0',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  tokenInAmount: oneQuintillion,
+  decimal: 18,
 });
 
 const stInj = new ShadeSecretPair({
@@ -180,7 +183,7 @@ const stInj = new ShadeSecretPair({
   poolContract: 'secret1c26v64jmesejsauxx5uamaycfe4zt3rth3yg4e',
   offerContractAddr: 'secret14706vxakdzkz9a36872cs62vpl5qd84kpwvpew',
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-  tokenInAmount: oneQuintillion,
+  decimal: 18,
 });
 
 const stOsmo = new ShadeSecretPair({

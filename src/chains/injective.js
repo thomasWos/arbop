@@ -40,7 +40,7 @@ const stInjAstro = {
   dex: 'Astroport Injective',
   redemptionKey: 'strideInj',
   offerNativeTokenDenom: 'inj',
-  tokenInAmount: oneQuintillion,
+  decimal: 18,
   poolContract: 'inj10fd06xl4q6jp9qlhemvm6ymmm83ppj2g8rzquw',
 };
 

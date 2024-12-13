@@ -52,8 +52,8 @@ async function computeArbs() {
 }
 
 async function computeArb(pair, index, redemptionMap) {
-  let decimalIn = pair.decimalIn;
-  const tokenInAmount = pair.tokenInAmount || (decimalIn && Math.pow(10, pair.decimalIn)) || 1000000;
+  const decimalIn = pair.decimalIn || pair.decimal || 6;
+  const tokenInAmount = pair.tokenInAmount || Math.pow(10, decimalIn);
 
   let exchangeRate = redemptionMap.get(pair.redemptionKey);
   let unboundingPeriod = pair.unboundingPeriod;
@@ -103,7 +103,7 @@ async function computeArb(pair, index, redemptionMap) {
       },
     }).catch((e) => console.log(e));
     tokenOutAmount = (simulationResult?.return_amount && parseInt(simulationResult.return_amount)) || tokenInAmount;
-    maxSwapInPool = pair.dex !== 'FIN' && (await maxSwap(pair, exchangeRate).catch((e) => 0));
+    maxSwapInPool = pair.dex !== 'FIN' && (await maxSwap(pair, exchangeRate, pair.decimal).catch((e) => 0));
   }
 
   const arb =
