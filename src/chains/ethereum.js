@@ -91,9 +91,9 @@ export async function ethereumRedemptionMap() {
     .then((r) => parseInt(r) / oneQuintillion);
 
   return [
-    ['stETH', 1],
-    ['wstETH', wstEthRate],
-    ['mevETH', mevEth],
+    ['stETH', { redemptionRate: 1, unboundingPeriod: 7 }],
+    ['wstETH', { redemptionRate: wstEthRate, unboundingPeriod: 7 }],
+    ['mevETH', { redemptionRate: mevEth, unboundingPeriod: 15 }],
   ];
 }
 
