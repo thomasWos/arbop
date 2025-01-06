@@ -8,19 +8,14 @@ const arbWhaleContract = 'migaloo1ey4sn2mkmhew4pdrzk90l9acluvas25qlhuvsfgssw42ug
 
 export async function migalooRedemptionMap() {
   const ampWhaleRate = await exchangeRateFromState(ampWhaleContract);
-  const ampWhaleRedemption = {
-    redemptionRate: ampWhaleRate,
-    unboundingPeriod: 21 + 3,
-  };
-
   const bWhaleRate = await exchangeRateFromState(bWhaleContract);
   const bWhaleTRate = await exchangeRateFromState(bWhaleTContract);
   const ampWhaleTRate = await exchangeRateFromState(ampWhaleTContract);
   const arbWhaleRate = await exchangeRateFromState(arbWhaleContract);
 
   return [
-    ['ampWHALE', ampWhaleRedemption],
-    ['bWHALE', bWhaleRate],
+    ['ampWHALE', { redemptionRate: ampWhaleRate, unboundingPeriod: 21 + 3 }],
+    ['bWHALE', { redemptionRate: bWhaleRate, unboundingPeriod: 21 + 3 }],
     ['ampWHALEt', ampWhaleTRate],
     ['bWHALEt', bWhaleTRate],
     ['arbWHALE', arbWhaleRate],
@@ -63,7 +58,6 @@ const bWhale = {
   name: 'WHALE → bWHALE',
   dex: 'White Whale Migaloo',
   redemptionKey: 'bWHALE',
-  unboundingPeriod: 21 + 3,
   offerNativeTokenDenom: 'uwhale',
   poolContract: 'migaloo1dg5jrt89nddtymjx5pzrvdvdt0m4zl3l2l3ytunl6a0kqd7k8hss594wy6',
 };

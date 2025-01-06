@@ -22,7 +22,6 @@ const bWhale = {
   name: 'WHALE → bWHALE',
   dex: 'White Whale Injective',
   redemptionKey: 'bWHALE',
-  unboundingPeriod: 21 + 3,
   offerNativeTokenDenom: 'ibc/D6E6A20ABDD600742D22464340A7701558027759CE14D12590F8EA869CCCF445',
   poolContract: 'inj17dez7atlgwrl7lxzszxjy7gzuj325n8re3f7mh',
 };

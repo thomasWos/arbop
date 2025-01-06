@@ -176,7 +176,6 @@ const bWhaleWW = {
   name: 'WHALE → bWHALE',
   dex: 'White Whale Terra',
   redemptionKey: 'bWHALE',
-  unboundingPeriod: 21 + 3,
   offerNativeTokenDenom: 'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB',
   poolContract: 'terra1j9jmsplecj9ay2py27953p84nfmv7f6ce75ms5fleyhd0aecpc7q0hgmsa',
 };
@@ -193,7 +192,6 @@ const bWhaleAstro = {
   name: 'WHALE → bWHALE',
   dex: 'Astroport Terra',
   redemptionKey: 'bWHALE',
-  unboundingPeriod: 21 + 3,
   offerNativeTokenDenom: 'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB',
   poolContract: 'terra18hhsyrjac6hud4tc9q05s8em35utm6jndswhw5v56lh5ld37ml6secl2rd',
 };

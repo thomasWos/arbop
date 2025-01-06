@@ -1,6 +1,6 @@
 import { queryContract } from './utils.js';
 
-export async function maxSwap(pair, exchangeRate, decimal = 6) {
+export async function maxSwap(pair, exchangeRate) {
   const r = await queryContract(pair.poolContract, { pool: {} });
   const asset0 = r.assets[0];
   const asset0Amount = parseInt(r.assets[0].amount);

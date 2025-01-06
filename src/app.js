@@ -103,7 +103,7 @@ async function computeArb(pair, index, redemptionMap) {
       },
     }).catch((e) => console.log(e));
     tokenOutAmount = (simulationResult?.return_amount && parseInt(simulationResult.return_amount)) || tokenInAmount;
-    maxSwapInPool = pair.dex !== 'FIN' && (await maxSwap(pair, exchangeRate, pair.decimal).catch((e) => 0));
+    maxSwapInPool = pair.dex !== 'FIN' && (await maxSwap(pair, exchangeRate).catch((e) => 0));
   }
 
   const arb =

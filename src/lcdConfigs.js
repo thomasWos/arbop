@@ -8,7 +8,7 @@ const lcds = [
   ['chihuahua', 'https://chihua.api.m.stavr.tech'],
   ['persistence', 'https://persistence-rest.publicnode.com'],
   ['archway', 'https://api.mainnet.archway.io'],
-  ['inj', 'https://injective-api.polkachu.com'],
+  ['inj', 'https://injective-rest.publicnode.com'],
 ];
 console.log(lcds);
 
