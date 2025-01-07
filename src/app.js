@@ -16,6 +16,7 @@ import { terraLsds } from './chains/terra.js';
 import { fetchRedemptionsMap } from './redemptions.js';
 import { arbitrage, arbitrageDecimals, calculateApy, queryContract } from './utils.js';
 import { maxSwap } from './pool.js';
+import { avaxPairs } from './chains/avalanche.js';
 
 async function computeArbs() {
   const redemptionMap = await fetchRedemptionsMap();
@@ -35,6 +36,7 @@ async function computeArbs() {
     ...archwayPairs,
     ...ethPairs,
     ...injectivePairs,
+    ...avaxPairs,
   ];
 
   // Mainly cosmos chains

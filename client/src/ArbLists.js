@@ -27,38 +27,40 @@ const ArbLists = () => {
 
   const { timestamp, arbs } = data;
 
-  const roarArbs = arbs.filter((a) => a.name.includes('ROAR'));
-  const huahuaArbs = arbs.filter((a) => a.name.includes('HUAHUA'));
-  const junoArbs = arbs.filter((a) => a.name.includes('JUNO'));
-  const whaleArbs = arbs.filter((a) => a.name.includes('WHALE'));
+  const archArbs = arbs.filter((a) => a.name.includes('ARCH'));
+  const atomArbs = arbs.filter((a) => a.name.includes('ATOM'));
+  const avaxArbs = arbs.filter((a) => a.name.includes('AVAX'));
   const egldArbs = arbs.filter((a) => a.name.includes('EGLD'));
+  const ethArbs = arbs.filter((a) => a.name.includes('ETH'));
+  const evmosArbs = arbs.filter((a) => a.name.includes('EVMOS'));
+  const huahuaArbs = arbs.filter((a) => a.name.includes('HUAHUA'));
+  const injArbs = arbs.filter((a) => a.name.includes('INJ'));
+  const junoArbs = arbs.filter((a) => a.name.includes('JUNO'));
+  const kujiArbs = arbs.filter((a) => a.name.includes('KUJI'));
   const lunaArbs = arbs.filter((a) => a.name.includes('LUNA'));
   const osmoArbs = arbs.filter((a) => a.name.includes('OSMO'));
-  const atomArbs = arbs.filter((a) => a.name.includes('ATOM'));
-  const starsArbs = arbs.filter((a) => a.name.includes('STAR'));
-  const evmosArbs = arbs.filter((a) => a.name.includes('EVMOS'));
-  const ethArbs = arbs.filter((a) => a.name.includes('ETH'));
-  const kujiArbs = arbs.filter((a) => a.name.includes('KUJI'));
+  const roarArbs = arbs.filter((a) => a.name.includes('ROAR'));
   const secretArbs = arbs.filter((a) => a.name.includes('SCRT'));
-  const archArbs = arbs.filter((a) => a.name.includes('ARCH'));
-  const injArbs = arbs.filter((a) => a.name.includes('INJ'));
+  const starsArbs = arbs.filter((a) => a.name.includes('STAR'));
+  const whaleArbs = arbs.filter((a) => a.name.includes('WHALE'));
 
   const combinedList = [
-    roarArbs,
-    huahuaArbs,
-    junoArbs,
-    whaleArbs,
+    archArbs,
+    atomArbs,
+    avaxArbs,
     egldArbs,
+    ethArbs,
+    evmosArbs,
+    huahuaArbs,
+    injArbs,
+    junoArbs,
+    kujiArbs,
     lunaArbs,
     osmoArbs,
-    atomArbs,
-    starsArbs,
-    evmosArbs,
-    ethArbs,
-    kujiArbs,
+    roarArbs,
     secretArbs,
-    archArbs,
-    injArbs,
+    starsArbs,
+    whaleArbs,
   ];
 
   const exclusionSet = new Set(combinedList.flat(1).map((a) => a.id));

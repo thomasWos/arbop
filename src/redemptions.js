@@ -1,4 +1,5 @@
 import { archwayRedemptionMap } from './chains/archway.js';
+import { avalancheRedemptionMap } from './chains/avalanche.js';
 import { chihuahuaRedemptionMap } from './chains/chihuahua.js';
 import { ethereumRedemptionMap } from './chains/ethereum.js';
 import { junoRedemptionMap } from './chains/juno.js';
@@ -32,6 +33,7 @@ export async function fetchRedemptionsMap() {
     secretRedemptionMap(),
     ethereumRedemptionMap(),
     archwayRedemptionMap(),
+    avalancheRedemptionMap(),
   ];
 
   const redemptionsResult = await Promise.allSettled(redemptionPromosises);

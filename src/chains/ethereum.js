@@ -14,21 +14,9 @@ const wstEthAbi = [
 
 const mevEthAbi = [
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'shares',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'shares', type: 'uint256' }],
     name: 'convertToAssets',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'assets',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'assets', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
@@ -54,25 +42,11 @@ const getDyAbi2 = [
     type: 'function',
     name: 'get_dy',
     inputs: [
-      {
-        name: 'i',
-        type: 'uint256',
-      },
-      {
-        name: 'j',
-        type: 'uint256',
-      },
-      {
-        name: 'dx',
-        type: 'uint256',
-      },
+      { name: 'i', type: 'uint256' },
+      { name: 'j', type: 'uint256' },
+      { name: 'dx', type: 'uint256' },
     ],
-    outputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ name: '', type: 'uint256' }],
   },
 ];
 
