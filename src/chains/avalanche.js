@@ -6,6 +6,7 @@ const YAK_MAX_STEPS = 3;
 const WAVAX_ADDRESS = '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7';
 const SAVAX_ADDRESS = '0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE';
 const GGAVAX_ADDRESS = '0xA25EaF2906FA1a3a13EdAc9B9657108Af7B703e3';
+const RSAVAX_ADDRESS = '0xDf788AD40181894dA035B827cDF55C523bf52F67';
 
 const stAvaxAbi = [
   {
@@ -84,14 +85,14 @@ const avaxToSAvax = {
   simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, avaxToSAvax),
 };
 
-const avaxToSAvaxInv = {
+const sAvaxToAvax = {
   name: 'sAVAX → AVAX',
   dex: 'YakSwap',
   redemptionKey: 'sAVAXinv',
   tokenInAmount: oneQuintillion,
   addressTokenIn: SAVAX_ADDRESS,
   addressTokenOut: WAVAX_ADDRESS,
-  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, avaxToSAvaxInv),
+  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, sAvaxToAvax),
 };
 
 const avaxToggAvax = {
@@ -104,14 +105,34 @@ const avaxToggAvax = {
   simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, avaxToggAvax),
 };
 
-const avaxToggAvaxinv = {
+const ggAvaxToAvax = {
   name: 'ggAVAX → AVAX',
   dex: 'YakSwap',
   redemptionKey: 'ggAVAXinv',
   tokenInAmount: oneQuintillion,
   addressTokenIn: GGAVAX_ADDRESS,
   addressTokenOut: WAVAX_ADDRESS,
-  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, avaxToggAvaxinv),
+  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, ggAvaxToAvax),
+};
+
+const avaxTorsAvax = {
+  name: 'AVAX → rsAVAX',
+  dex: 'YakSwap',
+  redemptionKey: 'sAVAX',
+  tokenInAmount: oneQuintillion,
+  addressTokenIn: WAVAX_ADDRESS,
+  addressTokenOut: RSAVAX_ADDRESS,
+  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, avaxTorsAvax),
+};
+
+const rsAvaxToAvax = {
+  name: 'rsAVAX → AVAX',
+  dex: 'YakSwap',
+  redemptionKey: 'sAVAXinv',
+  tokenInAmount: oneQuintillion,
+  addressTokenIn: RSAVAX_ADDRESS,
+  addressTokenOut: WAVAX_ADDRESS,
+  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, rsAvaxToAvax),
 };
 
 async function yakFindBestPath(tokenInAmount, pairDef) {
@@ -121,4 +142,4 @@ async function yakFindBestPath(tokenInAmount, pairDef) {
     .then((fr) => parseInt(fr.amounts[fr.amounts.length - 1]));
 }
 
-export const avaxPairs = [avaxToSAvax, avaxToSAvaxInv, avaxToggAvax, avaxToggAvaxinv];
+export const avaxPairs = [avaxToSAvax, sAvaxToAvax, avaxToggAvax, ggAvaxToAvax, avaxTorsAvax, rsAvaxToAvax];
