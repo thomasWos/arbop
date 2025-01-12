@@ -139,15 +139,6 @@ class ShadeSecretPair {
   }
 }
 
-const qAtom = new ShadeSecretPair({
-  name: 'ATOM → qATOM',
-  dex: 'Shade',
-  redemptionKey: 'qATOM',
-  poolContract: 'secret1f6kw62rzgn3fwc0jfp7nxjks0l45jv3r6tpc0x',
-  offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
-  tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-});
-
 const stkdSCRT = new ShadeSecretPair({
   name: 'sSCRT → stkdSCRT',
   dex: 'Shade',
@@ -204,15 +195,6 @@ const ampKuji = new ShadeSecretPair({
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
 });
 
-const stkAtom = new ShadeSecretPair({
-  name: 'ATOM → stkATOM',
-  dex: 'Shade',
-  redemptionKey: 'stkATOM',
-  poolContract: 'secret18537ttv4l4k2ea0xp6ay3sv4c243fyjtj2uqz7',
-  offerContractAddr: 'secret19e75l25r6sa6nhdf4lggjmgpw0vmpfvsw5cnpe',
-  tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-});
-
 const ampWhale = new ShadeSecretPair({
   name: 'WHALE → ampWHALE',
   dex: 'Shade',
@@ -231,4 +213,4 @@ const stJUNO = new ShadeSecretPair({
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
 });
 
-export const secretPairs = [stkdSCRT, qAtom, stATOM, wstETHaxl, stInj, stOsmo, ampKuji, stkAtom, ampWhale, stJUNO];
+export const secretPairs = [stkdSCRT, stATOM, wstETHaxl, stInj, stOsmo, ampKuji, ampWhale, stJUNO];
