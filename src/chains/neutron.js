@@ -11,13 +11,10 @@ async function queryxAstroRate() {
 
 export async function neutronRedemptionMap() {
   const xAstroRate = await queryxAstroRate();
-  const dAtomRate = {
-    redemptionRate: await queryContract(dAtomContract, { exchange_rate: {} }).then((d) => parseFloat(d)),
-    unboundingPeriod: 21 + 3,
-  };
+  const dAtomRate = await queryContract(dAtomContract, { exchange_rate: {} }).then((d) => parseFloat(d));
   return [
     ['xASTRO', xAstroRate],
-    ['dATOM', dAtomRate],
+    ['dATOM', { redemptionRate: dAtomRate, unboundingPeriod: 21 + 3 }],
   ];
 }
 

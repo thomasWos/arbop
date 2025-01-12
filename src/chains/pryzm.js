@@ -49,6 +49,24 @@ const cAtomToAtom = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, cAtomToAtom),
 };
 
+const atomTodAtom = {
+  name: 'ATOM → dATOM',
+  dex: 'Prysm',
+  redemptionKey: 'dATOM',
+  tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+  tokenOut: 'ibc/EA6E1E8BA2EB9F681C4BD12C8C81A46530A62934F2BD561B120A00F46946CE87',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, atomTodAtom),
+};
+
+const dAtomToAtom = {
+  name: 'dATOM → ATOM',
+  dex: 'Prysm',
+  redemptionKey: 'dATOMinv',
+  tokenIn: 'ibc/EA6E1E8BA2EB9F681C4BD12C8C81A46530A62934F2BD561B120A00F46946CE87',
+  tokenOut: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, dAtomToAtom),
+};
+
 const osmoTocOsmo = {
   name: 'OSMO → cOSMO',
   dex: 'Prysm',
@@ -108,6 +126,8 @@ export const prysmPairs = [
   // ATOM
   atomTocAtom,
   cAtomToAtom,
+  atomTodAtom,
+  dAtomToAtom,
   // OSMO
   osmoTocOsmo,
   cOsmoToOsmo,
