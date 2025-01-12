@@ -44,7 +44,7 @@ export async function terraRedemptionMap() {
     ['LunaX', lunaXredemption],
     ['bLUNA', bLunaRedemption],
     ['ampLUNA', ampLunaRedemption],
-    ['cLUNA', cLunaRedemption],
+    ['cLUNAt', cLunaRedemption],
     ['ampROAR', ampRoarRedemption],
     ['arbLUNA', arbLunaRedemption],
   ];
@@ -69,7 +69,7 @@ const blunaAstro = {
 const cLuna = {
   name: 'LUNA → cLUNA',
   dex: 'Astroport Terra',
-  redemptionKey: 'cLUNA',
+  redemptionKey: 'cLUNAt',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1pxm9qtnrchzy90d99clpa0rkx8fyztlc67wt5t999pc8yvsrx90snpfe4v',
 };

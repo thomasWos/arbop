@@ -9,6 +9,7 @@ import { multiversxRedemptionMap } from './chains/multiversx.js';
 import { neutronRedemptionMap } from './chains/neutron.js';
 import { osmosisRedemptionMap } from './chains/osmosis.js';
 import { persistenceRedemptionMap } from './chains/persistence.js';
+import { pryzmRedemptionMap } from './chains/pryzm.js';
 import { quicksilverRedemptionMap } from './chains/quicksilver.js';
 import { secretRedemptionMap } from './chains/secret.js';
 import { stafiRedemptionMap } from './chains/stafihub.js';
@@ -18,22 +19,23 @@ import { printMap } from './utils.js';
 
 export async function fetchRedemptionsMap() {
   const redemptionPromosises = [
-    terraRedemptionMap(),
-    kujiraRedemptionMap(),
-    osmosisRedemptionMap(),
-    chihuahuaRedemptionMap(),
-    strideRedemptionMap(),
-    neutronRedemptionMap(),
-    migalooRedemptionMap(),
-    junoRedemptionMap(),
-    persistenceRedemptionMap(),
-    stafiRedemptionMap(),
-    multiversxRedemptionMap(),
-    quicksilverRedemptionMap(),
-    secretRedemptionMap(),
-    ethereumRedemptionMap(),
     archwayRedemptionMap(),
     avalancheRedemptionMap(),
+    chihuahuaRedemptionMap(),
+    ethereumRedemptionMap(),
+    junoRedemptionMap(),
+    kujiraRedemptionMap(),
+    migalooRedemptionMap(),
+    multiversxRedemptionMap(),
+    neutronRedemptionMap(),
+    osmosisRedemptionMap(),
+    persistenceRedemptionMap(),
+    pryzmRedemptionMap(),
+    quicksilverRedemptionMap(),
+    secretRedemptionMap(),
+    stafiRedemptionMap(),
+    strideRedemptionMap(),
+    terraRedemptionMap(),
   ];
 
   const redemptionsResult = await Promise.allSettled(redemptionPromosises);

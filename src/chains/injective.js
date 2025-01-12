@@ -1,5 +1,3 @@
-import { oneQuintillion } from '../utils.js';
-
 const restUrl = 'https://injective-rest.publicnode.com';
 
 const ampWhale = {
@@ -42,21 +40,5 @@ const stInjAstro = {
   decimal: 18,
   poolContract: 'inj10fd06xl4q6jp9qlhemvm6ymmm83ppj2g8rzquw',
 };
-
-/*
-const stInj = {
-  name: 'INJ → stINJ',
-  dex: 'Helix',
-  redemptionKey: 'strideInj',
-  marketId: '0xce1829d4942ed939580e72e66fd8be3502396fc840b6d12b2d676bdb86542363',
-  simuSwap: async (tokenInAmount) => simuSwap(stInj),
-};
-
-async function simuSwap(pairDef) {
-  fetch(restUrl + '/injective/exchange/v1beta1/spot/mid_price_and_tob/' + pairDef.marketId)
-    .then((r) => r.json())
-    .then((d) => parseFloat(d.best_sell_price));
-}
-*/
 
 export const injectivePairs = [ampWhale, ampWhaleInv, bWhale, bWhaleInv, stInjAstro];

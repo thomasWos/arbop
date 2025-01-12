@@ -1,4 +1,5 @@
 import { archwayPairs } from './chains/archway.js';
+import { avaxPairs } from './chains/avalanche.js';
 import { chihuahuaLsds } from './chains/chihuahua.js';
 import { ethPairs } from './chains/ethereum.js';
 import { evmosPairs } from './chains/evmos.js';
@@ -10,33 +11,34 @@ import { multiversxArbs } from './chains/multiversx.js';
 import { neutronLsds } from './chains/neutron.js';
 import { osmoLsds } from './chains/osmosis.js';
 import { persistencePairs } from './chains/persistence.js';
+import { prysmPairs } from './chains/pryzm.js';
 import { secretPairs } from './chains/secret.js';
 import { stafiLsds } from './chains/stafihub.js';
 import { terraLsds } from './chains/terra.js';
+import { maxSwap } from './pool.js';
 import { fetchRedemptionsMap } from './redemptions.js';
 import { arbitrage, arbitrageDecimals, calculateApy, queryContract } from './utils.js';
-import { maxSwap } from './pool.js';
-import { avaxPairs } from './chains/avalanche.js';
 
 async function computeArbs() {
   const redemptionMap = await fetchRedemptionsMap();
 
   const lsds = [
-    ...terraLsds,
-    ...kujiLsds,
-    ...chihuahuaLsds,
-    ...whaleLsds,
-    ...osmoLsds,
-    ...stafiLsds,
-    ...neutronLsds,
-    ...junoLsds,
-    ...persistencePairs,
-    ...secretPairs,
-    ...evmosPairs,
     ...archwayPairs,
-    ...ethPairs,
-    ...injectivePairs,
     ...avaxPairs,
+    ...chihuahuaLsds,
+    ...ethPairs,
+    ...evmosPairs,
+    ...injectivePairs,
+    ...junoLsds,
+    ...kujiLsds,
+    ...neutronLsds,
+    ...osmoLsds,
+    ...persistencePairs,
+    ...prysmPairs,
+    ...secretPairs,
+    ...stafiLsds,
+    ...terraLsds,
+    ...whaleLsds,
   ];
 
   // Mainly cosmos chains

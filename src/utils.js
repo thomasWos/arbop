@@ -54,3 +54,7 @@ export function printMap(map) {
     }
   });
 }
+
+export function encodePath(str) {
+  return str.replace(/\//g, '%2F');
+}
