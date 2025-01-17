@@ -1,4 +1,10 @@
-const restUrl = 'https://injective-rest.publicnode.com';
+import { queryContract } from '../utils.js';
+
+export async function injectiveRedemptionMap() {
+  // const markets = await queryContract('inj1nc7gjkf2mhp34a6gquhurg8qahnw5kxs5u3s4u', { get_all_markets: {} }).then((d) => parseInt(d.total_supply));
+  // const nUsdcSupply = await queryContract('inj1dafy7fv7qczzatd98dv8hekx6ssckrflswpjaz', { token_info: {} }).then((d) => parseInt(d.total_supply));
+  return [];
+}
 
 const ampWhale = {
   name: 'WHALE → ampWHALE',
