@@ -107,6 +107,42 @@ const cInjToInj = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, cInjToInj),
 };
 
+const usdcToNusdc = {
+  name: 'USDC → nUSDC',
+  dex: 'Prysm',
+  redemptionKey: 'nUSDC',
+  tokenIn: 'ibc/BFAAB7870A9AAABF64A7366DAAA0B8E5065EAA1FCE762F45677DC24BE796EF65',
+  tokenOut: 'ibc/9924F230D93D88A98D1469A24E523D7BF58935E6321C18CFAEFBFC068B54676F',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, usdcToNusdc),
+};
+
+const nUsdcToUsdc = {
+  name: 'nUSDC → USDC',
+  dex: 'Prysm',
+  redemptionKey: 'nUSDCinv',
+  tokenIn: 'ibc/9924F230D93D88A98D1469A24E523D7BF58935E6321C18CFAEFBFC068B54676F',
+  tokenOut: 'ibc/BFAAB7870A9AAABF64A7366DAAA0B8E5065EAA1FCE762F45677DC24BE796EF65',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, nUsdcToUsdc),
+};
+
+const usdtToNusdt = {
+  name: 'USDT → nUSDT',
+  dex: 'Prysm',
+  redemptionKey: 'nUSDT',
+  tokenIn: 'ibc/D8A36AE90F20FE4843A8D249B1BCF0CCDDE35C4B605C8DED57BED20C639162D0',
+  tokenOut: 'ibc/018AC5A86B24C7FCE5BAF37B50F47028A8BA791F64233773531EE10F97CBA225',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, usdtToNusdt),
+};
+
+const nUsdtToUsdt = {
+  name: 'nUSDT → USDT',
+  dex: 'Prysm',
+  redemptionKey: 'nUSDTinv',
+  tokenIn: 'ibc/018AC5A86B24C7FCE5BAF37B50F47028A8BA791F64233773531EE10F97CBA225',
+  tokenOut: 'ibc/D8A36AE90F20FE4843A8D249B1BCF0CCDDE35C4B605C8DED57BED20C639162D0',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, nUsdtToUsdt),
+};
+
 async function simuSwap(tokenInAmount, pairDef) {
   const quote =
     'https://pryzmatics.pryzm.zone/pryzmatics/trade/simulation?swap_type=0' +
@@ -134,4 +170,10 @@ export const prysmPairs = [
   // INJ
   injTocInj,
   cInjToInj,
+  // USDC
+  usdcToNusdc,
+  nUsdcToUsdc,
+  // USDT
+  usdtToNusdt,
+  nUsdtToUsdt,
 ];

@@ -2,6 +2,7 @@ import { archwayRedemptionMap } from './chains/archway.js';
 import { avalancheRedemptionMap } from './chains/avalanche.js';
 import { chihuahuaRedemptionMap } from './chains/chihuahua.js';
 import { ethereumRedemptionMap } from './chains/ethereum.js';
+import { injectiveRedemptionMap } from './chains/injective.js';
 import { junoRedemptionMap } from './chains/juno.js';
 import { kujiraRedemptionMap } from './chains/kujira.js';
 import { migalooRedemptionMap } from './chains/migaloo.js';
@@ -23,6 +24,7 @@ export async function fetchRedemptionsMap() {
     avalancheRedemptionMap(),
     chihuahuaRedemptionMap(),
     ethereumRedemptionMap(),
+    injectiveRedemptionMap(),
     junoRedemptionMap(),
     kujiraRedemptionMap(),
     migalooRedemptionMap(),
