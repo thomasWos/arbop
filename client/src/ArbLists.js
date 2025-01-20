@@ -43,6 +43,7 @@ const ArbLists = () => {
   const secretArbs = arbs.filter((a) => a.name.includes('SCRT'));
   const starsArbs = arbs.filter((a) => a.name.includes('STAR'));
   const whaleArbs = arbs.filter((a) => a.name.includes('WHALE'));
+  const usdArbs = arbs.filter((a) => a.name.includes('USD'));
 
   const combinedList = [
     archArbs,
@@ -60,6 +61,7 @@ const ArbLists = () => {
     roarArbs,
     secretArbs,
     starsArbs,
+    usdArbs,
     whaleArbs,
   ];
 
