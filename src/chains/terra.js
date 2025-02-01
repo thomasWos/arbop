@@ -258,6 +258,24 @@ const wETHwstETHInv = {
   decimalOut: 8,
 };
 
+const axlWEthTowstEth = {
+  name: 'axlWETH → wstETH',
+  dex: 'Astroport Terra',
+  redemptionKey: 'wstETH',
+  offerNativeTokenDenom: 'ibc/BC8A77AFBD872FDC32A348D3FB10CC09277C266CFE52081DE341C7EC6752E674',
+  poolContract: 'terra1yga5eepqnpg77gaj59uqfkm2qtllvpq642cmx5gj5lzjf5v88wzs2srzp7',
+  decimal: 18,
+};
+
+const wstEthToAxlWEth = {
+  name: 'wstETH → axlWETH',
+  dex: 'Astroport Terra',
+  redemptionKey: 'wstETHinv',
+  offerNativeTokenDenom: 'ibc/A356EC90DC3AE43D485514DA7260EDC7ABB5CFAA0654CE2524C739392975AD3C',
+  poolContract: 'terra1yga5eepqnpg77gaj59uqfkm2qtllvpq642cmx5gj5lzjf5v88wzs2srzp7',
+  decimal: 18,
+};
+
 // ATOM
 const atomDatomWW = {
   name: 'ATOM → dATOM',
@@ -370,6 +388,8 @@ export const terraLsds = [
   // ETH
   wETHwstETH,
   wETHwstETHInv,
+  axlWEthTowstEth,
+  wstEthToAxlWEth,
   // ATOM
   atomDatomWW,
   atomDatomWWinv,
