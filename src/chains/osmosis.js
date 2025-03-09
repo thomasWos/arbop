@@ -36,15 +36,6 @@ const bOsmoWW = {
   poolContract: 'osmo166yrd7anjg3h7epjsjghlf2uu403phjflk4gygmlelykwlustwysxvgv4c',
 };
 
-const stkOsmos = {
-  name: 'OSMO → stkOSMO',
-  dex: 'Osmosis',
-  redemptionKey: 'stkOSMO',
-  tokenIn: 'uosmo',
-  tokenOut: 'ibc/ECBE78BF7677320A93E7BA1761D144BCBF0CBC247C290C049655E106FE5DC68E',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkOsmos),
-};
-
 const qOsmos = {
   name: 'OSMO → qOSMO',
   dex: 'Osmosis',
@@ -98,15 +89,6 @@ const stStars = {
   tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
   tokenOut: 'ibc/5DD1F95ED336014D00CE2520977EC71566D282F9749170ADC83A392E0EA7426A',
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stStars),
-};
-
-const stkAtom = {
-  name: 'ATOM → stkATOM',
-  dex: 'Osmosis',
-  redemptionKey: 'stkATOM',
-  tokenIn: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
-  tokenOut: 'ibc/CAA179E40F0266B0B29FB5EAA288FB9212E628822265D4141EBD1C47C3CBFCBC',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkAtom),
 };
 
 const stEvmos = {
@@ -201,12 +183,10 @@ export const osmoLsds = [
   // ATOM
   stAtom,
   rAtom,
-  stkAtom,
   qAtom,
   atomTodAtom,
   // OSMO
   stOsmo,
-  stkOsmos,
   qOsmos,
   ampOsmoWW,
   bOsmoWW,

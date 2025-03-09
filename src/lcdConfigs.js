@@ -6,7 +6,6 @@ const lcds = [
   ['juno', 'https://juno-rest.publicnode.com'],
   ['migaloo', 'https://migaloo-api.polkachu.com'],
   ['chihuahua', 'https://chihua.api.m.stavr.tech'],
-  ['persistence', 'https://persistence-rest.publicnode.com'],
   ['archway', 'https://api.mainnet.archway.io'],
   ['inj', 'https://injective-rest.publicnode.com'],
 ];

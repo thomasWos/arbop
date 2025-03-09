@@ -10,7 +10,6 @@ import { whaleLsds } from './chains/migaloo.js';
 import { multiversxArbs } from './chains/multiversx.js';
 import { neutronLsds } from './chains/neutron.js';
 import { osmoLsds } from './chains/osmosis.js';
-import { persistencePairs } from './chains/persistence.js';
 import { prysmPairs } from './chains/pryzm.js';
 import { secretPairs } from './chains/secret.js';
 import { stafiLsds } from './chains/stafihub.js';
@@ -33,7 +32,6 @@ async function computeArbs() {
     ...kujiLsds,
     ...neutronLsds,
     ...osmoLsds,
-    ...persistencePairs,
     ...prysmPairs,
     ...secretPairs,
     ...stafiLsds,

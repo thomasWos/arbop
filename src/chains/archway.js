@@ -20,15 +20,6 @@ export async function archwayRedemptionMap() {
   ];
 }
 
-const stkOsmo = {
-  name: 'xOSMO → stkOSMO',
-  dex: 'Astrovault',
-  redemptionKey: 'stkOSMO',
-  poolContract: 'archway1l2mmr0vpndgv8vstwnj7qhn0px4fn80e0vxdnuenudfwa57n52fqfk9fe3',
-  swapFromAssetIndex: 0,
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stkOsmo),
-};
-
 const sArch = {
   name: 'xARCH → sARCH',
   dex: 'Astrovault',
@@ -57,4 +48,4 @@ async function simuSwap(tokenInAmount, pairDef) {
   return to_amount_minus_fee;
 }
 
-export const archwayPairs = [stkOsmo, sArch, ampArch];
+export const archwayPairs = [sArch, ampArch];

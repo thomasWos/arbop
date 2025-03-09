@@ -9,7 +9,6 @@ import { migalooRedemptionMap } from './chains/migaloo.js';
 import { multiversxRedemptionMap } from './chains/multiversx.js';
 import { neutronRedemptionMap } from './chains/neutron.js';
 import { osmosisRedemptionMap } from './chains/osmosis.js';
-import { persistenceRedemptionMap } from './chains/persistence.js';
 import { pryzmRedemptionMap } from './chains/pryzm.js';
 import { quicksilverRedemptionMap } from './chains/quicksilver.js';
 import { secretRedemptionMap } from './chains/secret.js';
@@ -31,7 +30,6 @@ export async function fetchRedemptionsMap() {
     multiversxRedemptionMap(),
     neutronRedemptionMap(),
     osmosisRedemptionMap(),
-    persistenceRedemptionMap(),
     pryzmRedemptionMap(),
     quicksilverRedemptionMap(),
     secretRedemptionMap(),
