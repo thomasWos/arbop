@@ -5,7 +5,7 @@ const lcds = [
   ['neutron', 'https://neutron-rest.publicnode.com'],
   ['juno', 'https://juno-rest.publicnode.com'],
   ['migaloo', 'https://migaloo-api.polkachu.com'],
-  ['chihuahua', 'https://chihua.api.m.stavr.tech'],
+  ['chihuahua', 'https://chihuahua-rest.publicnode.com'],
   ['archway', 'https://api.mainnet.archway.io'],
   ['inj', 'https://injective-rest.publicnode.com'],
 ];
