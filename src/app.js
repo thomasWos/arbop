@@ -2,7 +2,6 @@ import { archwayPairs } from './chains/archway.js';
 import { avaxPairs } from './chains/avalanche.js';
 import { chihuahuaLsds } from './chains/chihuahua.js';
 import { ethPairs } from './chains/ethereum.js';
-import { evmosPairs } from './chains/evmos.js';
 import { injectivePairs } from './chains/injective.js';
 import { junoLsds } from './chains/juno.js';
 import { kujiLsds } from './chains/kujira.js';
@@ -26,7 +25,6 @@ async function computeArbs() {
     ...avaxPairs,
     ...chihuahuaLsds,
     ...ethPairs,
-    ...evmosPairs,
     ...injectivePairs,
     ...junoLsds,
     ...kujiLsds,
@@ -103,7 +101,7 @@ async function computeArb(pair, index, redemptionMap) {
           amount: `${tokenInAmount}`,
         },
       },
-    }).catch((e) => console.log(e));
+    }).catch((e) => console.log(pair, e));
     tokenOutAmount = (simulationResult?.return_amount && parseInt(simulationResult.return_amount)) || tokenInAmount;
     maxSwapInPool = pair.dex !== 'FIN' && (await maxSwap(pair, exchangeRate).catch((e) => 0));
   }
