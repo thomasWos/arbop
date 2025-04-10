@@ -186,15 +186,6 @@ const stOsmo = new ShadeSecretPair({
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
 });
 
-const ampWhale = new ShadeSecretPair({
-  name: 'WHALE → ampWHALE',
-  dex: 'Shade',
-  redemptionKey: 'ampWHALE',
-  poolContract: 'secret1p92v2fmjt3h4jhwrhhxxetrl0kc3ld9mewrdgp',
-  offerContractAddr: 'secret1pcftk3ny87zm6thuxyfrtrlm2t8yev5unuvx6c',
-  tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
-});
-
 const stJUNO = new ShadeSecretPair({
   name: 'JUNO → stJUNO',
   dex: 'Shade',
@@ -204,4 +195,4 @@ const stJUNO = new ShadeSecretPair({
   tokenCodeHash: '638a3e1d50175fbcb8373cf801565283e3eb23d88a9b7b7f99fcc5eb1e6b561e',
 });
 
-export const secretPairs = [stkdSCRT, stATOM, wstETHaxl, stInj, stOsmo, ampWhale, stJUNO];
+export const secretPairs = [stkdSCRT, stATOM, wstETHaxl, stInj, stOsmo, stJUNO];
