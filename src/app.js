@@ -73,10 +73,7 @@ async function computeArb(pair, index, redemptionMap) {
   let maxSwapInPool;
 
   if (pair.simuSwap) {
-    tokenOutAmount = await pair.simuSwap(tokenInAmount).catch((e) => {
-      console.log(pair, 'simuSwap', e);
-      return 0;
-    });
+    tokenOutAmount = await pair.simuSwap(tokenInAmount);
     maxSwapInPool = pair.maxSwap && (await pair.maxSwap(exchangeRate));
   } else {
     // DEX smart contract
