@@ -176,11 +176,7 @@ async function simuSwap(tokenInAmount, pairDef) {
 
   return fetch(quote)
     .then((response) => response.json())
-    .then((data) => data.amount_out || 0)
-    .catch((err) => {
-      console.error('Error fetching Osmosis router:', err);
-      return 0;
-    });
+    .then((data) => data.amount_out || 0);
 }
 
 export const osmoLsds = [
