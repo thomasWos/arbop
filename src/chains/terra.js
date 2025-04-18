@@ -74,6 +74,14 @@ const cLuna = {
   poolContract: 'terra1pxm9qtnrchzy90d99clpa0rkx8fyztlc67wt5t999pc8yvsrx90snpfe4v',
 };
 
+const cLunaInv = {
+  name: 'cLUNA → LUNA',
+  dex: 'Astroport Terra',
+  redemptionKey: 'cLUNAtinv',
+  offerTokenAddr: 'terra13eekqp0zgj55arjuacpxqxzgqy2uydf5wzzqns9ddgpepj377afqflunf3',
+  poolContract: 'terra1pxm9qtnrchzy90d99clpa0rkx8fyztlc67wt5t999pc8yvsrx90snpfe4v',
+};
+
 const blunaWw = {
   name: 'LUNA → bLUNA',
   dex: 'White Whale Terra',
@@ -360,7 +368,10 @@ const arbLunaWWInv = {
 
 export const terraLsds = [
   lunaX,
+  // cLuna
   cLuna,
+  cLunaInv,
+  // bLUNA
   blunaAstro,
   blunaWw,
   ampLunaAstro,
