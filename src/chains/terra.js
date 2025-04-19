@@ -50,12 +50,20 @@ export async function terraRedemptionMap() {
   ];
 }
 
-const lunaX = {
+const lunaXAstro = {
   name: 'LUNA → LunaX',
   dex: 'Astroport Terra',
   redemptionKey: 'LunaX',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1mpj7j25fw5a0q5vfasvsvdp6xytaqxh006lh6f5zpwxvadem9hwsy6m508',
+};
+
+const lunaXTerraSwap = {
+  name: 'LUNA → LunaX',
+  dex: 'Terra Swap',
+  redemptionKey: 'LunaX',
+  offerNativeTokenDenom: 'uluna',
+  poolContract: 'terra1h3wqh8fdsd8rr6rlz3yfp9sm8849wrec8vqsmkwksx0ndkqaxkjqellq28',
 };
 
 const blunaAstro = {
@@ -367,7 +375,9 @@ const arbLunaWWInv = {
 };
 
 export const terraLsds = [
-  lunaX,
+  // LunaX
+  lunaXAstro,
+  lunaXTerraSwap,
   // cLuna
   cLuna,
   cLunaInv,
