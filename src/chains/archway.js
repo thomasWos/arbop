@@ -29,6 +29,15 @@ const sArch = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, sArch),
 };
 
+const sArchinv = {
+  name: 'sARCH → xARCH',
+  dex: 'Astrovault',
+  redemptionKey: 'sARCHinv',
+  poolContract: 'archway1352tn8gyl6df9azwznldg5ths0xst720xgc82q2as3c5kz0tx64qm0dq3j',
+  swapFromAssetIndex: 1,
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, sArchinv),
+};
+
 const ampArch = {
   name: 'xARCH → ampARCH',
   dex: 'Astrovault',
@@ -48,4 +57,4 @@ async function simuSwap(tokenInAmount, pairDef) {
   return to_amount_minus_fee;
 }
 
-export const archwayPairs = [sArch, ampArch];
+export const archwayPairs = [sArch, sArchinv, ampArch];
