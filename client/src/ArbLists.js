@@ -38,12 +38,13 @@ const ArbLists = () => {
   const junoArbs = arbs.filter((a) => a.name.includes('JUNO'));
   const kujiArbs = arbs.filter((a) => a.name.includes('KUJI'));
   const lunaArbs = arbs.filter((a) => a.name.includes('LUNA'));
+  const ntrdArbs = arbs.filter((a) => a.name.includes('NTRN'));
   const osmoArbs = arbs.filter((a) => a.name.includes('OSMO'));
   const roarArbs = arbs.filter((a) => a.name.includes('ROAR'));
   const secretArbs = arbs.filter((a) => a.name.includes('SCRT'));
   const starsArbs = arbs.filter((a) => a.name.includes('STAR'));
-  const whaleArbs = arbs.filter((a) => a.name.includes('WHALE'));
   const usdArbs = arbs.filter((a) => a.name.includes('USD'));
+  const whaleArbs = arbs.filter((a) => a.name.includes('WHALE'));
 
   const combinedList = [
     archArbs,
@@ -57,6 +58,7 @@ const ArbLists = () => {
     junoArbs,
     kujiArbs,
     lunaArbs,
+    ntrdArbs,
     osmoArbs,
     roarArbs,
     secretArbs,
