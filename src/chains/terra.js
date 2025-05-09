@@ -374,6 +374,23 @@ const arbLunaWWInv = {
   poolContract: 'terra1wttdzwa6pdegtrdjdw49y0pd3dd8qd3cqn89j6t9v978lx05rr8sew5jyq',
 };
 
+// Solid
+const solidUsdc = {
+  name: 'SOLID → USDC',
+  dex: 'Astroport Terra',
+  redemptionKey: 'identity',
+  offerTokenAddr: 'terra10aa3zdkrc7jwuf8ekl3zq7e7m42vmzqehcmu74e4egc7xkm5kr2s0muyst',
+  poolContract: 'terra1fwjxdjpl98shj20l4swlen9hyu4lhvekrvqkqn393lzzghmsn2wqjdnvpu',
+};
+
+const usdcSolid = {
+  name: 'USDC → SOLID',
+  dex: 'Astroport Terra',
+  redemptionKey: 'identity',
+  offerNativeTokenDenom: 'ibc/2C962DAB9F57FE0921435426AE75196009FAA1981BF86991203C8411F8980FDB',
+  poolContract: 'terra1fwjxdjpl98shj20l4swlen9hyu4lhvekrvqkqn393lzzghmsn2wqjdnvpu',
+};
+
 export const terraLsds = [
   // LunaX
   lunaXAstro,
@@ -423,4 +440,7 @@ export const terraLsds = [
   arbLunaAstroInv,
   arbLunaWW,
   arbLunaWWInv,
+  // SOLID,
+  solidUsdc,
+  usdcSolid,
 ];
