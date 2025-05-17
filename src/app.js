@@ -112,7 +112,15 @@ async function computeArb(pair, index, redemptionMap) {
       : arbitrage(tokenInAmount, exchangeRateIn, tokenOutAmount, exchangeRate);
 
   const apy = unboundingPeriod && calculateApy(arb, unboundingPeriod);
-  return { id: index, name: pair.name, arb: arb || 0, dex: pair.dex, ...(apy && { apy }), ...(maxSwapInPool && { maxSwapInPool }) };
+  return {
+    id: index,
+    name: pair.name,
+    arb: arb || 0,
+    dex: pair.dex,
+    ...(apy && { apy }),
+    ...(maxSwapInPool && { maxSwapInPool }),
+    ...(pair.dexUrl && { dexUrl: pair.dexUrl }),
+  };
 }
 
 export async function tryComputeArbs() {

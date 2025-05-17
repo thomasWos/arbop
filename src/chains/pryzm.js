@@ -14,6 +14,7 @@ function buildTokenName(host_chain_id) {
 const lunaTocLuna = {
   name: 'LUNA → cLUNA',
   dex: 'Prysm',
+  dexUrl: 'https://app.pryzm.zone/swap',
   redemptionKey: 'cLUNA',
   unboundingPeriod: 21 + 3,
   tokenIn: 'ibc/B8AF5D92165F35AB31F3FC7C7B444B9D240760FA5D406C49D24862BD0284E395',

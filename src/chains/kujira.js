@@ -39,6 +39,7 @@ const qcKUJIFin = {
 const stAtomKujira = {
   name: 'ATOM → stATOM',
   dex: 'FIN',
+  dexUrl: 'https://kujira.network/spot/kujira158zzjcvkz7r3j5hueurcw22qrjerqw4dtrzlalztr7whjykjwvrsrahdnq',
   redemptionKey: 'strideCosmos',
   offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
   poolContract: 'kujira158zzjcvkz7r3j5hueurcw22qrjerqw4dtrzlalztr7whjykjwvrsrahdnq',

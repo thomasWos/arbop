@@ -1,7 +1,7 @@
 .arb-list {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid lightgray;
 }
 
 .arb-header, .arb-item {
@@ -19,4 +19,32 @@
 
 .low-arb {
   color: grey; /* or any other color you prefer */
+}
+
+/* Base link styling */
+a {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Underline effect */
+a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: lightgray;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+/* Animate underline on hover */
+a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
