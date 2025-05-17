@@ -6,7 +6,7 @@ import { injectivePairs } from './chains/injective.js';
 import { junoLsds } from './chains/juno.js';
 import { kujiLsds } from './chains/kujira.js';
 import { whaleLsds } from './chains/migaloo.js';
-import { multiversxArbs } from './chains/multiversx.js';
+import { multiversXpairs } from './chains/multiversx.js';
 import { neutronLsds } from './chains/neutron.js';
 import { osmoLsds } from './chains/osmosis.js';
 import { prysmPairs } from './chains/pryzm.js';
@@ -28,6 +28,7 @@ async function computeArbs() {
     ...injectivePairs,
     ...junoLsds,
     ...kujiLsds,
+    ...multiversXpairs,
     ...neutronLsds,
     ...osmoLsds,
     ...prysmPairs,
@@ -37,17 +38,8 @@ async function computeArbs() {
     ...whaleLsds,
   ];
 
-  // Mainly cosmos chains
   const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index, redemptionMap)));
-  console.log('Fetch arbs - COSMOS done');
-
-  const arbsMultiversx = await multiversxArbs(redemptionMap);
-  arbsMultiversx.forEach((a, index) => {
-    a.id = lsds.length + index;
-    arbs.push(a);
-  });
-
-  console.log('Fetch arbs - All done');
+  console.log('Fetch arbs - done');
   return arbs.sort((a, b) => b.arb - a.arb);
 }
 

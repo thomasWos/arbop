@@ -1,6 +1,6 @@
 import { promises } from 'fs';
 import { AbiRegistry, BinaryCodec } from '@multiversx/sdk-core';
-import { arbitrage, calculateApy, oneQuintillion, fromBase64 } from '../utils.js';
+import { oneQuintillion, fromBase64 } from '../utils.js';
 
 const gatewayUrl = 'https://gateway.multiversx.com';
 const codec = new BinaryCodec();
@@ -17,8 +17,8 @@ export async function multiversxRedemptionMap() {
   const lEgldRate = await fetchInt(lEgldExchangeRate).then((r) => r / oneQuintillion);
 
   return [
-    ['sEGLD', sEgldRate],
-    ['LEGLD', lEgldRate],
+    ['sEGLD', { redemptionRate: sEgldRate, unboundingPeriod: 10 }],
+    ['LEGLD', { redemptionRate: lEgldRate, unboundingPeriod: 10 }],
   ];
 }
 
@@ -47,8 +47,9 @@ const sEgld = {
   dexUrl: 'https://app.ashswap.io/swap',
   poolAddr: 'erd1qqqqqqqqqqqqqpgqaf8fzwmas77xxr7qwnxd6j3qsctv55e74fvsmvq675',
   from: 'WEGLD-bd4d79',
+  tokenInAmount: oneQuintillion,
   to: 'SEGLD-3ad2d0',
-  simuSwap: async () => simuSwapAshSwap(sEgld),
+  simuSwap: async (tokenInAmount) => simuSwapAshSwap(tokenInAmount, sEgld),
 };
 
 const jwlEgld = {
@@ -58,8 +59,9 @@ const jwlEgld = {
   dexUrl: 'https://app.ashswap.io/swap',
   poolAddr: 'erd1qqqqqqqqqqqqqpgqa60cy30kdzzd8mygg20zhe4ppfhrp0tv4fvs9vd4hp',
   from: 'WEGLD-bd4d79',
+  tokenInAmount: oneQuintillion,
   to: 'JWLEGLD-023462',
-  simuSwap: async () => simuSwapAshSwap(jwlEgld),
+  simuSwap: async (tokenInAmount) => simuSwapAshSwap(tokenInAmount, jwlEgld),
 };
 
 const jwlEgldTosEgld = {
@@ -69,8 +71,9 @@ const jwlEgldTosEgld = {
   dexUrl: 'https://app.ashswap.io/swap',
   poolAddr: 'erd1qqqqqqqqqqqqqpgqlsgfr6xteusallzcspt3ehp8cewlp3s04fvsjm87cw',
   from: 'JWLEGLD-023462',
+  tokenInAmount: oneQuintillion,
   to: 'SEGLD-3ad2d0',
-  simuSwap: async () => simuSwapAshSwap(jwlEgldTosEgld),
+  simuSwap: async (tokenInAmount) => simuSwapAshSwap(tokenInAmount, jwlEgldTosEgld),
 };
 
 const sEgldtoJwlEgld = {
@@ -80,8 +83,9 @@ const sEgldtoJwlEgld = {
   dexUrl: 'https://app.ashswap.io/swap',
   poolAddr: 'erd1qqqqqqqqqqqqqpgqlsgfr6xteusallzcspt3ehp8cewlp3s04fvsjm87cw',
   from: 'SEGLD-3ad2d0',
+  tokenInAmount: oneQuintillion,
   to: 'JWLEGLD-023462',
-  simuSwap: async () => simuSwapAshSwap(sEgldtoJwlEgld),
+  simuSwap: async (tokenInAmount) => simuSwapAshSwap(tokenInAmount, sEgldtoJwlEgld),
 };
 
 const egldToLEgld = {
@@ -91,7 +95,8 @@ const egldToLEgld = {
   dexUrl: 'https://xexchange.com/trade?firstToken=EGLD&secondToken=LEGLD-d74da9',
   poolAddr: 'erd1qqqqqqqqqqqqqpgq9nnx7n40snv899ejwcrtepc5qn6apxvm2jps88s0v7',
   from: 'WEGLD-bd4d79',
-  simuSwap: async () => simuSwapXechange(egldToLEgld),
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwapXechange(tokenInAmount, egldToLEgld),
 };
 
 const lEgldToEgld = {
@@ -101,25 +106,17 @@ const lEgldToEgld = {
   dexUrl: 'https://xexchange.com/trade?firstToken=LEGLD-d74da9&secondToken=EGLD',
   poolAddr: 'erd1qqqqqqqqqqqqqpgq9nnx7n40snv899ejwcrtepc5qn6apxvm2jps88s0v7',
   from: 'LEGLD-d74da9',
-  simuSwap: async () => simuSwapXechange(lEgldToEgld),
+  tokenInAmount: oneQuintillion,
+  simuSwap: async (tokenInAmount) => simuSwapXechange(tokenInAmount, lEgldToEgld),
 };
 
-async function computeArb(def, redemptionMap) {
-  const redemptionRate = redemptionMap.get(def.redemptionKey);
-  const tokenOutAmount = await def.simuSwap();
-  const arb = arbitrage(oneQuintillion, 1, tokenOutAmount, redemptionRate);
-  return { name: def.name, arb: arb, dex: def.dex, apy: calculateApy(arb, 10) };
-}
+export const multiversXpairs = [sEgld, jwlEgld, jwlEgldTosEgld, sEgldtoJwlEgld, egldToLEgld, lEgldToEgld];
 
-export async function multiversxArbs(redemptionMap) {
-  return Promise.all([sEgld, jwlEgld, jwlEgldTosEgld, sEgldtoJwlEgld, egldToLEgld, lEgldToEgld].map((d) => computeArb(d, redemptionMap)));
-}
-
-async function simuSwapAshSwap(def) {
+async function simuSwapAshSwap(tokenInAmount, def) {
   const payload = {
     scAddress: def.poolAddr,
     funcName: 'estimateAmountOut',
-    args: [toHex(def.from), toHex(def.to), 0 + `${oneQuintillion.toString(16)}`],
+    args: [toHex(def.from), toHex(def.to), 0 + `${tokenInAmount.toString(16)}`],
   };
   return fetchQuery(payload).then((r) => {
     const exchangeCustomType = ashswapPoolAbi.getCustomType('ExchangeResultType');
@@ -128,11 +125,11 @@ async function simuSwapAshSwap(def) {
   });
 }
 
-async function simuSwapXechange(def) {
+async function simuSwapXechange(tokenInAmount, def) {
   return fetchInt({
     scAddress: def.poolAddr,
     funcName: 'getAmountOut',
-    args: [toHex(def.from), 0 + `${oneQuintillion.toString(16)}`],
+    args: [toHex(def.from), 0 + `${tokenInAmount.toString(16)}`],
   });
 }
 
