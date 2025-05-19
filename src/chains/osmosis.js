@@ -20,20 +20,24 @@ export async function osmosisRedemptionMap() {
   ];
 }
 
-const ampOsmoWW = {
+const ampOsmo = {
   name: 'OSMO → ampOSMO',
-  dex: 'White Whale Osmosis',
+  dex: 'Osmosis',
+  dexUrl: 'https://app.osmosis.zone/?from=OSMO&to=ampOSMO',
   redemptionKey: 'ampOSMO',
-  offerNativeTokenDenom: 'uosmo',
-  poolContract: 'osmo1692tluwzzmnx56tm5v7r0n8v5fg32nrd9nuukp9jz458ap7wmcls9cz20m',
+  tokenIn: 'uosmo',
+  tokenOut: 'factory/osmo1dv8wz09tckslr2wy5z86r46dxvegylhpt97r9yd6qc3kyc6tv42qa89dr9/ampOSMO',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, ampOsmo),
 };
 
-const bOsmoWW = {
+const bOsmo = {
   name: 'OSMO → bOSMO',
-  dex: 'White Whale Osmosis',
+  dex: 'Osmosis',
+  dexUrl: 'https://app.osmosis.zone/?from=OSMO&to=bOSMO',
   redemptionKey: 'bOSMO',
-  offerNativeTokenDenom: 'uosmo',
-  poolContract: 'osmo166yrd7anjg3h7epjsjghlf2uu403phjflk4gygmlelykwlustwysxvgv4c',
+  tokenIn: 'uosmo',
+  tokenOut: 'factory/osmo1s3l0lcqc7tu0vpj6wdjz9wqpxv8nk6eraevje4fuwkyjnwuy82qsx3lduv/boneOsmo',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, bOsmo),
 };
 
 const qOsmos = {
@@ -192,8 +196,8 @@ export const osmoLsds = [
   // OSMO
   stOsmo,
   qOsmos,
-  ampOsmoWW,
-  bOsmoWW,
+  ampOsmo,
+  bOsmo,
   // ETH
   ETHAxlTowstETH,
   wstETHtoETHAxl,
