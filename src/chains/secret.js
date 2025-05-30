@@ -7,7 +7,7 @@ import { computeMaxSwap } from '../pool.js';
 import { fromBase64, oneMillion, toBase64 } from '../utils.js';
 
 // https://docs.scrt.network/secret-network-documentation/development/resources-api-contract-addresses/connecting-to-the-network/mainnet-secret-4#api-endpoints
-const lcdUrl = 'https://secretnetwork-api.lavenderfive.com:443';
+const lcdUrl = 'https://rpc.ankr.com/http/scrt_cosmos';
 
 const empty32Array = new Uint8Array(Buffer.alloc(32, 0));
 const nonce = empty32Array;
