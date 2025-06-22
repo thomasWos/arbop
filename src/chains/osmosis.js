@@ -154,7 +154,7 @@ const ETHtowstETH = {
 };
 
 const wstETHtoETH = {
-  name: 'ETH → wstETH',
+  name: 'wstETH → ETH',
   dex: 'Osmosis',
   redemptionKey: 'wstETHinv',
   tokenIn: 'ibc/2F21E6D4271DE3F561F20A02CD541DAF7405B1E9CB3B9B07E3C2AC7D8A4338A5',
