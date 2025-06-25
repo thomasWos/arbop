@@ -80,6 +80,7 @@ const cLuna = {
   redemptionKey: 'cLUNAt',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1pxm9qtnrchzy90d99clpa0rkx8fyztlc67wt5t999pc8yvsrx90snpfe4v',
+  dexUrl: 'https://app.astroport.fi/swap?chain=terra&to=terra13eekqp0zgj55arjuacpxqxzgqy2uydf5wzzqns9ddgpepj377afqflunf3',
 };
 
 const cLunaInv = {
