@@ -12,7 +12,6 @@ import { osmosisRedemptionMap } from './chains/osmosis.js';
 import { pryzmRedemptionMap } from './chains/pryzm.js';
 import { quicksilverRedemptionMap } from './chains/quicksilver.js';
 import { secretRedemptionMap } from './chains/secret.js';
-import { stafiRedemptionMap } from './chains/stafihub.js';
 import { strideRedemptionMap } from './chains/stride.js';
 import { terraRedemptionMap } from './chains/terra.js';
 import { printMap } from './utils.js';
@@ -33,7 +32,6 @@ export async function fetchRedemptionsMap() {
     pryzmRedemptionMap(),
     quicksilverRedemptionMap(),
     secretRedemptionMap(),
-    stafiRedemptionMap(),
     strideRedemptionMap(),
     terraRedemptionMap(),
   ];

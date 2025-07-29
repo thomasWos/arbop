@@ -11,7 +11,6 @@ import { neutronLsds } from './chains/neutron.js';
 import { osmoLsds } from './chains/osmosis.js';
 import { prysmPairs } from './chains/pryzm.js';
 import { secretPairs } from './chains/secret.js';
-import { stafiLsds } from './chains/stafihub.js';
 import { terraLsds } from './chains/terra.js';
 import { maxSwap } from './pool.js';
 import { fetchRedemptionsMap } from './redemptions.js';
@@ -33,7 +32,6 @@ async function computeArbs() {
     ...osmoLsds,
     ...prysmPairs,
     ...secretPairs,
-    ...stafiLsds,
     ...terraLsds,
     ...whaleLsds,
   ];

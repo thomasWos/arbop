@@ -36,13 +36,4 @@ const bHuahua = {
   poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
 };
 
-const rHuahua = {
-  name: 'HUAHUA → rHUAHUA',
-  dex: 'White Whale Chihuahua',
-  redemptionKey: 'rHUAHUA',
-  unboundingPeriod: 22,
-  offerNativeTokenDenom: 'uhuahua',
-  poolContract: 'chihuahua19du4llehge50k23pwwckj93lnvp9cyyer8ve9as663mz64nrhq9qn2gauk',
-};
-
-export const chihuahuaLsds = [ampHuahua, bHuahua, rHuahua];
+export const chihuahuaLsds = [ampHuahua, bHuahua];

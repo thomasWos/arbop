@@ -61,15 +61,6 @@ const stOsmoKujira = {
   poolContract: 'kujira14rrh06m6rm699psw4dly88n7whqjsustqzcj23rwvmy5egu4vd8qm99rcx',
 };
 
-const rAtomKujira = {
-  name: 'ATOM → rATOM',
-  dex: 'FIN',
-  redemptionKey: 'rATOM',
-  unboundingPeriod: 22,
-  offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
-  poolContract: 'kujira1ryul6unmsnjccsugtempgdtly3gsdtu8af44yt5sqf4zpkgg7vjqkpxjjx',
-};
-
 const ampLuna = {
   name: 'LUNA → ampLUNA',
   dex: 'FIN',
@@ -94,4 +85,4 @@ const ampWhale = {
   poolContract: 'kujira10vkk8ulf3rvfuzlfpqflklr2zkq6586pl9amcsafp2s6t4j7qn7seemml3',
 };
 
-export const kujiLsds = [ampKujiFin, qcKUJIFin, stAtomKujira, stAtomInvKujira, stOsmoKujira, rAtomKujira, ampLuna, ampLunaToLuna, ampWhale];
+export const kujiLsds = [ampKujiFin, qcKUJIFin, stAtomKujira, stAtomInvKujira, stOsmoKujira, ampLuna, ampLunaToLuna, ampWhale];
