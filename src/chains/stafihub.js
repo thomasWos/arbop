@@ -1,4 +1,4 @@
-const restUrl = 'https://public-rest-rpc1.stafihub.io';
+const restUrl = 'https://public-rest-rpc2.stafihub.io/';
 
 export async function stafiRedemptionMap() {
   return fetch(restUrl + '/stafihub/stafihub/ledger/exchange_rate_all')
