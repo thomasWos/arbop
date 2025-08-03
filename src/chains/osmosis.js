@@ -104,15 +104,6 @@ const qAtom = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qAtom),
 };
 
-const qStars = {
-  name: 'STARS → qSTARS',
-  dex: 'Osmosis',
-  redemptionKey: 'qSTARS',
-  tokenIn: 'ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4',
-  tokenOut: 'ibc/46C83BB054E12E189882B5284542DB605D94C99827E367C9192CF0579CD5BC83',
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, qStars),
-};
-
 const ETHAxlTowstETH = {
   name: 'ETH.axl → wstETH',
   dex: 'Osmosis',
@@ -196,5 +187,4 @@ export const osmoLsds = [
   stJuno,
   stStars,
   stEvmos,
-  qStars,
 ];
