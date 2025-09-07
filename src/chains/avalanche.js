@@ -8,6 +8,7 @@ const SAVAX_ADDRESS = '0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE';
 const GGAVAX_ADDRESS = '0xA25EaF2906FA1a3a13EdAc9B9657108Af7B703e3';
 const RSAVAX_ADDRESS = '0xDf788AD40181894dA035B827cDF55C523bf52F67';
 const STATAAVAWAVAX_ADDRESS = '0x6a02c7a974f1f13a67980c80f774ec1d2ed8f98d';
+const TAVAX_ADDRESS = '0x14a84f1a61ccd7d1be596a6cc11fe33a36bc1646';
 
 const stAvaxAbi = [
   {
@@ -139,6 +140,7 @@ const balancerQueryAbi = [
 const sAvaxContract = new web3.eth.Contract(stAvaxAbi, SAVAX_ADDRESS);
 const ggAvaxContract = new web3.eth.Contract(convertToAssetsAbi, GGAVAX_ADDRESS);
 const stataAvaWAVAXContract = new web3.eth.Contract(convertToAssetsAbi, STATAAVAWAVAX_ADDRESS);
+const tAvaxContract = new web3.eth.Contract(convertToAssetsAbi, TAVAX_ADDRESS);
 const yakRouterContract = new web3.eth.Contract(yakRouterAbi, '0xc4729e56b831d74bbc18797e0e17a295fa77488c');
 const balancerQueryContract = new web3.eth.Contract(balancerQueryAbi, '0xC128468b7Ce63eA702C1f104D55A2566b13D3ABD');
 
@@ -158,10 +160,16 @@ export async function avalancheRedemptionMap() {
     .call()
     .then((r) => parseInt(r) / oneQuintillion);
 
+  const tAvaxRate = await tAvaxContract.methods
+    .convertToAssets(oneQuintillion)
+    .call()
+    .then((r) => parseInt(r) / oneQuintillion);
+
   return [
     ['sAVAX', { redemptionRate: sAvaxRate, unboundingPeriod: 15 }],
     ['ggAVAX', ggAvaxRate],
     ['stataAvaWAVAX', stataAvaWAVAXRate],
+    ['tAVAX', tAvaxRate],
   ];
 }
 
