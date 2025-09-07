@@ -19,16 +19,6 @@ const stAvaxAbi = [
   },
 ];
 
-const ggAvaxAbi = [
-  {
-    inputs: [{ internalType: 'uint256', name: 'shares', type: 'uint256' }],
-    name: 'convertToAssets',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-];
-
 const convertToAssetsAbi = [
   {
     inputs: [{ internalType: 'uint256', name: 'shares', type: 'uint256' }],
