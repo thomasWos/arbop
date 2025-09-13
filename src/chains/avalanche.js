@@ -257,18 +257,6 @@ const stataAvaWavaxToSavax = {
   simuSwap: async (tokenInAmount) => querySwapBalancer(tokenInAmount, stataAvaWavaxToSavax),
 };
 
-const ggAvaxToStataAvaWavax = {
-  name: 'ggAVAX → static aWAVAX',
-  dex: 'Balancer',
-  offerRedemptionKey: 'ggAVAX',
-  redemptionKey: 'stataAvaWAVAX',
-  tokenInAmount: oneQuintillion,
-  addressTokenIn: GGAVAX_ADDRESS,
-  addressTokenOut: STATAAVAWAVAX_ADDRESS,
-  poolId: '0x296df277579b38db06fe5bdf179252f983672d6d000200000000000000000056',
-  simuSwap: async (tokenInAmount) => querySwapBalancer(tokenInAmount, ggAvaxToStataAvaWavax),
-};
-
 const stataAvaWavaxToGgAvax = {
   name: 'static aWAVAX → ggAVAX',
   dex: 'Balancer',
@@ -319,6 +307,5 @@ export const avaxPairs = [
   rsAvaxToAvax,
   sAvaxToStataAvaWavax,
   stataAvaWavaxToSavax,
-  ggAvaxToStataAvaWavax,
   stataAvaWavaxToGgAvax,
 ];

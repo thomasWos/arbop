@@ -36,7 +36,14 @@ async function computeArbs() {
     ...whaleLsds,
   ];
 
-  const arbs = await Promise.all(lsds.map((lsd, index) => computeArb(lsd, index, redemptionMap)));
+  const arbs = await Promise.all(
+    lsds.map((lsd, index) =>
+      computeArb(lsd, index, redemptionMap).catch((e) => {
+        console.log(`Error computing arb for ${lsd.name}`, e);
+        return { id: index, name: lsd.name, arb: 0, dex: lsd.dex };
+      })
+    )
+  );
   console.log('Fetch arbs - done');
   return arbs.sort((a, b) => b.arb - a.arb);
 }
