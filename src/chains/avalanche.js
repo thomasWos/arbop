@@ -5,7 +5,7 @@ const web3 = new Web3('https://avalanche-c-chain-rpc.publicnode.com');
 const YAK_MAX_STEPS = 3;
 const WAVAX_ADDRESS = '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7';
 const SAVAX_ADDRESS = '0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE';
-const GGAVAX_ADDRESS = '0xA25EaF2906FA1a3a13EdAc9B9657108Af7B703e3';
+const STAVAX_ADDRESS = '0xA25EaF2906FA1a3a13EdAc9B9657108Af7B703e3';
 const RSAVAX_ADDRESS = '0xDf788AD40181894dA035B827cDF55C523bf52F67';
 const STATAAVAWAVAX_ADDRESS = '0x6a02c7a974f1f13a67980c80f774ec1d2ed8f98d';
 const TAVAX_ADDRESS = '0x14a84f1a61ccd7d1be596a6cc11fe33a36bc1646';
@@ -138,7 +138,7 @@ const balancerQueryAbi = [
 ];
 
 const sAvaxContract = new web3.eth.Contract(stAvaxAbi, SAVAX_ADDRESS);
-const ggAvaxContract = new web3.eth.Contract(convertToAssetsAbi, GGAVAX_ADDRESS);
+const stAvaxContract = new web3.eth.Contract(convertToAssetsAbi, STAVAX_ADDRESS);
 const stataAvaWAVAXContract = new web3.eth.Contract(convertToAssetsAbi, STATAAVAWAVAX_ADDRESS);
 const tAvaxContract = new web3.eth.Contract(convertToAssetsAbi, TAVAX_ADDRESS);
 const yakRouterContract = new web3.eth.Contract(yakRouterAbi, '0xc4729e56b831d74bbc18797e0e17a295fa77488c');
@@ -150,7 +150,7 @@ export async function avalancheRedemptionMap() {
     .call()
     .then((r) => parseInt(r) / oneQuintillion);
 
-  const ggAvaxRate = await ggAvaxContract.methods
+  const stAvaxRate = await stAvaxContract.methods
     .convertToAssets(oneQuintillion)
     .call()
     .then((r) => parseInt(r) / oneQuintillion);
@@ -167,7 +167,7 @@ export async function avalancheRedemptionMap() {
 
   return [
     ['sAVAX', { redemptionRate: sAvaxRate, unboundingPeriod: 15 }],
-    ['ggAVAX', ggAvaxRate],
+    ['stAVAX', { redemptionRate: stAvaxRate, unboundingPeriod: 15 }],
     ['stataAvaWAVAX', stataAvaWAVAXRate],
     ['tAVAX', tAvaxRate],
   ];
@@ -193,24 +193,24 @@ const sAvaxToAvax = {
   simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, sAvaxToAvax),
 };
 
-const avaxToggAvax = {
-  name: 'AVAX → ggAVAX',
+const avaxTostAvax = {
+  name: 'AVAX → stAVAX',
   dex: 'YakSwap',
-  redemptionKey: 'ggAVAX',
+  redemptionKey: 'stAVAX',
   tokenInAmount: oneQuintillion,
   addressTokenIn: WAVAX_ADDRESS,
-  addressTokenOut: GGAVAX_ADDRESS,
-  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, avaxToggAvax),
+  addressTokenOut: STAVAX_ADDRESS,
+  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, avaxTostAvax),
 };
 
-const ggAvaxToAvax = {
-  name: 'ggAVAX → AVAX',
+const stAvaxToAvax = {
+  name: 'stAVAX → AVAX',
   dex: 'YakSwap',
-  redemptionKey: 'ggAVAXinv',
+  redemptionKey: 'stAVAXinv',
   tokenInAmount: oneQuintillion,
-  addressTokenIn: GGAVAX_ADDRESS,
+  addressTokenIn: STAVAX_ADDRESS,
   addressTokenOut: WAVAX_ADDRESS,
-  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, ggAvaxToAvax),
+  simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, stAvaxToAvax),
 };
 
 const avaxTorsAvax = {
@@ -233,18 +233,6 @@ const rsAvaxToAvax = {
   simuSwap: async (tokenInAmount) => yakFindBestPath(tokenInAmount, rsAvaxToAvax),
 };
 
-const sAvaxToStataAvaWavax = {
-  name: 'sAVAX → static aWAVAX',
-  dex: 'Balancer',
-  offerRedemptionKey: 'sAVAX',
-  redemptionKey: 'stataAvaWAVAX',
-  tokenInAmount: oneQuintillion,
-  addressTokenIn: SAVAX_ADDRESS,
-  addressTokenOut: STATAAVAWAVAX_ADDRESS,
-  poolId: '0x82c0f5fe6bd04f2dce371d4e3f0689d1cfad1f5c000200000000000000000052',
-  simuSwap: async (tokenInAmount) => querySwapBalancer(tokenInAmount, sAvaxToStataAvaWavax),
-};
-
 const stataAvaWavaxToSavax = {
   name: 'static aWAVAX → sAVAX',
   dex: 'Balancer',
@@ -257,16 +245,16 @@ const stataAvaWavaxToSavax = {
   simuSwap: async (tokenInAmount) => querySwapBalancer(tokenInAmount, stataAvaWavaxToSavax),
 };
 
-const stataAvaWavaxToGgAvax = {
-  name: 'static aWAVAX → ggAVAX',
+const stataAvaWavaxTostAvax = {
+  name: 'static aWAVAX → stAVAX',
   dex: 'Balancer',
   offerRedemptionKey: 'stataAvaWAVAX',
-  redemptionKey: 'ggAVAX',
+  redemptionKey: 'stAVAX',
   tokenInAmount: oneQuintillion,
   addressTokenIn: STATAAVAWAVAX_ADDRESS,
-  addressTokenOut: GGAVAX_ADDRESS,
+  addressTokenOut: STAVAX_ADDRESS,
   poolId: '0x296df277579b38db06fe5bdf179252f983672d6d000200000000000000000056',
-  simuSwap: async (tokenInAmount) => querySwapBalancer(tokenInAmount, stataAvaWavaxToGgAvax),
+  simuSwap: async (tokenInAmount) => querySwapBalancer(tokenInAmount, stataAvaWavaxTostAvax),
 };
 
 async function yakFindBestPath(tokenInAmount, pairDef) {
@@ -301,11 +289,10 @@ async function querySwapBalancer(tokenInAmount, pairDef) {
 export const avaxPairs = [
   avaxToSAvax,
   sAvaxToAvax,
-  avaxToggAvax,
-  ggAvaxToAvax,
+  avaxTostAvax,
+  stAvaxToAvax,
   avaxTorsAvax,
   rsAvaxToAvax,
-  sAvaxToStataAvaWavax,
   stataAvaWavaxToSavax,
-  stataAvaWavaxToGgAvax,
+  stataAvaWavaxTostAvax,
 ];
