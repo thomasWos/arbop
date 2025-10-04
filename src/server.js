@@ -28,11 +28,6 @@ app.get('/api/arbs', async (req, res) => {
   res.json(arbs);
 });
 
-// Serve the React app for all other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(clientBuildPath, 'index.html'));
-});
-
 const port = 4000;
 app.listen(port, () => {
   console.log(`Server is running on port:${port}`);
