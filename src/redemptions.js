@@ -1,4 +1,5 @@
 import { archwayRedemptionMap } from './chains/archway.js';
+import { atoneRedemptionMap } from './chains/atone.js';
 import { avalancheRedemptionMap } from './chains/avalanche.js';
 import { chihuahuaRedemptionMap } from './chains/chihuahua.js';
 import { ethereumRedemptionMap } from './chains/ethereum.js';
@@ -14,11 +15,13 @@ import { quicksilverRedemptionMap } from './chains/quicksilver.js';
 import { secretRedemptionMap } from './chains/secret.js';
 import { strideRedemptionMap } from './chains/stride.js';
 import { terraRedemptionMap } from './chains/terra.js';
+
 import { printMap } from './utils.js';
 
 export async function fetchRedemptionsMap() {
   const redemptionPromosises = [
     archwayRedemptionMap(),
+    atoneRedemptionMap(),
     avalancheRedemptionMap(),
     chihuahuaRedemptionMap(),
     ethereumRedemptionMap(),

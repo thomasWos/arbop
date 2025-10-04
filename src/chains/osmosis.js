@@ -153,6 +153,25 @@ const atomTodAtom = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, atomTodAtom),
 };
 
+const photonToAtone = {
+  name: 'PHOTON → ATONE',
+  dex: 'Osmosis',
+  offerRedemptionKey: 'PHOTONinv',
+  redemptionKey: 'identity',
+  tokenIn: 'ibc/D6E02C5AE8A37FC2E3AB1FC8AC168878ADB870549383DFFEA9FD020C234520A7',
+  tokenOut: 'ibc/BC26A7A805ECD6822719472BCB7842A48EF09DF206182F8F259B2593EB5D23FB',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, photonToAtone),
+};
+
+const atoneToPhoton = {
+  name: 'ATONE → PHOTON',
+  dex: 'Osmosis',
+  redemptionKey: 'PHOTONinv',
+  tokenIn: 'ibc/BC26A7A805ECD6822719472BCB7842A48EF09DF206182F8F259B2593EB5D23FB',
+  tokenOut: 'ibc/D6E02C5AE8A37FC2E3AB1FC8AC168878ADB870549383DFFEA9FD020C234520A7',
+  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, atoneToPhoton),
+};
+
 async function simuSwap(tokenInAmount, pairDef) {
   const quote =
     'https://sqsprod.osmosis.zone/router/quote' +
@@ -187,4 +206,7 @@ export const osmoLsds = [
   stJuno,
   stStars,
   stEvmos,
+  // Photon
+  photonToAtone,
+  atoneToPhoton,
 ];
