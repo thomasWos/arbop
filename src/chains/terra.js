@@ -171,6 +171,7 @@ const stLunaWW = {
   poolContract: 'terra12exvyhctk6ggqvzj2tlhsv769llctntf5zdj9erz6q2uq4h8hn8q5k5xpg',
 };
 
+// ROAR
 const ampRoar = {
   name: 'ROAR → ampROAR',
   dex: 'White Whale Terra',
@@ -185,6 +186,22 @@ const ampRoarInv = {
   redemptionKey: 'ampROARinv',
   offerNativeTokenDenom: 'factory/terra1vklefn7n6cchn0u962w3gaszr4vf52wjvd4y95t2sydwpmpdtszsqvk9wy/ampROAR',
   poolContract: 'terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze',
+};
+
+const ampRoarAstro = {
+  name: 'ROAR → ampROAR',
+  dex: 'Astroport Terra',
+  redemptionKey: 'ampROAR',
+  offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
+  poolContract: 'terra1tkj3j48d0xrh932szzsap3w8htfv3gmj2zld06an2kp90xzq5kzqvtjwfl',
+};
+
+const ampRoarAstroInv = {
+  name: 'ampROAR → ROAR',
+  dex: 'Astroport Terra',
+  redemptionKey: 'ampROARinv',
+  offerNativeTokenDenom: 'factory/terra1vklefn7n6cchn0u962w3gaszr4vf52wjvd4y95t2sydwpmpdtszsqvk9wy/ampROAR',
+  poolContract: 'terra1tkj3j48d0xrh932szzsap3w8htfv3gmj2zld06an2kp90xzq5kzqvtjwfl',
 };
 
 // bWHALE
@@ -418,6 +435,8 @@ export const terraLsds = [
   // ROAR
   ampRoar,
   ampRoarInv,
+  ampRoarAstro,
+  ampRoarAstroInv,
   // bWHALE
   bWhaleWW,
   bWhaleWWInv,
