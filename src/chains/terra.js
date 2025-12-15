@@ -91,9 +91,9 @@ const cLunaInv = {
   poolContract: 'terra1pxm9qtnrchzy90d99clpa0rkx8fyztlc67wt5t999pc8yvsrx90snpfe4v',
 };
 
-const blunaWw = {
+const blunaSkeletonSwap = {
   name: 'LUNA → bLUNA',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'bLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1j5znhs9jeyty9u9jcagl3vefkvzwqp6u9tq9a3e5qrz4gmj2udyqp0z0xc',
@@ -107,17 +107,17 @@ const ampLunaAstro = {
   poolContract: 'terra1cr8dg06sh343hh4xzn3gxd3ayetsjtet7q5gp4kfrewul2kql8sqvhaey4',
 };
 
-const ampLunaWw = {
+const ampLunaSkeletonSwap = {
   name: 'LUNA → ampLUNA',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'ampLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
 };
 
-const ampLunaToLunaWw = {
+const ampLunaSkeletonSwapInv = {
   name: 'ampLUNA → LUNA',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'ampLUNAinv',
   offerTokenAddr: 'terra1ecgazyd0waaj3g7l9cmy5gulhxkps2gmxu9ghducvuypjq68mq2s5lvsct',
   poolContract: 'terra1tsx0dmasjvd45k6tdywzv77d5t9k3lpzyuleavuah77pg3lwm9cq4469pm',
@@ -163,9 +163,9 @@ const stLuna = {
   poolContract: 'terra1re0yj0j6e9v2szg7kp02ut6u8jjea586t6pnpq6628wl36fphtpqwt6l7p',
 };
 
-const stLunaWW = {
+const stLunaSkeletonSwap = {
   name: 'LUNA → stLUNA',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'strideTerra',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra12exvyhctk6ggqvzj2tlhsv769llctntf5zdj9erz6q2uq4h8hn8q5k5xpg',
@@ -174,7 +174,7 @@ const stLunaWW = {
 // ROAR
 const ampRoar = {
   name: 'ROAR → ampROAR',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'ampROAR',
   offerTokenAddr: 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv',
   poolContract: 'terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze',
@@ -182,7 +182,7 @@ const ampRoar = {
 
 const ampRoarInv = {
   name: 'ampROAR → ROAR',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'ampROARinv',
   offerNativeTokenDenom: 'factory/terra1vklefn7n6cchn0u962w3gaszr4vf52wjvd4y95t2sydwpmpdtszsqvk9wy/ampROAR',
   poolContract: 'terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze',
@@ -206,17 +206,17 @@ const ampRoarAstroInv = {
 
 // bWHALE
 
-const bWhaleWW = {
+const bWhaleSkeletonSwap = {
   name: 'WHALE → bWHALE',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'bWHALE',
   offerNativeTokenDenom: 'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB',
   poolContract: 'terra1j9jmsplecj9ay2py27953p84nfmv7f6ce75ms5fleyhd0aecpc7q0hgmsa',
 };
 
-const bWhaleWWInv = {
+const bWhaleSkeletonSwapInv = {
   name: 'bWHALE → WHALE',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'bWHALEinv',
   offerNativeTokenDenom: 'ibc/517E13F14A1245D4DE8CF467ADD4DA0058974CDCC880FA6AE536DBCA1D16D84E',
   poolContract: 'terra1j9jmsplecj9ay2py27953p84nfmv7f6ce75ms5fleyhd0aecpc7q0hgmsa',
@@ -240,17 +240,17 @@ const bWhaleAstroInv = {
 
 // ampWHALE
 
-const ampWhaleWW = {
+const ampWhaleSkeletonSwap = {
   name: 'WHALE → ampWHALE',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'ampWHALE',
   offerNativeTokenDenom: 'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB',
   poolContract: 'terra1ntx595elf3ukxcd0wy76h24rzztcv2p6n3wmfd358ks95prv42fs9mn63n',
 };
 
-const ampWhaleWWInv = {
+const ampWhaleSkeletonSwapInv = {
   name: 'ampWHALE → WHALE',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'ampWHALEinv',
   offerNativeTokenDenom: 'ibc/B3F639855EE7478750CC8F82072307ED6E131A8EFF20345E1D136B50C4E5EC36',
   poolContract: 'terra1ntx595elf3ukxcd0wy76h24rzztcv2p6n3wmfd358ks95prv42fs9mn63n',
@@ -274,7 +274,7 @@ const ampWhaleAstroInv = {
 
 const wETHwstETH = {
   name: 'wETH → wstETH',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'wstETH',
   offerTokenAddr: 'terra15hhqg8gyz04zapynqtk7uvlsp7lzay7etrt9ann0276v94yae63sxygeat',
   poolContract: 'terra12252e02w0k5yv9mryctth4j3y2sdas0xremw0jznzwal5v3xeqjst7q537',
@@ -284,7 +284,7 @@ const wETHwstETH = {
 
 const wETHwstETHInv = {
   name: 'wstETH → wETH',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'wstETHinv',
   offerNativeTokenDenom: 'ibc/A356EC90DC3AE43D485514DA7260EDC7ABB5CFAA0654CE2524C739392975AD3C',
   poolContract: 'terra12252e02w0k5yv9mryctth4j3y2sdas0xremw0jznzwal5v3xeqjst7q537',
@@ -311,17 +311,17 @@ const wstEthToAxlWEth = {
 };
 
 // ATOM
-const atomDatomWW = {
+const atomDatomSkeletonSwap = {
   name: 'ATOM → dATOM',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'dATOM',
   offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
   poolContract: 'terra1aa8nurhuk7rwedhjyzptggypuxd3y66qp4nsx6ph240g37esdm7qyheqkd',
 };
 
-const atomDatomWWinv = {
+const atomDatomSkeletonSwapInv = {
   name: 'dATOM → ATOM',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'dATOMinv',
   offerNativeTokenDenom: 'ibc/223FF539430381ADAB3A66AC4822E253C3F845E9841F17FEEC207B3AA9F8D915',
   poolContract: 'terra1aa8nurhuk7rwedhjyzptggypuxd3y66qp4nsx6ph240g37esdm7qyheqkd',
@@ -376,17 +376,17 @@ const arbLunaAstroInv = {
   poolContract: 'terra16nfwldn9j5xhry2y78gvm3x4vte8vu77zr3ctlan79w5f5aheawqnz7a4f',
 };
 
-const arbLunaWW = {
+const arbLunaSkeletonSwap = {
   name: 'LUNA → arbLUNA',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'arbLUNA',
   offerNativeTokenDenom: 'uluna',
   poolContract: 'terra1wttdzwa6pdegtrdjdw49y0pd3dd8qd3cqn89j6t9v978lx05rr8sew5jyq',
 };
 
-const arbLunaWWInv = {
+const arbLunaSkeletonSwapInv = {
   name: 'arbLUNA → LUNA',
-  dex: 'White Whale Terra',
+  dex: 'Skeleton Swap Terra',
   redemptionKey: 'arbLUNAinv',
   offerTokenAddr: 'terra1se7rvuerys4kd2snt6vqswh9wugu49vhyzls8ymc02wl37g2p2ms5yz490',
   poolContract: 'terra1wttdzwa6pdegtrdjdw49y0pd3dd8qd3cqn89j6t9v978lx05rr8sew5jyq',
@@ -422,29 +422,29 @@ export const terraLsds = [
   cLunaInv,
   // bLUNA
   blunaAstro,
-  blunaWw,
+  blunaSkeletonSwap,
   ampLunaAstro,
-  ampLunaWw,
-  ampLunaToLunaWw,
+  ampLunaSkeletonSwap,
+  ampLunaSkeletonSwapInv,
   ampLunaPcl,
   lunaToAmpLunaPcl,
   ampLunaTs,
   ampLunaToLunaTs,
   stLuna,
-  stLunaWW,
+  stLunaSkeletonSwap,
   // ROAR
   ampRoar,
   ampRoarInv,
   ampRoarAstro,
   ampRoarAstroInv,
   // bWHALE
-  bWhaleWW,
-  bWhaleWWInv,
+  bWhaleSkeletonSwap,
+  bWhaleSkeletonSwapInv,
   bWhaleAstro,
   bWhaleAstroInv,
   // ampWHALE
-  ampWhaleWW,
-  ampWhaleWWInv,
+  ampWhaleSkeletonSwap,
+  ampWhaleSkeletonSwapInv,
   ampWhaleAstro,
   ampWhaleAstroInv,
   // ETH
@@ -453,8 +453,8 @@ export const terraLsds = [
   axlWEthTowstEth,
   wstEthToAxlWEth,
   // ATOM
-  atomDatomWW,
-  atomDatomWWinv,
+  atomDatomSkeletonSwap,
+  atomDatomSkeletonSwapInv,
   atomDatomAstro,
   atomDatomAstroinv,
   stAtomAstro,
@@ -462,8 +462,8 @@ export const terraLsds = [
   // arbLUNA
   arbLunaAstro,
   arbLunaAstroInv,
-  arbLunaWW,
-  arbLunaWWInv,
+  arbLunaSkeletonSwap,
+  arbLunaSkeletonSwapInv,
   // SOLID,
   solidUsdc,
   usdcSolid,
