@@ -77,12 +77,4 @@ const ampLunaToLuna = {
   poolContract: 'kujira172qjrk8g9l86w0shz4cc3e6rt5h9janaen4j4u6ze7xkjvjnaqfskwyyqm',
 };
 
-const ampWhale = {
-  name: 'WHALE → ampWHALE',
-  dex: 'FIN',
-  redemptionKey: 'ampWHALE',
-  offerNativeTokenDenom: 'ibc/21F041CFE99994E0D027D0C5F72A9EB6224CBCAF5A6AD5DDB75F67A781D46C68',
-  poolContract: 'kujira10vkk8ulf3rvfuzlfpqflklr2zkq6586pl9amcsafp2s6t4j7qn7seemml3',
-};
-
-export const kujiLsds = [ampKujiFin, qcKUJIFin, stAtomKujira, stAtomInvKujira, stOsmoKujira, ampLuna, ampLunaToLuna, ampWhale];
+export const kujiLsds = [ampKujiFin, qcKUJIFin, stAtomKujira, stAtomInvKujira, stOsmoKujira, ampLuna, ampLunaToLuna];

@@ -45,7 +45,6 @@ const ArbLists = () => {
   const secretArbs = arbs.filter((a) => a.name.includes('SCRT'));
   const starsArbs = arbs.filter((a) => a.name.includes('STAR'));
   const usdArbs = arbs.filter((a) => a.name.includes('USD'));
-  const whaleArbs = arbs.filter((a) => a.name.includes('WHALE'));
 
   const combinedList = [
     archArbs,
@@ -66,7 +65,6 @@ const ArbLists = () => {
     secretArbs,
     starsArbs,
     usdArbs,
-    whaleArbs,
   ];
 
   const exclusionSet = new Set(combinedList.flat(1).map((a) => a.id));

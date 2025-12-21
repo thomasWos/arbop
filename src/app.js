@@ -5,7 +5,6 @@ import { ethPairs } from './chains/ethereum.js';
 import { injectivePairs } from './chains/injective.js';
 import { junoLsds } from './chains/juno.js';
 import { kujiLsds } from './chains/kujira.js';
-import { whaleLsds } from './chains/migaloo.js';
 import { multiversXpairs } from './chains/multiversx.js';
 import { neutronLsds } from './chains/neutron.js';
 import { osmoLsds } from './chains/osmosis.js';
@@ -33,7 +32,6 @@ async function computeArbs() {
     ...prysmPairs,
     ...secretPairs,
     ...terraLsds,
-    ...whaleLsds,
   ];
 
   const arbs = await Promise.all(

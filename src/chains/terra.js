@@ -204,74 +204,6 @@ const ampRoarAstroInv = {
   poolContract: 'terra1tkj3j48d0xrh932szzsap3w8htfv3gmj2zld06an2kp90xzq5kzqvtjwfl',
 };
 
-// bWHALE
-
-const bWhaleSkeletonSwap = {
-  name: 'WHALE → bWHALE',
-  dex: 'Skeleton Swap Terra',
-  redemptionKey: 'bWHALE',
-  offerNativeTokenDenom: 'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB',
-  poolContract: 'terra1j9jmsplecj9ay2py27953p84nfmv7f6ce75ms5fleyhd0aecpc7q0hgmsa',
-};
-
-const bWhaleSkeletonSwapInv = {
-  name: 'bWHALE → WHALE',
-  dex: 'Skeleton Swap Terra',
-  redemptionKey: 'bWHALEinv',
-  offerNativeTokenDenom: 'ibc/517E13F14A1245D4DE8CF467ADD4DA0058974CDCC880FA6AE536DBCA1D16D84E',
-  poolContract: 'terra1j9jmsplecj9ay2py27953p84nfmv7f6ce75ms5fleyhd0aecpc7q0hgmsa',
-};
-
-const bWhaleAstro = {
-  name: 'WHALE → bWHALE',
-  dex: 'Astroport Terra',
-  redemptionKey: 'bWHALE',
-  offerNativeTokenDenom: 'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB',
-  poolContract: 'terra18hhsyrjac6hud4tc9q05s8em35utm6jndswhw5v56lh5ld37ml6secl2rd',
-};
-
-const bWhaleAstroInv = {
-  name: 'bWHALE → WHALE',
-  dex: 'Astroport Terra',
-  redemptionKey: 'bWHALEinv',
-  offerNativeTokenDenom: 'ibc/517E13F14A1245D4DE8CF467ADD4DA0058974CDCC880FA6AE536DBCA1D16D84E',
-  poolContract: 'terra18hhsyrjac6hud4tc9q05s8em35utm6jndswhw5v56lh5ld37ml6secl2rd',
-};
-
-// ampWHALE
-
-const ampWhaleSkeletonSwap = {
-  name: 'WHALE → ampWHALE',
-  dex: 'Skeleton Swap Terra',
-  redemptionKey: 'ampWHALE',
-  offerNativeTokenDenom: 'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB',
-  poolContract: 'terra1ntx595elf3ukxcd0wy76h24rzztcv2p6n3wmfd358ks95prv42fs9mn63n',
-};
-
-const ampWhaleSkeletonSwapInv = {
-  name: 'ampWHALE → WHALE',
-  dex: 'Skeleton Swap Terra',
-  redemptionKey: 'ampWHALEinv',
-  offerNativeTokenDenom: 'ibc/B3F639855EE7478750CC8F82072307ED6E131A8EFF20345E1D136B50C4E5EC36',
-  poolContract: 'terra1ntx595elf3ukxcd0wy76h24rzztcv2p6n3wmfd358ks95prv42fs9mn63n',
-};
-
-const ampWhaleAstro = {
-  name: 'WHALE → ampWHALE',
-  dex: 'Astroport Terra',
-  redemptionKey: 'ampWHALE',
-  offerNativeTokenDenom: 'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB',
-  poolContract: 'terra129hvq9mgqtye4kg0cfmv9z6sq5f7sgpmrspr72968xx20gx4t2rqvpue0z',
-};
-
-const ampWhaleAstroInv = {
-  name: 'ampWHALE → WHALE',
-  dex: 'Astroport Terra',
-  redemptionKey: 'ampWHALEinv',
-  offerNativeTokenDenom: 'ibc/B3F639855EE7478750CC8F82072307ED6E131A8EFF20345E1D136B50C4E5EC36',
-  poolContract: 'terra129hvq9mgqtye4kg0cfmv9z6sq5f7sgpmrspr72968xx20gx4t2rqvpue0z',
-};
-
 const wETHwstETH = {
   name: 'wETH → wstETH',
   dex: 'Skeleton Swap Terra',
@@ -437,16 +369,6 @@ export const terraLsds = [
   ampRoarInv,
   ampRoarAstro,
   ampRoarAstroInv,
-  // bWHALE
-  bWhaleSkeletonSwap,
-  bWhaleSkeletonSwapInv,
-  bWhaleAstro,
-  bWhaleAstroInv,
-  // ampWHALE
-  ampWhaleSkeletonSwap,
-  ampWhaleSkeletonSwapInv,
-  ampWhaleAstro,
-  ampWhaleAstroInv,
   // ETH
   wETHwstETH,
   wETHwstETHInv,

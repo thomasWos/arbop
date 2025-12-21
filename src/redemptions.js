@@ -6,7 +6,6 @@ import { ethereumRedemptionMap } from './chains/ethereum.js';
 import { injectiveRedemptionMap } from './chains/injective.js';
 import { junoRedemptionMap } from './chains/juno.js';
 import { kujiraRedemptionMap } from './chains/kujira.js';
-import { migalooRedemptionMap } from './chains/migaloo.js';
 import { multiversxRedemptionMap } from './chains/multiversx.js';
 import { neutronRedemptionMap } from './chains/neutron.js';
 import { osmosisRedemptionMap } from './chains/osmosis.js';
@@ -28,7 +27,6 @@ export async function fetchRedemptionsMap() {
     injectiveRedemptionMap(),
     junoRedemptionMap(),
     kujiraRedemptionMap(),
-    migalooRedemptionMap(),
     multiversxRedemptionMap(),
     neutronRedemptionMap(),
     osmosisRedemptionMap(),

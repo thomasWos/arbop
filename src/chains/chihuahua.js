@@ -22,7 +22,7 @@ export async function chihuahuaRedemptionMap() {
 
 const ampHuahua = {
   name: 'HUAHUA → ampHUAHUA',
-  dex: 'White Whale Chihuahua',
+  dex: 'Skeleton Swap Chihuahua',
   redemptionKey: 'ampHUAHUA',
   offerNativeTokenDenom: 'uhuahua',
   poolContract: 'chihuahua1a6xwgvyvrmzgue6hectem3fwdzquny44a4y20a9wvlrtalhlsk9sryz5t9',
@@ -30,7 +30,7 @@ const ampHuahua = {
 
 const bHuahua = {
   name: 'HUAHUA → bHUAHUA',
-  dex: 'White Whale Chihuahua',
+  dex: 'Skeleton Swap Chihuahua',
   redemptionKey: 'bHUAHUA',
   offerNativeTokenDenom: 'uhuahua',
   poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
