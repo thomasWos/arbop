@@ -8,7 +8,6 @@ import { kujiLsds } from './chains/kujira.js';
 import { multiversXpairs } from './chains/multiversx.js';
 import { neutronLsds } from './chains/neutron.js';
 import { osmoLsds } from './chains/osmosis.js';
-import { prysmPairs } from './chains/pryzm.js';
 import { secretPairs } from './chains/secret.js';
 import { terraLsds } from './chains/terra.js';
 import { maxSwap } from './pool.js';
@@ -29,7 +28,6 @@ async function computeArbs() {
     ...multiversXpairs,
     ...neutronLsds,
     ...osmoLsds,
-    ...prysmPairs,
     ...secretPairs,
     ...terraLsds,
   ];
