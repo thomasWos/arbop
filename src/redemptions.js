@@ -10,7 +10,6 @@ import { multiversxRedemptionMap } from './chains/multiversx.js';
 import { neutronRedemptionMap } from './chains/neutron.js';
 import { osmosisRedemptionMap } from './chains/osmosis.js';
 import { quicksilverRedemptionMap } from './chains/quicksilver.js';
-import { secretRedemptionMap } from './chains/secret.js';
 import { strideRedemptionMap } from './chains/stride.js';
 import { terraRedemptionMap } from './chains/terra.js';
 
@@ -30,7 +29,6 @@ export async function fetchRedemptionsMap() {
     neutronRedemptionMap(),
     osmosisRedemptionMap(),
     quicksilverRedemptionMap(),
-    secretRedemptionMap(),
     strideRedemptionMap(),
     terraRedemptionMap(),
   ];

@@ -14,10 +14,8 @@
   "dependencies": {
     "@multiversx/sdk-core": "^15.2.0",
     "bech32": "^2.0.0",
-    "curve25519-js": "^0.0.4",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "miscreant": "^0.3.2",
     "web3": "^4.16.0"
   }
 }
