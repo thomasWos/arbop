@@ -5,7 +5,6 @@ import { chihuahuaRedemptionMap } from './chains/chihuahua.js';
 import { ethereumRedemptionMap } from './chains/ethereum.js';
 import { injectiveRedemptionMap } from './chains/injective.js';
 import { junoRedemptionMap } from './chains/juno.js';
-import { kujiraRedemptionMap } from './chains/kujira.js';
 import { multiversxRedemptionMap } from './chains/multiversx.js';
 import { neutronRedemptionMap } from './chains/neutron.js';
 import { osmosisRedemptionMap } from './chains/osmosis.js';
@@ -24,7 +23,6 @@ export async function fetchRedemptionsMap() {
     ethereumRedemptionMap(),
     injectiveRedemptionMap(),
     junoRedemptionMap(),
-    kujiraRedemptionMap(),
     multiversxRedemptionMap(),
     neutronRedemptionMap(),
     osmosisRedemptionMap(),

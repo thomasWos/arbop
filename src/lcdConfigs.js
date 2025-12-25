@@ -3,7 +3,6 @@ const lcds = [
   ['chihuahua', 'https://chihuahua-rest.publicnode.com'],
   ['inj', 'https://injective-rest.publicnode.com'],
   ['juno', 'https://juno-rest.publicnode.com'],
-  ['kujira', 'https://kujira-api.polkachu.com'],
   ['neutron', 'https://rest-vertexa.neutron-1.neutron.org'],
   ['osmo', 'https://osmosis-api.polkachu.com'],
   ['terra', 'https://terra-rest.publicnode.com'],

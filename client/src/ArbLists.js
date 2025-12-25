@@ -36,13 +36,11 @@ const ArbLists = () => {
   const huahuaArbs = arbs.filter((a) => a.name.includes('HUAHUA'));
   const injArbs = arbs.filter((a) => a.name.includes('INJ'));
   const junoArbs = arbs.filter((a) => a.name.includes('JUNO'));
-  const kujiArbs = arbs.filter((a) => a.name.includes('KUJI'));
   const lunaArbs = arbs.filter((a) => a.name.includes('LUNA'));
   const ntrdArbs = arbs.filter((a) => a.name.includes('NTRN'));
   const osmoArbs = arbs.filter((a) => a.name.includes('OSMO'));
   const photonArbs = arbs.filter((a) => a.name.includes('PHOTON'));
   const roarArbs = arbs.filter((a) => a.name.includes('ROAR'));
-  const secretArbs = arbs.filter((a) => a.name.includes('SCRT'));
   const starsArbs = arbs.filter((a) => a.name.includes('STAR'));
   const usdArbs = arbs.filter((a) => a.name.includes('USD'));
 
@@ -56,13 +54,11 @@ const ArbLists = () => {
     huahuaArbs,
     injArbs,
     junoArbs,
-    kujiArbs,
     lunaArbs,
     ntrdArbs,
     osmoArbs,
     photonArbs,
     roarArbs,
-    secretArbs,
     starsArbs,
     usdArbs,
   ];

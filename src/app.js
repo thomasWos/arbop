@@ -4,7 +4,6 @@ import { chihuahuaLsds } from './chains/chihuahua.js';
 import { ethPairs } from './chains/ethereum.js';
 import { injectivePairs } from './chains/injective.js';
 import { junoLsds } from './chains/juno.js';
-import { kujiLsds } from './chains/kujira.js';
 import { multiversXpairs } from './chains/multiversx.js';
 import { neutronLsds } from './chains/neutron.js';
 import { osmoLsds } from './chains/osmosis.js';
@@ -23,7 +22,6 @@ async function computeArbs() {
     ...ethPairs,
     ...injectivePairs,
     ...junoLsds,
-    ...kujiLsds,
     ...multiversXpairs,
     ...neutronLsds,
     ...osmoLsds,
@@ -94,7 +92,7 @@ async function computeArb(pair, index, redemptionMap) {
       },
     }).catch((e) => console.log(pair, e));
     tokenOutAmount = (simulationResult?.return_amount && parseInt(simulationResult.return_amount)) || 0;
-    maxSwapInPool = pair.dex !== 'FIN' && (await maxSwap(pair, exchangeRate).catch((e) => 0));
+    maxSwapInPool = await maxSwap(pair, exchangeRate).catch((e) => 0);
   }
 
   const arb =
