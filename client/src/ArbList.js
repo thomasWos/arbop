@@ -3,19 +3,25 @@ import './ArbList.css';
 const formatAPY = (apy) => {
   if (!apy) return '';
 
-  const absAPY = Math.abs(apy);
+  const formatted = abbreviateNumber(apy);
+  return `≈\u00A0${formatted}%`;
+};
 
-  // For very large numbers, use scientific notation or abbreviated format
-  if (absAPY >= 1000000) {
-    return `≈ ${(apy / 1000000).toFixed(1)}M%`;
-  } else if (absAPY >= 100000) {
-    return `≈ ${(apy / 1000).toFixed(0)}K%`;
-  } else if (absAPY >= 10000) {
-    return `≈ ${(apy / 1000).toFixed(1)}K%`;
-  } else if (absAPY >= 1000) {
-    return `≈ ${apy.toFixed(0)}%`;
+const abbreviateNumber = (val) => {
+  if (val === undefined || val === null) return '';
+
+  const absVal = Math.abs(val);
+
+  if (absVal >= 1000000) {
+    return `${(val / 1000000).toFixed(1)}M`;
+  } else if (absVal >= 100000) {
+    return `${(val / 1000).toFixed(0)}K`;
+  } else if (absVal >= 10000) {
+    return `${(val / 1000).toFixed(1)}K`;
+  } else if (absVal >= 1000) {
+    return `${val.toFixed(0)}`;
   } else {
-    return `≈ ${apy.toFixed(1)}%`;
+    return `${val.toFixed(1)}`;
   }
 };
 
@@ -36,7 +42,7 @@ const ArbList = ({ arbs }) => {
           <div className="arb-percentage">{arb.arb && `${arb.arb.toFixed(3)}%`}</div>
           <div className="arb-dex">{arb.dex}</div>
           <div className="arb-apy">{formatAPY(arb.apy)}</div>
-          <div className="arb-max">{arb.maxSwapInPool && `${arb.maxSwapInPool.toFixed(2)}`}</div>
+          <div className="arb-max">{abbreviateNumber(arb.maxSwapInPool)}</div>
         </div>
       ))}
     </div>
