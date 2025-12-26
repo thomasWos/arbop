@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { tryComputeArbs } from './app.js';
+import checkAndSendAlerts from './alerts.js';
 
 let arbs = {
   timestamp: new Date(),
@@ -14,6 +15,12 @@ async function computePayload() {
       timestamp: new Date(),
       arbs: latestArb,
     };
+
+    try {
+      checkAndSendAlerts(latestArb);
+    } catch (err) {
+      console.error('Error while checking alerts', err);
+    }
   }
 }
 computePayload();

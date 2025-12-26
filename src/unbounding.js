@@ -1,7 +1,6 @@
 import { queryContract } from './utils.js';
 import { bech32 } from 'bech32';
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config';
 
 const anyCosmosAdd = process.env.COSMOS_ADDRESS;
 if (!anyCosmosAdd) {
