@@ -1,4 +1,4 @@
-import { exchangeRateFromState, queryState } from '../utils.js';
+import { exchangeRateFromState, queryState, queryContract } from '../utils.js';
 
 const lunaXContract = 'terra179e90rqspswfzmhdl25tg22he0fcefwndgzc957ncx9dleduu7ms3evpuk';
 const bLunaContract = 'terra1l2nd99yze5fszmhl5svyh5fky9wm4nz4etlgnztfu4e8809gd52q04n3ea';
@@ -6,6 +6,7 @@ const ampLunaContract = 'terra10788fkzah89xrdm27zkj5yvhj9x3494lxawzm5qq3vvxcqz2y
 const ampRoarStackingContract = 'terra1vklefn7n6cchn0u962w3gaszr4vf52wjvd4y95t2sydwpmpdtszsqvk9wy';
 const cLunaContract = 'terra188mmw2vsp0yahen3vh2clup543qrttvdzkxl0h9myfuwjj56nausztpegt';
 const arbLunaContract = 'terra1r9gls56glvuc4jedsvc3uwh6vj95mqm9efc7hnweqxa2nlme5cyqxygy5m';
+const credaContract = 'terra1y6hfmr3lxxj6srduhlfz96x7sga2984pr757a0nrfuqxa9rqxapqcjv4zz';
 
 export async function terraRedemptionMap() {
   const lunaXredemption = {
@@ -48,6 +49,24 @@ export async function terraRedemptionMap() {
     ['ampROAR', ampRoarRedemption],
     ['arbLUNA', arbLunaRedemption],
   ];
+}
+
+export async function terraLendingSupply() {
+  return queryContract(credaContract, {
+    metric: {
+      asset_info: {
+        native: 'uluna',
+      },
+    },
+  })
+    .then((r) => parseFloat(r.asset.supply_apy) * 100)
+    .then((apy) => ({
+      name: 'LUNA Creda',
+      arb: apy,
+      dex: 'Creda',
+      apy: apy,
+      dexUrl: 'https://exclusive.creda.finance?ref=thomas',
+    }));
 }
 
 const lunaXAstro = {

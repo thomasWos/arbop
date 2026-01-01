@@ -7,7 +7,7 @@ import { junoLsds } from './chains/juno.js';
 import { multiversXpairs } from './chains/multiversx.js';
 import { neutronLsds } from './chains/neutron.js';
 import { osmoLsds } from './chains/osmosis.js';
-import { terraLsds } from './chains/terra.js';
+import { terraLsds, terraLendingSupply } from './chains/terra.js';
 import { maxSwap } from './pool.js';
 import { fetchRedemptionsMap } from './redemptions.js';
 import { arbitrage, arbitrageDecimals, calculateApy, queryContract } from './utils.js';
@@ -28,6 +28,7 @@ async function computeArbs() {
     ...terraLsds,
   ];
 
+  // Arbitrages from swaps
   const arbs = await Promise.all(
     lsds.map((lsd, index) =>
       computeArb(lsd, index, redemptionMap).catch((e) => {
@@ -37,7 +38,12 @@ async function computeArbs() {
     )
   );
   console.log('Fetch arbs - done');
-  return arbs.sort((a, b) => b.arb - a.arb);
+
+  // Supply APY
+  const terraLendingSupplyApy = await terraLendingSupply();
+  const lunaSupply = { id: arbs.length, ...terraLendingSupplyApy };
+
+  return [...arbs, lunaSupply].sort((a, b) => b.arb - a.arb);
 }
 
 async function computeArb(pair, index, redemptionMap) {
