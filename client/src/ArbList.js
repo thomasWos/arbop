@@ -32,7 +32,7 @@ const ArbList = ({ arbs }) => {
         <div key={arb.id} className={`arb-item ${arb.arb < 0.2 ? 'low-arb' : ''}`}>
           <div className="arb-name">
             {arb.dexUrl ? (
-              <a href={arb.dexUrl} target="_blank">
+              <a href={arb.dexUrl} target="_blank" rel="noreferrer">
                 {arb.name}
               </a>
             ) : (
