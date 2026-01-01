@@ -187,7 +187,7 @@ async function simuSwap(tokenInAmount, pairDef) {
     });
 }
 
-export const osmoLsds = [
+export const osmoPairs = [
   // ATOM
   stAtom,
   qAtom,

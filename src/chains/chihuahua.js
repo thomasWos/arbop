@@ -36,4 +36,4 @@ const bHuahua = {
   poolContract: 'chihuahua1py86y6946ed07g8v24thess2havjjgpg3uvjdu4v805czmge37hsvlt6qz',
 };
 
-export const chihuahuaLsds = [ampHuahua, bHuahua];
+export const chihuahuaPairs = [ampHuahua, bHuahua];

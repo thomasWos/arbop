@@ -97,4 +97,4 @@ const wstEthAxlTowstEth = {
   decimal: 18,
 };
 
-export const neutronLsds = [stAtomNeutron, dAtom, dAtomInv, dNtrn, dNtrnInv, wstETH, wstETHToAxlWETH, wstEthToWstEthAxl, wstEthAxlTowstEth];
+export const neutronPairs = [stAtomNeutron, dAtom, dAtomInv, dNtrn, dNtrnInv, wstETH, wstETHToAxlWETH, wstEthToWstEthAxl, wstEthAxlTowstEth];

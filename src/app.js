@@ -1,13 +1,13 @@
 import { archwayPairs } from './chains/archway.js';
 import { avaxPairs } from './chains/avalanche.js';
-import { chihuahuaLsds } from './chains/chihuahua.js';
+import { chihuahuaPairs } from './chains/chihuahua.js';
 import { ethPairs } from './chains/ethereum.js';
 import { injectivePairs } from './chains/injective.js';
 import { junoLsds } from './chains/juno.js';
 import { multiversXpairs } from './chains/multiversx.js';
-import { neutronLsds } from './chains/neutron.js';
-import { osmoLsds } from './chains/osmosis.js';
-import { terraLsds, terraLendingSupply } from './chains/terra.js';
+import { neutronPairs } from './chains/neutron.js';
+import { osmoPairs } from './chains/osmosis.js';
+import { terraPairs, terraLendingSupply } from './chains/terra.js';
 import { maxSwap } from './pool.js';
 import { fetchRedemptionsMap } from './redemptions.js';
 import { arbitrage, arbitrageDecimals, calculateApy, queryContract } from './utils.js';
@@ -15,29 +15,29 @@ import { arbitrage, arbitrageDecimals, calculateApy, queryContract } from './uti
 async function computeArbs() {
   const redemptionMap = await fetchRedemptionsMap();
 
-  const lsds = [
+  const pairs = [
     ...archwayPairs,
     ...avaxPairs,
-    ...chihuahuaLsds,
+    ...chihuahuaPairs,
     ...ethPairs,
     ...injectivePairs,
     ...junoLsds,
     ...multiversXpairs,
-    ...neutronLsds,
-    ...osmoLsds,
-    ...terraLsds,
+    ...neutronPairs,
+    ...osmoPairs,
+    ...terraPairs,
   ];
 
   // Arbitrages from swaps
   const arbs = await Promise.all(
-    lsds.map((lsd, index) =>
-      computeArb(lsd, index, redemptionMap).catch((e) => {
-        console.log(`Error computing arb for ${lsd.name}`, e);
-        return { id: index, name: lsd.name, arb: 0, dex: lsd.dex };
+    pairs.map((pair, index) =>
+      computeArb(pair, index, redemptionMap).catch((e) => {
+        console.error(`Error computing arb for ${pair.name}`, e);
+        return { id: index, name: pair.name, arb: 0, dex: pair.dex };
       })
     )
   );
-  console.log('Fetch arbs - done');
+  console.info('Fetch arbs - done');
 
   // Supply APY
   const terraLendingSupplyApy = await terraLendingSupply();
@@ -50,13 +50,15 @@ async function computeArb(pair, index, redemptionMap) {
   const decimalIn = pair.decimalIn || pair.decimal || 6;
   const tokenInAmount = pair.tokenInAmount || Math.pow(10, decimalIn);
 
-  let exchangeRate = redemptionMap.get(pair.redemptionKey);
-  let unboundingPeriod = pair.unboundingPeriod;
-
   const redemption = redemptionMap.get(pair.redemptionKey);
+  let exchangeRate;
+  let unboundingPeriod;
   if (redemption instanceof Object) {
     exchangeRate = redemption.redemptionRate;
     unboundingPeriod = redemption.unboundingPeriod;
+  } else {
+    exchangeRate = redemption;
+    unboundingPeriod = null;
   }
 
   let exchangeRateIn = redemptionMap.get(pair.offerRedemptionKey) || 1;

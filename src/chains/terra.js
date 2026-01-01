@@ -52,7 +52,7 @@ export async function terraRedemptionMap() {
 }
 
 export async function terraLendingSupply() {
-  return queryContract(credaContract, {
+  const lunaApy = await queryContract(credaContract, {
     metric: {
       asset_info: {
         native: 'uluna',
@@ -60,13 +60,17 @@ export async function terraLendingSupply() {
     },
   })
     .then((r) => parseFloat(r.asset.supply_apy) * 100)
-    .then((apy) => ({
-      name: 'LUNA Creda',
-      arb: apy,
-      dex: 'Creda',
-      apy: apy,
-      dexUrl: 'https://exclusive.creda.finance?ref=thomas',
-    }));
+    .catch(() => 0);
+
+  console.log('LUNA Creda APY:', lunaApy);
+
+  return {
+    name: 'LUNA Creda',
+    arb: lunaApy,
+    dex: 'Creda',
+    apy: lunaApy,
+    dexUrl: 'https://exclusive.creda.finance?ref=thomas',
+  };
 }
 
 const lunaXAstro = {
@@ -364,7 +368,7 @@ const usdcSolid = {
   poolContract: 'terra1fwjxdjpl98shj20l4swlen9hyu4lhvekrvqkqn393lzzghmsn2wqjdnvpu',
 };
 
-export const terraLsds = [
+export const terraPairs = [
   // LunaX
   lunaXAstro,
   lunaXTerraSwap,
