@@ -331,6 +331,24 @@ const arbLunaAstroInv = {
   poolContract: 'terra16nfwldn9j5xhry2y78gvm3x4vte8vu77zr3ctlan79w5f5aheawqnz7a4f',
 };
 
+const ampLunaArbLunaAstro = {
+  name: 'ampLUNA → arbLUNA',
+  dex: 'Astroport Terra',
+  offerRedemptionKey: 'ampLUNA',
+  redemptionKey: 'arbLUNA',
+  offerTokenAddr: 'terra1ecgazyd0waaj3g7l9cmy5gulhxkps2gmxu9ghducvuypjq68mq2s5lvsct',
+  poolContract: 'terra19h78tjeywars6afflsup5er8qm7kl5d8ukednnfxcc2vwhzyf2vsspynjy',
+};
+
+const ampLunaArbLunaAstroInv = {
+  name: 'arbLUNA → ampLUNA',
+  dex: 'Astroport Terra',
+  offerRedemptionKey: 'arbLUNA',
+  redemptionKey: 'ampLUNA',
+  offerTokenAddr: 'terra1se7rvuerys4kd2snt6vqswh9wugu49vhyzls8ymc02wl37g2p2ms5yz490',
+  poolContract: 'terra19h78tjeywars6afflsup5er8qm7kl5d8ukednnfxcc2vwhzyf2vsspynjy',
+};
+
 const arbLunaSkeletonSwap = {
   name: 'LUNA → arbLUNA',
   dex: 'Skeleton Swap Terra',
@@ -407,6 +425,8 @@ export const terraPairs = [
   // arbLUNA
   arbLunaAstro,
   arbLunaAstroInv,
+  ampLunaArbLunaAstro,
+  ampLunaArbLunaAstroInv,
   arbLunaSkeletonSwap,
   arbLunaSkeletonSwapInv,
   // SOLID,
