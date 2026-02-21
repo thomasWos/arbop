@@ -66,7 +66,7 @@ export async function terraLendingSupply() {
 
   return {
     name: 'LUNA Creda',
-    arb: lunaApy,
+    arb: 0,
     dex: 'Creda',
     apy: lunaApy,
     dexUrl: 'https://creda.finance',
