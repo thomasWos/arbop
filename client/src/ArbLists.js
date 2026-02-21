@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ArbList from './ArbList';
 
 const arbListSorting = (arbList1, arblist2) => {

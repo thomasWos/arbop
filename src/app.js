@@ -34,8 +34,8 @@ async function computeArbs() {
       computeArb(pair, index, redemptionMap).catch((e) => {
         console.error(`Error computing arb for ${pair.name}`, e);
         return { id: index, name: pair.name, arb: 0, dex: pair.dex };
-      })
-    )
+      }),
+    ),
   );
   console.info('Fetch arbs - done');
 
@@ -43,7 +43,8 @@ async function computeArbs() {
   const terraLendingSupplyApy = await terraLendingSupply();
   const lunaSupply = { id: arbs.length, ...terraLendingSupplyApy };
 
-  return [...arbs, lunaSupply].sort((a, b) => b.arb - a.arb);
+  // Sort, compare apy or use arb
+  return [...arbs, lunaSupply].sort((a, b) => (b.apy || b.arb) - (a.apy || a.arb));
 }
 
 async function computeArb(pair, index, redemptionMap) {
