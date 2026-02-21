@@ -69,7 +69,7 @@ export async function terraLendingSupply() {
     arb: lunaApy,
     dex: 'Creda',
     apy: lunaApy,
-    dexUrl: 'https://exclusive.creda.finance?ref=thomas',
+    dexUrl: 'https://creda.finance',
   };
 }
 
