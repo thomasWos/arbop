@@ -85,15 +85,6 @@ const stStars = {
   simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stStars),
 };
 
-const stEvmos = {
-  name: 'EVMOS → stEVMOS',
-  dex: 'Osmosis',
-  redemptionKey: 'strideEvmos',
-  tokenIn: 'ibc/6AE98883D4D5D5FF9E50D7130F1305DA2FFA0C652D1DD9C123657C6B4EB2DF8A',
-  tokenOut: 'ibc/C5579A9595790017C600DD726276D978B9BF314CF82406CE342720A9C7911A01',
-  tokenInAmount: oneQuintillion,
-  simuSwap: async (tokenInAmount) => simuSwap(tokenInAmount, stEvmos),
-};
 
 const qAtom = {
   name: 'ATOM → qATOM',
@@ -205,7 +196,6 @@ export const osmoPairs = [
   // Others
   stJuno,
   stStars,
-  stEvmos,
   // Photon
   photonToAtone,
   atoneToPhoton,
