@@ -265,39 +265,6 @@ const wstEthToAxlWEth = {
   decimal: 18,
 };
 
-// ATOM
-const atomDatomSkeletonSwap = {
-  name: 'ATOM → dATOM',
-  dex: 'Skeleton Swap Terra',
-  redemptionKey: 'dATOM',
-  offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
-  poolContract: 'terra1aa8nurhuk7rwedhjyzptggypuxd3y66qp4nsx6ph240g37esdm7qyheqkd',
-};
-
-const atomDatomSkeletonSwapInv = {
-  name: 'dATOM → ATOM',
-  dex: 'Skeleton Swap Terra',
-  redemptionKey: 'dATOMinv',
-  offerNativeTokenDenom: 'ibc/223FF539430381ADAB3A66AC4822E253C3F845E9841F17FEEC207B3AA9F8D915',
-  poolContract: 'terra1aa8nurhuk7rwedhjyzptggypuxd3y66qp4nsx6ph240g37esdm7qyheqkd',
-};
-
-const atomDatomAstro = {
-  name: 'ATOM → dATOM',
-  dex: 'Astroport Terra',
-  redemptionKey: 'dATOM',
-  offerNativeTokenDenom: 'ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2',
-  poolContract: 'terra1a0h6vrzkztjystg8sd949qyrc6mw9gzxk2870cr2mukg53uzgvqs46qul9',
-};
-
-const atomDatomAstroinv = {
-  name: 'dATOM → ATOM',
-  dex: 'Astroport Terra',
-  redemptionKey: 'dATOMinv',
-  offerNativeTokenDenom: 'ibc/223FF539430381ADAB3A66AC4822E253C3F845E9841F17FEEC207B3AA9F8D915',
-  poolContract: 'terra1a0h6vrzkztjystg8sd949qyrc6mw9gzxk2870cr2mukg53uzgvqs46qul9',
-};
-
 const stAtomAstro = {
   name: 'ATOM → stATOM',
   dex: 'Astroport Terra',
@@ -416,10 +383,6 @@ export const terraPairs = [
   axlWEthTowstEth,
   wstEthToAxlWEth,
   // ATOM
-  atomDatomSkeletonSwap,
-  atomDatomSkeletonSwapInv,
-  atomDatomAstro,
-  atomDatomAstroinv,
   stAtomAstro,
   stAtomAstroInv,
   // arbLUNA

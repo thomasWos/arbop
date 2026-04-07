@@ -1,8 +1,6 @@
 import { queryContract } from '../utils.js';
 
 const xAstroContract = 'neutron1zlf3hutsa4qnmue53lz2tfxrutp8y2e3rj4nkghg3rupgl4mqy8s5jgxsn';
-const dAtomContract = 'neutron16m3hjh7l04kap086jgwthduma0r5l0wh8kc6kaqk92ge9n5aqvys9q6lxr';
-const dNtrnContract = 'neutron1lsxvdyvmexak084wdty2yvsq5gj3wt7wm4jaw34yseat7r4qjffqlxlcua';
 
 async function queryxAstroRate() {
   const totalDeposit = await queryContract(xAstroContract, { total_deposit: {} });
@@ -12,13 +10,7 @@ async function queryxAstroRate() {
 
 export async function neutronRedemptionMap() {
   const xAstroRate = await queryxAstroRate();
-  const dAtomRate = await queryContract(dAtomContract, { exchange_rate: {} }).then((d) => parseFloat(d));
-  const dNtrnRate = await queryContract(dNtrnContract, { exchange_rate: {} }).then((d) => parseFloat(d));
-  return [
-    ['xASTRO', xAstroRate],
-    ['dATOM', { redemptionRate: dAtomRate, unboundingPeriod: 21 + 3 }],
-    ['dNTRN', { redemptionRate: dNtrnRate, unboundingPeriod: 21 + 3 }],
-  ];
+  return [['xASTRO', xAstroRate]];
 }
 
 const stAtomNeutron = {
@@ -27,38 +19,6 @@ const stAtomNeutron = {
   redemptionKey: 'strideCosmos',
   offerNativeTokenDenom: 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9',
   poolContract: 'neutron1l7ny0rckx9rks2p2aq94wd74sehjczym6n9y4yax8lcy9s39uans4uga62',
-};
-
-const dAtom = {
-  name: 'ATOM → dATOM',
-  dex: 'Astroport Neutron',
-  redemptionKey: 'dATOM',
-  offerNativeTokenDenom: 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9',
-  poolContract: 'neutron1yem82r0wf837lfkwvcu2zxlyds5qrzwkz8alvmg0apyrjthk64gqeq2e98',
-};
-
-const dAtomInv = {
-  name: 'dATOM → ATOM',
-  dex: 'Astroport Neutron',
-  redemptionKey: 'dATOMinv',
-  offerNativeTokenDenom: 'factory/neutron1k6hr0f83e7un2wjf29cspk7j69jrnskk65k3ek2nj9dztrlzpj6q00rtsa/udatom',
-  poolContract: 'neutron1yem82r0wf837lfkwvcu2zxlyds5qrzwkz8alvmg0apyrjthk64gqeq2e98',
-};
-
-const dNtrn = {
-  name: 'NTRN → dNTRN',
-  dex: 'Astroport Neutron',
-  redemptionKey: 'dNTRN',
-  offerNativeTokenDenom: 'untrn',
-  poolContract: 'neutron1pd9u7h4vf36vtj5lqlcp4376xf4wktdnhmzqtn8958wyh0nzwsmsavc2dz',
-};
-
-const dNtrnInv = {
-  name: 'dNTRN → NTRN',
-  dex: 'Astroport Neutron',
-  redemptionKey: 'dNTRNinv',
-  offerNativeTokenDenom: 'factory/neutron1frc0p5czd9uaaymdkug2njz7dc7j65jxukp9apmt9260a8egujkspms2t2/udntrn',
-  poolContract: 'neutron1pd9u7h4vf36vtj5lqlcp4376xf4wktdnhmzqtn8958wyh0nzwsmsavc2dz',
 };
 
 const wstETH = {
@@ -97,4 +57,4 @@ const wstEthAxlTowstEth = {
   decimal: 18,
 };
 
-export const neutronPairs = [stAtomNeutron, dAtom, dAtomInv, dNtrn, dNtrnInv, wstETH, wstETHToAxlWETH, wstEthToWstEthAxl, wstEthAxlTowstEth];
+export const neutronPairs = [stAtomNeutron, wstETH, wstETHToAxlWETH, wstEthToWstEthAxl, wstEthAxlTowstEth];
